@@ -12,28 +12,41 @@ class Board extends StatefulWidget {
 
 class _BoardState extends State<Board> {
   int _counter = 0;
-    List boardList = [false,false,false];
+  List boardList = [];
+   int tileCount = 7;
 
+  void clearBoard() {
+    for (var i = 0; i < tileCount; i++) {
+       boardList.add(false);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     
-    int tileCount = 7;
+    clearBoard();
+    return buildRow();
+  }
+
+  Widget buildRow() {
     double boardSize = MediaQuery.of(context).size.width;
     double tileSize = boardSize / tileCount;
     developer.log("Tile Size: " + tileSize.toString());
 
+    List tiles = <Widget> [];
+
+// Dynamically build a whole row of tiles
+    for (var i = 0; i < tileCount; i++) {
+      tiles.add(Box(tileSize, i, boardList[i], updateBoard));
+    }
     return Row( mainAxisAlignment: MainAxisAlignment.center, 
-   children: [ 
-     Box(tileSize, 0, boardList[0], updateBoard), 
-     Box(tileSize, 1, boardList[1], updateBoard),
-     Box(tileSize, 2, boardList[2], updateBoard), 
-     
-      ]);
+   children: tiles
+
+      );
   }
 
   void updateBoard(boxState, index) {
     boardList[index] = !boardList[index];
-   // developer.log(boardState.toString());
+    developer.log("");
     developer.log(boardList.toString());
 
   }
