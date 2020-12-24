@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 
 class Box extends StatefulWidget {
-   var index;
-   var onState;
-   var updateBoard;
-
+   final tileSize;
+   final index;
+   final updateBoard;
+   final initialState;
+  
    //Box({Key key, onState}) : super(key: key);
-   Box(this.index, this.onState, this.updateBoard);
+   Box(this.tileSize, this.index, this.initialState, this.updateBoard);
 
   @override
   _BoxState createState() => _BoxState();
@@ -15,22 +16,31 @@ class Box extends StatefulWidget {
 
 class _BoxState extends State<Box> {
 
-  var endSize = 90.0;
+  double endSize;
+  bool onState;
   
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    endSize = widget.tileSize*.9;
+    onState = widget.initialState;
+  }
 
+  @override
+  Widget build(BuildContext context) {
+  
     // var intVersion = myRadius.value.toDouble();
   var myColor;
   // developer.log('onState: ' + widget.onState.toString());
-  if (widget.onState) {
+  if (onState) {
     myColor = Colors.orange;
   } else {
     myColor = Colors.red;
   }
 
 
-    return 
+    return Container(alignment: Alignment.center,
+    width: widget.tileSize, height: widget.tileSize,
+    child:
       GestureDetector(
       
       onTapDown: pressDown,
@@ -56,19 +66,20 @@ class _BoxState extends State<Box> {
     ); 
     }
     )
+      )
       );
   }
 
 void pressDown(details) {
     setState(() {
-       endSize = 50.0; 
+       endSize = widget.tileSize*.75;
        
   });
 }
 
 void pressCancel() {
       setState(() {
-       endSize = 90.0; 
+       endSize = widget.tileSize*.9;
        
   });
 }
@@ -77,9 +88,9 @@ void pressCancel() {
   
   
   setState(() {
-       widget.onState = !widget.onState;
-       widget.updateBoard(widget.onState, widget.index);
-       endSize = 90.0;
+       onState = !onState;
+       widget.updateBoard(onState, widget.index);
+       endSize = widget.tileSize*.9;
        
   });
 
