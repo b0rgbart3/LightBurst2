@@ -32,13 +32,25 @@ class _BoardState extends State<Board> {
 
     //above
     var above = tileID['row'] -1;
-    if (above < 0) { above = null; }
+    if (above >= 0) { 
+      toggleTile(  above * tileCount + tileID['col'] );
+     }
     //below
     var below = tileID['row'] +1;
-    if (below > tileCount) { below = null; }
+    if (below < tileCount) { 
+      toggleTile(  below * tileCount + tileID['col'] );
+    }
+
     //left
-    
+    var left = tileID['col'] -1;
+    if (left >= 0) { 
+      toggleTile( tileID['row'] * tileCount + left );
+    }
     //right
+    var right = tileID['col'] + 1;
+    if (right < tileCount) { 
+      toggleTile( tileID['row']*tileCount + right );
+    }
   }
 
   void toggleTile( index) {
