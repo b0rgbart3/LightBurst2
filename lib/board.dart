@@ -13,10 +13,10 @@ class Board extends StatefulWidget {
 class _BoardState extends State<Board> {
   int _counter = 0;
   List boardList = [];
-   int tileCount = 7;
+   int tileCount = 5;
 
   void clearBoard() {
-    for (var i = 0; i < tileCount; i++) {
+    for (var i = 0; i < tileCount*tileCount; i++) {
        boardList.add(false);
     }
   }
@@ -24,10 +24,18 @@ class _BoardState extends State<Board> {
   Widget build(BuildContext context) {
     
     clearBoard();
-    return buildRow();
+    return buildRows();
   }
 
-  Widget buildRow() {
+  Widget buildRows() {
+    List rows = <Widget> [];
+
+    for (var i = 0; i < tileCount; i++ ) {
+      rows.add(buildRow(i));
+    }
+    return Column( children: rows );
+  }
+  Widget buildRow(rowNum) {
     double boardSize = MediaQuery.of(context).size.width;
     double tileSize = boardSize / tileCount;
     developer.log("Tile Size: " + tileSize.toString());
@@ -36,7 +44,7 @@ class _BoardState extends State<Board> {
 
 // Dynamically build a whole row of tiles
     for (var i = 0; i < tileCount; i++) {
-      tiles.add(Box(tileSize, i, boardList[i], updateBoard));
+      tiles.add(Box(tileSize, rowNum, i, boardList[i], updateBoard));
     }
     return Row( mainAxisAlignment: MainAxisAlignment.center, 
    children: tiles
@@ -44,7 +52,8 @@ class _BoardState extends State<Board> {
       );
   }
 
-  void updateBoard(boxState, index) {
+  void updateBoard(boxState, rowNum, colNum) {
+    var index = rowNum * tileCount + colNum;
     boardList[index] = !boardList[index];
     developer.log("");
     developer.log(boardList.toString());

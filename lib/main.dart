@@ -50,7 +50,7 @@ class _GameState extends State<Game> {
       //   title: Text(widget.title),
       // ),
       body: Container(
-         color: Colors.blue,
+         color: Colors.blue[900],
 
         child: Center(
 

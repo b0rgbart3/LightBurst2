@@ -3,12 +3,13 @@ import 'dart:developer' as developer;
 
 class Box extends StatefulWidget {
    final tileSize;
-   final index;
+   final rowNum;
+   final colNum;
    final updateBoard;
    final initialState;
   
    //Box({Key key, onState}) : super(key: key);
-   Box(this.tileSize, this.index, this.initialState, this.updateBoard);
+   Box(this.tileSize, this.rowNum, this.colNum, this.initialState, this.updateBoard);
 
   @override
   _BoxState createState() => _BoxState();
@@ -89,7 +90,7 @@ void pressCancel() {
   
   setState(() {
        onState = !onState;
-       widget.updateBoard(onState, widget.index);
+       widget.updateBoard(onState, widget.rowNum, widget.colNum);
        endSize = widget.tileSize*.9;
        
   });
