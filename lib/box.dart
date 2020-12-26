@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-// import 'dart:developer' as developer;
+import 'dart:developer' as developer;
 
 class Box extends StatefulWidget {
-  final tileSize, rowNum, colNum, updateBoard, initialState;
+  final tileSize, rowNum, colNum, touchTile, initialState;
 
   //Box({Key key, onState}) : super(key: key);
   Box(this.tileSize, this.rowNum, this.colNum, this.initialState,
-      this.updateBoard);
+      this.touchTile);
+
+  void toggleMyself() {
+    developer.log("toggling myself.");
+
+  }
 
   @override
   _BoxState createState() => _BoxState();
@@ -15,6 +20,8 @@ class Box extends StatefulWidget {
 class _BoxState extends State<Box> {
   double endSize;
   bool onState;
+
+
 
   @override
   void initState() {
@@ -29,9 +36,9 @@ class _BoxState extends State<Box> {
     var myColor;
     // developer.log('onState: ' + widget.onState.toString());
     if (onState) {
-      myColor = Colors.orange;
+      myColor = Colors.blue[400];
     } else {
-      myColor = Colors.red;
+      myColor = Colors.blue[900];
     }
 
     return Container(
@@ -55,7 +62,7 @@ class _BoxState extends State<Box> {
                       color: myColor,
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.orange[100],
+                            color: Colors.blue[600],
                             blurRadius: 5,
                             spreadRadius: 5),
                       ],
@@ -78,9 +85,15 @@ class _BoxState extends State<Box> {
 
   void pressUp(details) {
     setState(() {
-      onState = !onState;
-      widget.updateBoard(onState, widget.rowNum, widget.colNum);
+      widget.touchTile( { 'row': widget.rowNum, 'col': widget.colNum });
       endSize = widget.tileSize * .9;
+    });
+  }
+
+  void toggleMe() {
+        setState(() {
+      onState = !onState;
+
     });
   }
 }

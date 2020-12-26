@@ -11,7 +11,7 @@ class Sequence {
 
 void generateRandomSequence(sequenceLength) {
 
-    developer.log("TileCount: " + tileCount.toString());
+    //developer.log("TileCount: " + tileCount.toString());
 
     for (var i = 0; i < sequenceLength; i++) {
       var rn = new Random();
@@ -20,7 +20,7 @@ void generateRandomSequence(sequenceLength) {
       var _randomID = {"row": _randomRow, "col": _randomCol};
       touches.add(_randomID);
     }
-    developer.log(touches.toString());
+   // developer.log(touches.toString());
   }
 
 

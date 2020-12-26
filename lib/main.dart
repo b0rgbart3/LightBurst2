@@ -72,7 +72,7 @@ class _GameState extends State<Game> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.api),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

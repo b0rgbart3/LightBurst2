@@ -15,6 +15,8 @@ class Board extends StatefulWidget {
 class _BoardState extends State<Board> {
  // int _counter = 0;
   List boardList = [];
+  List tileList = [];
+  bool tilesCreated = false;
   int tileCount = 5;
   int sequenceLength = 10;
   Sequence _sequence;
@@ -25,7 +27,7 @@ class _BoardState extends State<Board> {
     }
   }
   void touchTile( tileID ) {
-   // developer.log(tileID.toString());
+    // developer.log(tileID.toString());
     var index = tileID['row'] * tileCount + tileID['col'];
     // developer.log('Index: ' + index.toString());
     toggleTile(index);
@@ -33,6 +35,7 @@ class _BoardState extends State<Board> {
     //above
     var above = tileID['row'] -1;
     if (above >= 0) { 
+      // developer.log(above.toString());
       toggleTile(  above * tileCount + tileID['col'] );
      }
     //below
@@ -54,9 +57,18 @@ class _BoardState extends State<Board> {
   }
 
   void toggleTile( index) {
-    boardList[index] = !boardList[index];
-    developer.log('Toggling: ' + index.toString());
-    developer.log(boardList.toString());
+    if (tilesCreated) {
+      tileList[index].toggleMyself();
+    }
+    setState(() {
+          boardList[index] = !boardList[index];
+    });
+
+    // if (tilesCreated) {
+    //   // tileList[index].widget.toggleMe();
+    // }
+   // developer.log('Toggling: ' + index.toString());
+   // developer.log(boardList.toString());
   }
 
   @override
@@ -64,7 +76,7 @@ class _BoardState extends State<Board> {
     clearBoard();
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
-    developer.log(boardList.toString());
+    //developer.log(boardList.toString());
     _sequence.touches.forEach((ID) => 
        touchTile(ID)
     );
@@ -90,14 +102,17 @@ class _BoardState extends State<Board> {
 
 // Dynamically build a whole row of tiles
     for (var i = 0; i < tileCount; i++) {
-      tiles.add(Box(tileSize, rowNum, i, boardList[rowNum * tileCount + i], updateBoard));
+      var box = Box(tileSize, rowNum, i, boardList[rowNum * tileCount + i], touchTile);
+      tiles.add(box);
+      tileList.add(box);
     }
+    tilesCreated = true;
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: tiles);
   }
 
-  void updateBoard(boxState, rowNum, colNum) {
-    var index = rowNum * tileCount + colNum;
-    boardList[index] = !boardList[index];
+  // void updateBoard(boxState, rowNum, colNum) {
+  //   var index = rowNum * tileCount + colNum;
+  //   boardList[index] = !boardList[index];
 
-  }
+  // }
 }
