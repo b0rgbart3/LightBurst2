@@ -3,6 +3,7 @@ import 'box.dart';
 // import 'dart:math';
 import 'sequence.dart';
 import 'dart:developer' as developer;
+import 'pages/gamewon.dart';
 
 
 
@@ -33,6 +34,12 @@ void initState() {
   clearBoard();
 }
   
+  void gameWon() async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => GameWon()))
+        .then((value) => setState(() {
+      // maybe set some state value here....
+            }));
+  }
 
 
   void clearBoard() {
@@ -111,7 +118,7 @@ void checkForWin() {
     }
   }
   if (won) {
-    developer.log('WIN!');
+    gameWon();
   }
 }
 
