@@ -44,12 +44,20 @@ class BoxState extends State<Box>  {
   @override
   Widget build(BuildContext context) {
     // var intVersion = myRadius.value.toDouble();
-    var myColor;
+    var myColor, myShadowColor, myCenterColor;
     // developer.log('onState: ' + widget.onState.toString());
     if (onState) {
-      myColor = Colors.blue[400];
+      // myColor = Colors.blue[200];
+      myColor = Color(0xff00aaff);
+      //myShadowColor = Colors.blue[100];
+      myShadowColor = Color(0x8800ccff); 
+      myCenterColor = Color(0x44ffffff);
     } else {
-      myColor = Colors.blue[900];
+      //myColor = Colors.blue[800];
+      myColor = Color(0xff004488);
+      // myShadowColor = Colors.blue[900];
+      myShadowColor = Color(0x44001122); 
+      myCenterColor = Color(0x33001122);
     }
 
     return Container(
@@ -70,7 +78,13 @@ class BoxState extends State<Box>  {
                       toggleMe();
                       return true;
                     },
-                    child:Container(
+                    child:Stack(
+                      
+                       children: [
+                         Align(
+                    alignment: Alignment.center,
+                  child: 
+                      Container(
                     alignment: Alignment.center,
                     width: myWidth,
                     height: myWidth,
@@ -79,11 +93,31 @@ class BoxState extends State<Box>  {
                       color: myColor,
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.blue[600],
+                            color: myShadowColor,
                             blurRadius: 5,
                             spreadRadius: 5),
                       ],
                     ),
+                  ),),
+                  Align(
+                    alignment: Alignment.center,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: myWidth*.75,
+                    height: myWidth*.75,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7),
+                      color: myCenterColor,
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //       color: myShadowColor,
+                      //       blurRadius: 5,
+                      //       spreadRadius: 5),
+                      // ],
+                    ),
+                  ),
+                  )
+                  ]
                   )
                   );
                 })
