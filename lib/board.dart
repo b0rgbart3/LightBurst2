@@ -22,7 +22,7 @@ class _BoardState extends State<Board> {
   List keyList = [];
   bool tilesCreated = false;
   int tileCount = 5;
-  int sequenceLength = 4;
+  int sequenceLength = 8;
   Sequence _sequence;
   
 
@@ -60,7 +60,7 @@ void initState() {
       developer.log("above tile is: " + above.toString());
      toggleTile(  {'row': above, 'col':  tileID['col'] });
     }
-    // //below
+     //below
     var below = tileID['row'] +1;
     if (below < tileCount) { 
       toggleTile(  {'row': below, 'col':  tileID['col'] });
@@ -71,7 +71,7 @@ void initState() {
     if (left >= 0) { 
      toggleTile(  {'row': tileID['row'], 'col':  left});
     }
-    // //right
+     //right
     var right = tileID['col'] + 1;
     if (right < tileCount) { 
           toggleTile(  {'row': tileID['row'], 'col':  right});
@@ -85,14 +85,10 @@ void initState() {
       developer.log(".....DISPATCHING CHANGE......");
       // ChangeNotification(myID: {tileID})..dispatch(context);
       // tileList[index].toggleMyself();
+      
       keyList[index].currentState.toggleMe();
-
-     // developer.log("about to set the board state.");
-   //   setState(() {
-         //developer.log("Setting the board state.");
-          boardList[index] = !boardList[index];
-         // developer.log("boardList:" + boardList.toString());
-   // });
+      boardList[index] = !boardList[index];
+      checkForWin();
    }
     else {
       boardList[index] = !boardList[index];
@@ -106,6 +102,18 @@ void initState() {
    // developer.log(boardList.toString());
   }
 
+void checkForWin() {
+  bool won = true;
+  for (var i = 0; i < tileCount*tileCount; i++) {
+    if (boardList[i]) {
+      won = false;
+      break;
+    }
+  }
+  if (won) {
+    developer.log('WIN!');
+  }
+}
 
   @override
   Widget build(BuildContext context) {

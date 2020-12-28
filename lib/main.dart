@@ -6,6 +6,42 @@ void main() {
   runApp(LightBurst());
 }
 
+class BkgImageWidget extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+
+    double Width = MediaQuery.of(context).size.width;
+    double Height = MediaQuery.of(context).size.height;
+
+    AssetImage bkgAsset = AssetImage("images/bkg1.jpg");
+    Image image = Image(image: bkgAsset,
+    fit: BoxFit.fill,
+    width: Width,
+    height: Height
+
+    );
+    return Container(child: image );
+  }
+
+}
+
+class ColorFilterWidget extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    double Width = MediaQuery.of(context).size.width;
+    double Height = MediaQuery.of(context).size.height;
+    Color c2 = const Color(0x440077ff); // fully opaque white (visible)
+
+    return Container(
+      color: c2,
+      width: Width,
+      height: Height
+    );
+  }
+}
+
 class LightBurst extends StatelessWidget {
   // This widget is the root of the application.
   @override
@@ -52,7 +88,12 @@ class _GameState extends State<Game> {
       body: Container(
          color: Colors.blue[900],
 
-        child: Center(
+        child: Stack(
+          children: [
+            // Image.asset('images/bkg1.jpg'),
+            BkgImageWidget(),
+            ColorFilterWidget(),
+            Center(
 
           child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +108,8 @@ class _GameState extends State<Game> {
             ),
           ],
         ),
-      )
+      )]
+        )
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
