@@ -55,31 +55,32 @@ void initState() {
     toggleTile( tileID );
 
     //above
-    // var above = tileID['row'] -1;
-    // if (above >= 0) { 
-    //   // developer.log(above.toString());
-    //   toggleTile(  above * tileCount + tileID['col'] );
-    //  }
+    var above = tileID['row'] -1;
+    if (above >= 0) { 
+      developer.log("above tile is: " + above.toString());
+     toggleTile(  {'row': above, 'col':  tileID['col'] });
+    }
     // //below
-    // var below = tileID['row'] +1;
-    // if (below < tileCount) { 
-    //   toggleTile(  below * tileCount + tileID['col'] );
-    // }
+    var below = tileID['row'] +1;
+    if (below < tileCount) { 
+      toggleTile(  {'row': below, 'col':  tileID['col'] });
+    }
 
-    // //left
-    // var left = tileID['col'] -1;
-    // if (left >= 0) { 
-    //   toggleTile( tileID['row'] * tileCount + left );
-    // }
+    //left
+    var left = tileID['col'] -1;
+    if (left >= 0) { 
+     toggleTile(  {'row': tileID['row'], 'col':  left});
+    }
     // //right
-    // var right = tileID['col'] + 1;
-    // if (right < tileCount) { 
-    //   toggleTile( tileID['row']*tileCount + right );
-    // }
+    var right = tileID['col'] + 1;
+    if (right < tileCount) { 
+          toggleTile(  {'row': tileID['row'], 'col':  right});
+    }
   }
 
   void toggleTile( tileID ) {
      var index = tileID['row'] * tileCount + tileID['col'];
+     developer.log('toggle index: ' + index.toString());
     if (tilesCreated) {
       developer.log(".....DISPATCHING CHANGE......");
       // ChangeNotification(myID: {tileID})..dispatch(context);
