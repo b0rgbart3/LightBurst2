@@ -5,8 +5,6 @@ import 'sequence.dart';
 import 'dart:developer' as developer;
 import 'pages/gamewon.dart';
 
-
-
 class Board extends StatefulWidget {
   Board({Key key, this.title}) : super(key: key);
   final String title;
@@ -23,11 +21,9 @@ class _BoardState extends State<Board> {
   List keyList = [];
   bool tilesCreated = false;
   int tileCount = 5;
-  int sequenceLength = 8;
+  int sequenceLength = 4;
   Sequence _sequence;
   
-
-
 @override
 void initState() {
   super.initState();
@@ -38,11 +34,16 @@ void initState() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => GameWon()))
         .then((value) => setState(() {
       // maybe set some state value here....
+      developer.log("RE_SETTING STATE for BOARD");
+      clearBoard();
             }));
   }
 
-
   void clearBoard() {
+    boardList = [];
+    tileList = [];
+    keyList = [];
+    tilesCreated = false;
     for (var i = 0; i < tileCount * tileCount; i++) {
       boardList.add(false);
     }
@@ -51,20 +52,20 @@ void initState() {
     _sequence.generateRandomSequence(sequenceLength);
     developer.log('SEQUENCE: ' + _sequence.touches.toString());
     //developer.log(boardList.toString());
-    _sequence.touches.forEach((ID) => 
-       touchTile(ID)
+    _sequence.touches.forEach((tileID) => 
+       touchTile(tileID)
     );
   }
   void touchTile( tileID ) {
-     developer.log("In TouchTile: " + tileID.toString());
-    var index = tileID['row'] * tileCount + tileID['col'];
+    // developer.log("In TouchTile: " + tileID.toString());
+   // var index = tileID['row'] * tileCount + tileID['col'];
     // developer.log('Index: ' + index.toString());
     toggleTile( tileID );
 
     //above
     var above = tileID['row'] -1;
     if (above >= 0) { 
-      developer.log("above tile is: " + above.toString());
+    //  developer.log("above tile is: " + above.toString());
      toggleTile(  {'row': above, 'col':  tileID['col'] });
     }
      //below
@@ -89,7 +90,7 @@ void initState() {
      var index = tileID['row'] * tileCount + tileID['col'];
      developer.log('toggle index: ' + index.toString());
     if (tilesCreated) {
-      developer.log(".....DISPATCHING CHANGE......");
+     // developer.log(".....DISPATCHING CHANGE......");
       // ChangeNotification(myID: {tileID})..dispatch(context);
       // tileList[index].toggleMyself();
       

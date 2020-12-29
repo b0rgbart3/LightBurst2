@@ -19,7 +19,7 @@ class Box extends StatefulWidget  {
   Box(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState);
 
   void toggleMyself() {
-    developer.log("toggling myself.");
+   // developer.log("toggling myself.");
     // toggleMe();
     
   }
