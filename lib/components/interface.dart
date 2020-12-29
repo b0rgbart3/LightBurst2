@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class BkgImageWidget extends StatelessWidget {
   
@@ -35,3 +36,39 @@ class ColorFilterWidget extends StatelessWidget {
     );
   }
 }
+
+class titleText extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Text(
+      "LIGHTBURST",
+      textDirection: TextDirection.ltr,
+      style: TextStyle(
+        color: HexColor("#f2f2f2"),
+        decoration: TextDecoration.none,
+        fontFamily: 'Heebo',
+      ),
+    );
+  }
+}
+
+
+Widget boxText(myString) {
+    return Text(myString,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          decoration: TextDecoration.none,
+          fontFamily: 'Heebo',
+          fontSize: 30,
+          shadows: [
+            Shadow(
+              color: Colors.black,
+              offset: Offset(0, 0),
+              blurRadius: 15,
+            ),
+          ],
+        ));
+  }

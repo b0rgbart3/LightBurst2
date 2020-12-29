@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'dart:developer' as developer;
 import 'components/board.dart';
 import 'pages/gameplay.dart';
+import 'pages/welcome.dart';
 
 void main() {
   runApp(LightBurst());
@@ -19,7 +20,8 @@ class LightBurst extends StatelessWidget {
         primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Game(title: 'LightBurst'),
+      home: Welcome(),
+      //Game(title: 'LightBurst'),
     );
   }
 }

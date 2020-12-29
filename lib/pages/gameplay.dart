@@ -3,6 +3,24 @@ import 'package:flutter/material.dart';
 import '../components/board.dart';
 import '../components/interface.dart';
 
+
+class GamePlay extends StatelessWidget {
+  // This widget is the root of the application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'LightBurst',
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: Game(title: 'LightBurst'),
+    );
+  }
+}
+
+
 class Game extends StatefulWidget {
   Game({Key key, this.title}) : super(key: key);
   final String title;
