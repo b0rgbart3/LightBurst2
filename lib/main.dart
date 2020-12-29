@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'dart:developer' as developer;
-import 'board.dart';
+import 'components/board.dart';
 
 void main() {
   runApp(LightBurst());

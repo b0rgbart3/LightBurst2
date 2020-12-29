@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'box.dart';
 // import 'dart:math';
-import 'sequence.dart';
+import '../sequence.dart';
 import 'dart:developer' as developer;
-import 'pages/gamewon.dart';
+import '../pages/gamewon.dart';
 
 class Board extends StatefulWidget {
   Board({Key key, this.title}) : super(key: key);
