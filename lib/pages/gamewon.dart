@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import '../components/interface.dart';
 
 class GameWon extends StatelessWidget { 
 @override
@@ -7,7 +8,9 @@ class GameWon extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         color:Colors.black,
-        child: Container(
+        child: Stack( alignment: Alignment.center,
+        children: [  BkgImageWidget(), ColorFilterWidget(),
+        Container(
           color:Colors.blue,
           height:200,
           alignment: Alignment.center,
@@ -21,7 +24,7 @@ class GameWon extends StatelessWidget {
           ),
           ]
           )
-    )
+    )])
     );
 
 
