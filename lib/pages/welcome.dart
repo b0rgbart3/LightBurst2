@@ -12,12 +12,13 @@ class Welcome extends StatelessWidget {
     Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()));
   }
   
-  
+
     return Container(
         alignment: Alignment.center,
         color:Colors.black,
         child: Stack( alignment: Alignment.center,
-        children: [  BkgImageWidget(), ColorFilterWidget(),
+        children: [  
+          BkgImageWidget(), ColorFilterWidget(),
         Container(
           height:200,
           alignment: Alignment.center,
@@ -29,7 +30,7 @@ class Welcome extends StatelessWidget {
             
                gamePlay();
              },
-            child: const Text('PLAY AGAIN', style: TextStyle(fontSize: 20)),
+            child: const Text('PLAY', style: TextStyle(fontSize: 20)),
           ),
           ]
           )

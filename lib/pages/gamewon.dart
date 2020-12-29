@@ -11,7 +11,7 @@ class GameWon extends StatelessWidget {
         child: Stack( alignment: Alignment.center,
         children: [  BkgImageWidget(), ColorFilterWidget(),
         Container(
-          color:Colors.blue,
+          
           height:200,
           alignment: Alignment.center,
           child:

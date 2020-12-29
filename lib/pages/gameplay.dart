@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-// import 'dart:developer' as developer;
+import 'dart:developer' as developer;
 import '../components/board.dart';
 import '../components/interface.dart';
 
 
 class GamePlay extends StatelessWidget {
+  var sensitivity = 8;
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,21 @@ class GamePlay extends StatelessWidget {
         primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Game(title: 'LightBurst'),
+      home: GestureDetector(
+          onHorizontalDragUpdate: (details) {  
+        // Note: Sensitivity is integer used when you don't want to mess up vertical drag
+       // developer.log(details.delta.dx.toString());
+        if (details.delta.dx > sensitivity) {
+            // Right Swipe
+           // developer.log("swipe right");
+            Navigator.pop(context);
+        } else if(details.delta.dx < -sensitivity){
+            //Left Swipe
+            developer.log("swipe left");
+        }
+    },
+        child:Game(title: 'LightBurst')
+      ),
     );
   }
 }
