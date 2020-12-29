@@ -10,10 +10,10 @@ class Board extends StatefulWidget {
   final String title;
 
   @override
-  _BoardState createState() => _BoardState();
+  BoardState createState() => BoardState();
 }
 
-class _BoardState extends State<Board> {
+class BoardState extends State<Board> {
 
  // int _counter = 0;
   List boardList = [];

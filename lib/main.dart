@@ -71,14 +71,19 @@ class _GameState extends State<Game> {
   void _incrementCounter() {
     setState(() {
       _counter++;
+      boardKey.currentState.clearBoard();
+      //board.currentState.clearBoard();
     });
   }
 
   var onState = true;
-
+  GlobalKey<BoardState> boardKey = GlobalKey();
+  var board;
 
   @override
   Widget build(BuildContext context) {
+  var board = Board(key: boardKey);
+
     return Scaffold(
       // appBar: AppBar(
       //   // Here we take the value from the MyHomePage object that was created by
@@ -99,7 +104,7 @@ class _GameState extends State<Game> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-              Board()
+              board
               
             ,
             Text(
