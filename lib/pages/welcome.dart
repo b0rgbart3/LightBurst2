@@ -22,16 +22,16 @@ class Welcome extends StatelessWidget {
       return Column(
         children: [
          
-          Tile(null, 70.0, 0, 0, true, "" ),
+          Tile(null, 70.0, 0, 0, true, "", false ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                 Tile(null, 70.0, 0, 0, true, "" ),
-                 Tile(null, 70.0, 0, 0, true , "Play"),
-                Tile(null, 70.0, 0, 0, true , ""),
+                 Tile(null, 70.0, 0, 0, true, "", false),
+                 Tile(null, 70.0, 0, 0, true , "Play", true),
+                Tile(null, 70.0, 0, 0, true , "", false),
             ],
           ),
-             Tile(null, 70.0, 0, 0, true, "" ),
+             Tile(null, 70.0, 0, 0, true, "", false ),
         ],
       );
     }

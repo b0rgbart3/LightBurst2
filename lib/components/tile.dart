@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 import 'interface.dart';
+import '../pages/gameplay.dart';
 
 class TouchNotification extends Notification {
   final Object myID;
@@ -15,9 +16,9 @@ class ChangeNotification extends Notification {
 }
 
 class Tile extends StatefulWidget {
-  final key, tileSize, rowNum, colNum, initialState, textString;
+  final key, tileSize, rowNum, colNum, initialState, textString, touchable;
 
-  Tile(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState, this.textString);
+  Tile(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState, this.textString, this.touchable);
 
   void toggleMyself() {}
 
@@ -115,6 +116,7 @@ class TileState extends State<Tile> {
   }
 
   void pressDown(details) {
+    developer.log('press down');
     setState(() {
       endSize = widget.tileSize * .75;
     });
@@ -127,8 +129,14 @@ class TileState extends State<Tile> {
   }
 
   void pressUp(details) {
+      developer.log('press up');
     TouchNotification(myID: {'row': widget.rowNum, 'col': widget.colNum})
       ..dispatch(context);
+      toggleMe();
+       Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
+        .then((value) => setState(() {
+
+            }));
     setState(() {
       endSize = widget.tileSize * .9;
     });
@@ -137,6 +145,7 @@ class TileState extends State<Tile> {
   void toggleMe() {
     setState(() {
       onState = !onState;
+      developer.log('toggling');
     });
   }
 }
