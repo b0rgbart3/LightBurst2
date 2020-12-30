@@ -5,10 +5,11 @@ import '../components/interface.dart';
 
 
 class GamePlay extends StatelessWidget {
-  var sensitivity = 8;
+  
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
+    var sensitivity = 8;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'LightBurst',

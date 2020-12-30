@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'dart:developer' as developer;
-import 'components/board.dart';
-import 'pages/gameplay.dart';
+// import 'components/board.dart';
+// import 'pages/gameplay.dart';
 import 'pages/welcome.dart';
 
 void main() {

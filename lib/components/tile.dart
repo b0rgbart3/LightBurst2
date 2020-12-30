@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
-// import 'interface.dart';
+import 'interface.dart';
 
 class TouchNotification extends Notification {
   final Object myID;
@@ -14,18 +14,18 @@ class ChangeNotification extends Notification {
   const ChangeNotification({this.myID});
 }
 
-class Box extends StatefulWidget {
-  final key, tileSize, rowNum, colNum, initialState;
+class Tile extends StatefulWidget {
+  final key, tileSize, rowNum, colNum, initialState, textString;
 
-  Box(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState);
+  Tile(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState, this.textString);
 
   void toggleMyself() {}
 
   @override
-  BoxState createState() => BoxState();
+  State createState() => TileState();
 }
 
-class BoxState extends State<Box> {
+class TileState extends State<Tile> {
   double endSize;
   bool onState;
 
@@ -94,22 +94,22 @@ class BoxState extends State<Box> {
                         ),
                         Align(
                           alignment: Alignment.center,
-                          child: Container(
+                          child: Stack( children: [Container(
                             alignment: Alignment.center,
                             width: myWidth * .75,
                             height: myWidth * .75,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
                               color: myCenterColor,
-                              // boxShadow: [
-                              //   BoxShadow(
-                              //       color: myShadowColor,
-                              //       blurRadius: 5,
-                              //       spreadRadius: 5),
-                              // ],
+  
                             ),
                           ),
-                        )
+                          
+                          ]
+                          ),
+                        ),
+                        Align(alignment: Alignment.center,
+                        child: boxText(widget.textString) )
                       ]));
                 })));
   }

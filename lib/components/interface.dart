@@ -37,7 +37,7 @@ class ColorFilterWidget extends StatelessWidget {
   }
 }
 
-class titleText extends StatelessWidget {
+class TitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
