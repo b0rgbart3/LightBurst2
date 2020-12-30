@@ -10,10 +10,6 @@ import '../components/tile.dart';
 class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // void gamePlay() async {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => GamePlay()));
-    // }
 
     Widget cross() {
       var startTileSize = 70.0;
@@ -22,16 +18,16 @@ class Welcome extends StatelessWidget {
       return Column(
         children: [
          
-          Tile(null, 70.0, 0, 0, true, "", false ),
+          Tile( 0, 0, "", false ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                 Tile(null, 70.0, 0, 0, true, "", false),
-                 Tile(null, 70.0, 0, 0, true , "Play", true),
-                Tile(null, 70.0, 0, 0, true , "", false),
+                 Tile( 0, 0, "", false),
+                 Tile( 0, 0,  "Play", true),
+                Tile( 0, 0,  "", false),
             ],
           ),
-             Tile(null, 70.0, 0, 0, true, "", false ),
+             Tile( 0, 0, "", false ),
         ],
       );
     }
