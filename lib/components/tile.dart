@@ -2,26 +2,17 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 import 'interface.dart';
 import '../pages/gameplay.dart';
+import '../classes/notifications.dart';
 
-class TouchNotification extends Notification {
-  final Object myID;
 
-  const TouchNotification({this.myID});
-}
-
-class ChangeNotification extends Notification {
-  final Object myID;
-
-  const ChangeNotification({this.myID});
-}
 
 class Tile extends StatefulWidget {
-  final rowNum, colNum, textString, touchable;
+  final key, id, textString, touchable;
 
   Tile(
-       this.rowNum, this.colNum, this.textString, this.touchable);
+       this.key, this.id, this.textString, this.touchable);
 
-  void toggleMyself() {}
+  // void toggleMyself() {}
 
   @override
   State createState() => TileState();
@@ -37,12 +28,18 @@ class TileState extends State<Tile> {
     super.initState();
     endSize = tileSize * .9;
     onState = false;
+    if (widget.touchable) {
+      onState= true;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     var myColor, myShadowColor, myCenterColor;
 
+    if (widget.touchable) {
+      onState= true;
+    }
     if (onState) {
       myColor = Color(0xff00aaff);
       myShadowColor = Color(0x8800ccff);
@@ -63,16 +60,18 @@ class TileState extends State<Tile> {
             onTapCancel: pressCancel,
             child: TweenAnimationBuilder(
                 tween: Tween(begin: 0.0, end: endSize),
-                duration: Duration(milliseconds: 100),
+                duration: Duration(milliseconds: 200),
                 builder: (_, num myWidth, __) {
-                  return NotificationListener<ChangeNotification>(
-                      onNotification: (notification) {
-                        developer.log('Got notified of change: ' +
-                            notification.myID.toString());
-                        toggleMe();
-                        return true;
-                      },
-                      child: Stack(children: [
+                  return 
+                  // NotificationListener<ChangeNotification>(
+                  //     onNotification: (notification) {
+                  //       developer.log('Got notified of change: ' +
+                  //           notification.myID.toString());
+                  //       toggleMe();
+                  //       return true;
+                  //     },
+                    //  child: 
+                      Stack(children: [
                         Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -108,12 +107,14 @@ class TileState extends State<Tile> {
                         Align(
                             alignment: Alignment.center,
                             child: boxText(widget.textString))
-                      ]));
+                      ]
+                      //)
+                      );
                 })));
   }
 
   void pressDown(details) {
-    developer.log('press down');
+    // developer.log('press down');
     setState(() {
       endSize = tileSize * .75;
     });
@@ -126,25 +127,41 @@ class TileState extends State<Tile> {
   }
 
   void pressUp(details) {
-    developer.log('press up');
-    // TouchNotification(myID: {'row': widget.rowNum, 'col': widget.colNum})
-    //   ..dispatch(context);
-    toggleMe();
-    Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
-        .then((value) => setState(() {
-          // this make is so that when we swipe right to get back to this welcome
-          // screen, the tile will be in its original condition.
-              onState = false;
-            }));
+   //  developer.log('press up');'
+   if (widget.touchable) {
+   developer.log("dispatching touch notification.");
+    PlayNotification(id: widget.id)..dispatch(context);
+    // toggleMe();
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
+    //     .then((value) => setState(() {
+    //       // this make is so that when we swipe right to get back to this welcome
+    //       // screen, the tile will be in its original condition.
+    //           onState = false;
+    //         }));
+   }
     setState(() {
       endSize = tileSize * .9;
     });
   }
 
+  void turnOn() {
+    setState(() {
+      onState = true;
+    });
+  }
+
+  void turnOff() {
+    setState(() {
+      onState = false;
+    });
+  }
+
   void toggleMe() {
     setState(() {
+      if (widget.touchable) {
       onState = !onState;
-      developer.log('toggling');
+      developer.log('toggling tile');
+      }
     });
   }
 }

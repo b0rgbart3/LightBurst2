@@ -47,10 +47,10 @@ void initState() {
     for (var i = 0; i < tileCount * tileCount; i++) {
       boardList.add(false);
     }
-    developer.log("CREATING NEW SEQUENCE.");
+   //  developer.log("CREATING NEW SEQUENCE.");
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
-    developer.log('SEQUENCE: ' + _sequence.touches.toString());
+    // developer.log('SEQUENCE: ' + _sequence.touches.toString());
     //developer.log(boardList.toString());
     _sequence.touches.forEach((tileID) => 
        touchTile(tileID)
@@ -88,7 +88,7 @@ void initState() {
 
   void toggleTile( tileID ) {
      var index = tileID['row'] * tileCount + tileID['col'];
-     developer.log('toggle index: ' + index.toString());
+     // developer.log('toggle index: ' + index.toString());
     if (tilesCreated) {
      // developer.log(".....DISPATCHING CHANGE......");
       // ChangeNotification(myID: {tileID})..dispatch(context);
@@ -137,7 +137,7 @@ void checkForWin() {
   }
 
   Widget buildRows() {
-    developer.log("/// in buildRows: ///");
+
     List rows = <Widget>[];
 
     for (var i = 0; i < tileCount; i++) {

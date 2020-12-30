@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 import '../components/board.dart';
 import '../components/interface.dart';
-
+import 'settings.dart';
 
 class GamePlay extends StatelessWidget {
   
@@ -28,6 +28,16 @@ class GamePlay extends StatelessWidget {
         } else if(details.delta.dx < -sensitivity){
             //Left Swipe
             developer.log("swipe left");
+            Navigator.push(context, 
+              MaterialPageRoute(builder: (context) => Settings()))
+    .then((value) => 
+    // setState(() {
+    //   // this make is so that when we swipe right to get back to this welcome
+    //   // screen, the tile will be in its original condition.
+    //       onState = false;
+    //     })
+    developer.log('do something');
+        );
         }
     },
         child:Game(title: 'LightBurst')
