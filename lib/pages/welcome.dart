@@ -15,7 +15,7 @@ class Welcome extends StatelessWidget {
   void aboutToPlay(context) {
     keys.forEach( (key) => key.currentState.turnOn() );
 
-    developer.log('About to play');
+    //developer.log('About to play');
     Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
     .then((value) =>  keys.forEach( (key) => key.currentState.turnOff() ));
         // .then((value) => setState(() {
@@ -54,7 +54,7 @@ class Welcome extends StatelessWidget {
 
       return NotificationListener<PlayNotification> (
       onNotification: (notification) {
-         developer.log('Got notified: ' + notification.id.toString());
+       //  developer.log('Got notified: ' + notification.id.toString());
        // touchTile(notification.myID);
          aboutToPlay(context);
         return true;
@@ -87,7 +87,7 @@ class Welcome extends StatelessWidget {
               alignment: Alignment.center,
               child: Padding(
         padding: EdgeInsets.symmetric(vertical: 100.0),
-        child: Column(children: [TitleText(), cross()])
+        child: Column(children: [TitleText("LIGHTBURST"), cross()])
         )
           )
         ]

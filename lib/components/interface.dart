@@ -39,16 +39,28 @@ class ColorFilterWidget extends StatelessWidget {
 
 class TitleText extends StatelessWidget {
 
+  TitleText(this._myString);
+  String _myString;
+  
   @override
   Widget build(BuildContext context) {
 
     return Text(
-      "LIGHTBURST",
+      _myString,
       textDirection: TextDirection.ltr,
       style: TextStyle(
         color: HexColor("#f2f2f2"),
         decoration: TextDecoration.none,
         fontFamily: 'Heebo',
+        fontSize: 44,
+        fontWeight: FontWeight.w900,
+        shadows: [
+            Shadow(
+              color: Colors.black,
+              offset: Offset(0, 0),
+              blurRadius: 15,
+            ),
+          ],
       ),
     );
   }
@@ -63,11 +75,31 @@ Widget boxText(myString) {
           decoration: TextDecoration.none,
           fontFamily: 'Heebo',
           fontSize: 30,
+          fontWeight: FontWeight.w600,
           shadows: [
             Shadow(
               color: Colors.black,
               offset: Offset(0, 0),
-              blurRadius: 15,
+              blurRadius: 30,
+            ),
+          ],
+        ));
+  }
+
+Widget subTitleText(myString) {
+    return Text(myString,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          decoration: TextDecoration.none,
+          fontFamily: 'Heebo',
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          shadows: [
+            Shadow(
+              color: Colors.black,
+              offset: Offset(0, 0),
+              blurRadius: 30,
             ),
           ],
         ));

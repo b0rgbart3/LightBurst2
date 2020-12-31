@@ -68,8 +68,8 @@ class BoxState extends State<Box> {
                 builder: (_, num myWidth, __) {
                   return NotificationListener<ChangeNotification>(
                       onNotification: (notification) {
-                        developer.log('Got notified of change: ' +
-                            notification.myID.toString());
+                       // developer.log('Got notified of change: ' +
+                        //    notification.myID.toString());
                         toggleMe();
                         return true;
                       },
