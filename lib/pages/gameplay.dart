@@ -3,49 +3,53 @@ import 'dart:developer' as developer;
 import '../components/board.dart';
 import '../components/interface.dart';
 import 'settingseditor.dart';
+import '../components/navbutton.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class GamePlay extends StatelessWidget {
-  
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     var sensitivity = 8;
+
+  void returnToWelcome() {
+      Navigator.pop(context);
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'LightBurst',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: GestureDetector(
-          onHorizontalDragUpdate: (details) {  
-        // Note: Sensitivity is integer used when you don't want to mess up vertical drag
-       // developer.log(details.delta.dx.toString());
-        if (details.delta.dx > sensitivity) {
-            // Right Swipe
-           // developer.log("swipe right");
-            Navigator.pop(context);
-        } else if(details.delta.dx < -sensitivity){
-            //Left Swipe
-           // developer.log("swipe left");
-            Navigator.push(context, 
-              MaterialPageRoute(builder: (context) => SettingsEditor()))
-    .then((value) => 
-    // setState(() {
-    //   // this make is so that when we swipe right to get back to this welcome
-    //   // screen, the tile will be in its original condition.
-    //       onState = false;
-    //     })
-    developer.log('do something')
-        );
-        }
-    },
-        child:Game(title: 'LightBurst')
-      ),
+          onHorizontalDragUpdate: (details) {
+            // Note: Sensitivity is integer used when you don't want to mess up vertical drag
+            // developer.log(details.delta.dx.toString());
+            if (details.delta.dx > sensitivity) {
+              // Right Swipe
+              // developer.log("swipe right");
+              returnToWelcome();
+            } else if (details.delta.dx < -sensitivity) {
+              //Left Swipe
+              // developer.log("swipe left");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SettingsEditor())).then((value) =>
+                  // setState(() {
+                  //   // this make is so that when we swipe right to get back to this welcome
+                  //   // screen, the tile will be in its original condition.
+                  //       onState = false;
+                  //     })
+                  developer.log('do something'));
+            }
+          },
+          child: Game(title: 'LightBurst')),
     );
   }
 }
-
 
 class Game extends StatefulWidget {
   Game({Key key, this.title}) : super(key: key);
@@ -57,12 +61,26 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _freshGame() {
     setState(() {
       _counter++;
       boardKey.currentState.clearBoard();
       //board.currentState.clearBoard();
     });
+  }
+
+  void returnToWelcome() {
+      Navigator.pop(context);
+    }
+
+  void _settingsEditor() {
+    Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SettingsEditor()))
+        .then((value) => setState(() {
+              // maybe set some state value here....
+              //  developer.log("RE_SETTING STATE for BOARD");
+              boardKey.currentState.clearBoard();
+            }));
   }
 
   var onState = true;
@@ -71,7 +89,7 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-  var board = Board(key: boardKey);
+    var board = Board(key: boardKey);
 
     return Scaffold(
       // appBar: AppBar(
@@ -80,38 +98,47 @@ class _GameState extends State<Game> {
       //   title: Text(widget.title),
       // ),
       body: Container(
-         color: Colors.blue[900],
-
-        child: Stack(
-          children: [
+          color: Colors.blue[900],
+          child: Stack(children: [
             // Image.asset('images/bkg1.jpg'),
             BkgImageWidget(),
             ColorFilterWidget(),
             Center(
-
-          child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-              board
-              
-            ,
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      )]
-        )
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.api),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  board,
+                  Text(
+                    '$_counter',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        NavButton(
+                            UniqueKey(),
+                            returnToWelcome,
+                            "",
+                            Icon(Icons.navigate_before,
+                                color: HexColor("#aa60c6f9"), size: 54.0)),
+                        NavButton(
+                            UniqueKey(),
+                            _freshGame,
+                            "",
+                            Icon(Icons.add,
+                                color: HexColor("#aa60c6f9"), size: 54.0)),
+                        NavButton(
+                            UniqueKey(),
+                            _settingsEditor,
+                            "",
+                            Icon(Icons.settings,
+                                color: HexColor("#aa60c6f9"), size: 44.0)),
+                      ])
+                ],
+              ),
+            )
+          ])),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-
 }

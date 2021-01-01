@@ -21,15 +21,27 @@ class SettingsState extends State<SettingsEditor> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.orange[800],
+          color: Colors.black,
         ),
         child: contents)
     );
   }
+  Widget ball() {
+    return Container(
+      height:50,
+      width:24,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color:Colors.white  
+      )
+    );
+  }
 
   Widget slider() {
-    return Padding(
-        padding: EdgeInsets.only(top: 44.0, bottom:20.0),
+    return Stack(
+      children: [
+      Padding(
+        padding: EdgeInsets.only(top: 54.0, bottom:40.0, left:10.0, right:10.0),
         child: Container(
           height: 10,
           decoration: BoxDecoration(
@@ -40,7 +52,11 @@ class SettingsState extends State<SettingsEditor> {
                   color: Colors.blue[200], blurRadius: 5, spreadRadius: 5),
             ],
           ),
-        ));
+        )),
+        ball()
+      ]
+
+    );
   }
 
   Widget boardSizeSetting() {
