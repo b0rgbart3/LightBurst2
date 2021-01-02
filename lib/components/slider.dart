@@ -9,6 +9,7 @@ import 'ball.dart';
 class SettingsSlider extends StatefulWidget {
   SettingsSlider({Key key}) : super(key: key);
 
+var myKey = UniqueKey();
   @override
   State createState() => SliderState();
 }
@@ -20,9 +21,12 @@ void initState() {
   super.initState();
 }
 
+ 
+
   @override
   Widget build(BuildContext context) {
 
+ 
     return Stack(
       children: [
       Padding(
@@ -38,7 +42,7 @@ void initState() {
             ],
           ),
         )),
-        Ball()
+        Ball( key: widget.myKey )
       ]
 
     );
