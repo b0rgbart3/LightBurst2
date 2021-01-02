@@ -1,6 +1,8 @@
 import '../components/interface.dart';
 import 'package:flutter/material.dart';
 import '../components/interface.dart';
+import '../components/navbutton.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class SettingsEditor extends StatefulWidget {
   SettingsEditor({Key key, this.title}) : super(key: key);
@@ -100,14 +102,19 @@ Padding(
                         TitleText("SETTINGS"),
                         boardSizeSetting(),
                         sequenceLengthSetting(),
+                        NavButton(null,_submitSettings,"",
+                            Icon(Icons.done, size: 54.0, color: HexColor("#aa60c6f9")), 65.0, 65.0),
                       ],
                     )))
           ])
-        ]),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _submitSettings,
-          tooltip: 'Increment',
-          child: Icon(Icons.api),
-        ));
+        ,
+
+                  ]),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: _submitSettings,
+        //   tooltip: 'Increment',
+        //   child: Icon(Icons.api),
+        // )
+      );
   }
 }
