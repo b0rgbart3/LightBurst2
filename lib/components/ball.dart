@@ -6,8 +6,9 @@ import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
 
 class Ball extends StatefulWidget {
-  Ball({Key key, this.title}) : super(key: key);
-  final String title;
+  Ball({Key key, this.screenWidth, this.min, this.max}) : super(key: key);
+  final double screenWidth;
+  final int min,max;
 
   @override
   State createState() => BallState();
@@ -15,13 +16,17 @@ class Ball extends StatefulWidget {
 
 class BallState extends State<Ball> {
 
+ int myIntValue = 0;
+ double ballWidth = 50.0;
+
 @override
 void initState() {
   super.initState();
 }
   
   bool tracking = false;
-  double myX = 0;
+  double myX = 0.0;
+  double origin = 0.0;
   @override
   Widget build(BuildContext context) {
 
@@ -30,25 +35,39 @@ void initState() {
     developer.log("pressDown:" + details.toString());
     setState(() {
       tracking = true;
+      origin = myX;
     });
   }
   void letUp(details) {
-    developer.log('letup:' + details.toString());
+   // developer.log('letup:' + details.toString());
+    
   }
   void trackMe(details) {
-    developer.log('tracking:' + details.localOffsetFromOrigin.dx.toString());
+  // developer.log('tracking:' + details.localOffsetFromOrigin.dx.toString());
     setState(() {
-      myX = details.localOffsetFromOrigin.dx;
+
+      myX = origin + details.localOffsetFromOrigin.dx;
+      if (myX > ( widget.screenWidth)) {
+        myX = widget.screenWidth;
+      }
+      if (myX < 0.0) {
+        myX = 0.0;
+      }
+
+      var diff = widget.max - widget.min;
+      myIntValue = ((( (myX + (ballWidth/2)) / (diff))/widget.max) / diff).round() + widget.min;
+      developer.log("INT: " + myIntValue.toString());
+     
     });
   }
   void tapCancel() {
-    developer.log('tapCancel:');
+   // developer.log('tapCancel:');
   }
 
 
 
     return Transform.translate(
-      offset: Offset(myX,0),
+      offset: Offset(myX,10.0),
       child:Padding(
       padding:EdgeInsets.symmetric(vertical:32.0, horizontal: 6.0),
       child: GestureDetector(
@@ -57,10 +76,10 @@ void initState() {
         onLongPressMoveUpdate: trackMe,
         onTapCancel: tapCancel,
         child: Container(
-      height:50,
-      width:24,
+      height:40,
+      width:ballWidth,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(30),
         color:Colors.blue[100]  
       )
     ))));

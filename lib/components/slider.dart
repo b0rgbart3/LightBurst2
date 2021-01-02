@@ -7,7 +7,10 @@ import '../pages/gamewon.dart';
 import 'ball.dart';
 
 class SettingsSlider extends StatefulWidget {
-  SettingsSlider({Key key}) : super(key: key);
+  SettingsSlider({Key key, this.screenWidth, this.min, this.max}) : super(key: key);
+
+  final double screenWidth;
+  final int min, max;
 
 var myKey = UniqueKey();
   @override
@@ -16,9 +19,11 @@ var myKey = UniqueKey();
 
 class SliderState extends State<SettingsSlider> {
   
+ 
 @override
 void initState() {
   super.initState();
+ // developer.log("SCREEN WIDTH: " + widget.screenWidth.toString());
 }
 
  
@@ -42,7 +47,7 @@ void initState() {
             ],
           ),
         )),
-        Ball( key: widget.myKey )
+        Ball( key: widget.myKey, screenWidth:widget.screenWidth-82.0, min: widget.min, max: widget.max )
       ]
 
     );

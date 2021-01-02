@@ -32,25 +32,27 @@ class SettingsEditorState extends State<SettingsEditor> {
   
 
   Widget boardSizeSetting() {
+    double screenWidth = MediaQuery.of(context).size.width;
     return settingsBox(
       Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child:
       Container(
         child: Stack(
-            children: [Align(child: subTitleText('BOARD SIZE')), SettingsSlider()]))
+            children: [Align(child: subTitleText('BOARD SIZE')), SettingsSlider(screenWidth: screenWidth, min:4, max:8)]))
       )
     );
   }
 
   Widget sequenceLengthSetting() {
+    double screenWidth = MediaQuery.of(context).size.width;
     return settingsBox(
 Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
         child: Stack(children: [
       Align(child: subTitleText('SEQUENCE LENGTH')),
-      SettingsSlider()
+      SettingsSlider(screenWidth: screenWidth, min:4, max:8)
     ]))
     )
     );
@@ -58,6 +60,9 @@ Padding(
 
   @override
   Widget build(BuildContext context) {
+
+    
+
     return Scaffold(
         body: Column(children: [
           Stack(alignment: Alignment.center, children: [
