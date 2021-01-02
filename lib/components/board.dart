@@ -155,7 +155,8 @@ void checkForWin() {
 // Dynamically build a whole row of tiles
     for (var i = 0; i < tileCount; i++) {
      // developer.log("building.... boardlist item = " + boardList[rowNum * tileCount + i].toString());
-      GlobalKey<BoxState> key = GlobalKey();
+      var key = GlobalKey();
+      developer.log('Key: ' + key.toString());
       var box = Box(key, tileSize, rowNum, i, boardList[rowNum * tileCount + i]);
       tiles.add(box);
       tileList.add(box);

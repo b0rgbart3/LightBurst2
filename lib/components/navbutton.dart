@@ -4,33 +4,49 @@ import 'interface.dart';
 import '../pages/gameplay.dart';
 import '../classes/notifications.dart';
 
+// This widget is my custom navigation button widget
+// It produces a square button for icon navigation
+// and a horizontal rectangle for text navigation
 
 class NavButton extends StatefulWidget {
   final key, onPressed, textString, icon;
+  double navWidth, navHeight;
 
-  NavButton(this.key, this.onPressed, this.textString, this.icon);
+  NavButton(this.key, this.onPressed, this.textString, this.icon, this.navWidth,
+      this.navHeight);
 
   @override
   State createState() => NavButtonState();
 }
 
 class NavButtonState extends State<NavButton> {
-  double endSize;
+  double endWidth, endHeight;
   bool onState;
-  double tileSize = 90.0;
+  double tileWidth, tileHeight, innerBoxHeightPercentage, innerBoxWidthPercentage;
 
   @override
   void initState() {
     super.initState();
-    endSize = tileSize * .9;
+    tileWidth = widget.navWidth;
+    tileHeight = widget.navHeight;
+    
+    endWidth = tileWidth * .9;
+    endHeight = tileHeight * .9;
     onState = false;
 
+    if (widget.textString == "") {
+      innerBoxWidthPercentage = .75;
+      innerBoxHeightPercentage = .75;
+    }
+    else {
+      innerBoxWidthPercentage = .94;
+      innerBoxHeightPercentage = .75;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     var myColor, myShadowColor, myCenterColor;
-
 
     if (onState) {
       myColor = Color(0xff00aaff);
@@ -45,71 +61,58 @@ class NavButtonState extends State<NavButton> {
     Widget buttonChild() {
       if (widget.textString != "") {
         return boxText(widget.textString);
-      }
-      else {
+      } else {
         return widget.icon;
       }
     }
 
     return Container(
         alignment: Alignment.center,
-        width: tileSize,
-        height: tileSize,
+        width: tileWidth,
+        height: tileHeight,
         child: GestureDetector(
             onTapDown: pressDown,
             onTapUp: pressUp,
             onTapCancel: pressCancel,
             child: TweenAnimationBuilder(
-                tween: Tween(begin: 0.0, end: endSize),
+                tween: Tween(begin: 0.0, end: 1.0),
                 duration: Duration(milliseconds: 200),
-                builder: (_, num myWidth, __) {
-                  return 
-                  // NotificationListener<ChangeNotification>(
-                  //     onNotification: (notification) {
-                  //       developer.log('Got notified of change: ' +
-                  //           notification.myID.toString());
-                  //       toggleMe();
-                  //       return true;
-                  //     },
-                    //  child: 
-                      Stack(children: [
-                        Align(
+                builder: (_, num percentage, __) {
+                  return Stack(children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: endWidth * percentage,
+                        height: endHeight * percentage,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: myColor,
+                          boxShadow: [
+                            BoxShadow(
+                                color: myShadowColor,
+                                blurRadius: 5,
+                                spreadRadius: 5),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Stack(children: [
+                        Container(
                           alignment: Alignment.center,
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: myWidth,
-                            height: myWidth,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: myColor,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: myShadowColor,
-                                    blurRadius: 5,
-                                    spreadRadius: 5),
-                              ],
-                            ),
+                          width: endWidth * percentage * innerBoxWidthPercentage,
+                          height: endHeight * percentage * innerBoxHeightPercentage,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: myCenterColor,
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Stack(children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: myWidth * .75,
-                              height: myWidth * .75,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                                color: myCenterColor,
-                              ),
-                            ),
-                          ]),
-                        ),
-                        Align(
-                            alignment: Alignment.center,
-                            child: buttonChild()
-                        )
-                      ]
+                      ]),
+                    ),
+                    Align(alignment: Alignment.center, child: buttonChild())
+                  ]
                       //)
                       );
                 })));
@@ -118,32 +121,24 @@ class NavButtonState extends State<NavButton> {
   void pressDown(details) {
     // developer.log('press down');
     setState(() {
-      endSize = tileSize * .75;
+      endWidth = tileWidth * .75;
+      endHeight = tileHeight * .75;
     });
   }
 
   void pressCancel() {
     setState(() {
-      endSize = tileSize * .9;
+      endWidth = tileWidth * .9;
+      endHeight = tileHeight * .9;
     });
   }
 
   void pressUp(details) {
-   //  developer.log('press up');'
- 
-   developer.log("dispatching touch notification.");
-   // PlayNotification()..dispatch(context);
-   widget.onPressed();
-    // toggleMe();
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
-    //     .then((value) => setState(() {
-    //       // this make is so that when we swipe right to get back to this welcome
-    //       // screen, the tile will be in its original condition.
-    //           onState = false;
-    //         }));
-   //}
+    widget.onPressed();
+
     setState(() {
-      endSize = tileSize * .9;
+      endWidth = tileWidth * .9;
+      endHeight = tileHeight * .9;
     });
   }
 
@@ -161,10 +156,8 @@ class NavButtonState extends State<NavButton> {
 
   void toggleMe() {
     setState(() {
- 
       onState = !onState;
       developer.log('toggling tile');
-      }
-    );
+    });
   }
 }

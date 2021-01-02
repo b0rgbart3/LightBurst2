@@ -46,14 +46,15 @@ class GamePlay extends StatelessWidget {
                   developer.log('do something'));
             }
           },
-          child: Game(title: 'LightBurst')),
+          child: Game(title: 'LightBurst', returnToWelcome: returnToWelcome )),
     );
   }
 }
 
 class Game extends StatefulWidget {
-  Game({Key key, this.title}) : super(key: key);
+  Game({Key key, this.title, this.returnToWelcome}) : super(key: key);
   final String title;
+  final returnToWelcome;
   @override
   _GameState createState() => _GameState();
 }
@@ -69,9 +70,6 @@ class _GameState extends State<Game> {
     });
   }
 
-  void returnToWelcome() {
-      Navigator.pop(context);
-    }
 
   void _settingsEditor() {
     Navigator.push(
@@ -116,23 +114,23 @@ class _GameState extends State<Game> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         NavButton(
-                            UniqueKey(),
-                            returnToWelcome,
+                            null,
+                            widget.returnToWelcome,
                             "",
                             Icon(Icons.navigate_before,
-                                color: HexColor("#aa60c6f9"), size: 54.0)),
+                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0),
                         NavButton(
-                            UniqueKey(),
+                            null,
                             _freshGame,
                             "",
                             Icon(Icons.add,
-                                color: HexColor("#aa60c6f9"), size: 54.0)),
+                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0),
                         NavButton(
-                            UniqueKey(),
+                            null,
                             _settingsEditor,
                             "",
                             Icon(Icons.settings,
-                                color: HexColor("#aa60c6f9"), size: 44.0)),
+                                color: HexColor("#aa60c6f9"), size: 44.0), 65.0, 65.0),
                       ])
                 ],
               ),
