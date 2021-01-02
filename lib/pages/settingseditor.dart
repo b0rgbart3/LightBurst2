@@ -4,6 +4,8 @@ import '../components/interface.dart';
 import '../components/navbutton.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../components/slider.dart';
+import '../classes/notifications.dart';
+import 'dart:developer' as developer;
 
 class SettingsEditor extends StatefulWidget {
   SettingsEditor({Key key, this.title}) : super(key: key);
@@ -39,7 +41,7 @@ class SettingsEditorState extends State<SettingsEditor> {
         child:
       Container(
         child: Stack(
-            children: [Align(child: subTitleText('BOARD SIZE')), SettingsSlider(screenWidth: screenWidth, min:4, max:8)]))
+            children: [Align(child: subTitleText('BOARD SIZE')), SettingsSlider(screenWidth: screenWidth, sliderID:"boardSize", min:4, max:8)]))
       )
     );
   }
@@ -52,7 +54,7 @@ Padding(
       child: Container(
         child: Stack(children: [
       Align(child: subTitleText('SEQUENCE LENGTH')),
-      SettingsSlider(screenWidth: screenWidth, min:4, max:8)
+      SettingsSlider(screenWidth: screenWidth, sliderID:"sequenceLength", min:4, max:8)
     ]))
     )
     );
@@ -77,7 +79,15 @@ Padding(
                       child: Column(
                       children: [
                         TitleText("SETTINGS"),
-                        boardSizeSetting(),
+                        NotificationListener<DragNotification> (
+      onNotification: (notification) {
+         developer.log('Got notified: ' + notification.id.toString());
+          return true;
+      },
+      child:
+                        boardSizeSetting() ),
+
+                        
                         sequenceLengthSetting(),
                         NavButton(null,_submitSettings,"",
                             Icon(Icons.done, size: 54.0, color: HexColor("#aa60c6f9")), 65.0, 65.0),

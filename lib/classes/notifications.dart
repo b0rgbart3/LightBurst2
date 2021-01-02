@@ -8,3 +8,12 @@ class PlayNotification extends Notification {
   const PlayNotification({this.id});
 }
 
+
+class DragNotification extends Notification {
+  final Object id;
+
+  // Need to Add Settings Value to this notification object
+
+  const DragNotification({this.id});
+}
+

@@ -4,10 +4,12 @@ import 'box.dart';
 import '../sequence.dart';
 import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
+import '../classes/notifications.dart';
 
 class Ball extends StatefulWidget {
-  Ball({Key key, this.screenWidth, this.min, this.max}) : super(key: key);
+  Ball({Key key, this.screenWidth, this.sliderID, this.min, this.max}) : super(key: key);
   final double screenWidth;
+  final String sliderID;
   final int min,max;
 
   @override
@@ -32,21 +34,45 @@ void initState() {
 
 
   void pressDown(details) {
-    developer.log("pressDown:" + details.toString());
+   // developer.log("pressDown:" + details.toString());
     setState(() {
       tracking = true;
       origin = myX;
     });
   }
+
+  void longPress(details) {
+    setState(() {
+      tracking = true;
+      origin = myX;
+      
+
+       myX = origin + details.localPosition.dx;
+      if (myX > ( widget.screenWidth)) {
+        myX = widget.screenWidth;
+      }
+      if (myX < 0.0) {
+        myX = 0.0;
+      }
+
+      var diff = widget.max - widget.min;
+      myIntValue = ((( (myX + (ballWidth/2)) / (diff))/widget.max) / diff).round() + widget.min;
+      developer.log("INT: " + myIntValue.toString());
+
+
+    });
+  }
   void letUp(details) {
    // developer.log('letup:' + details.toString());
     
+    DragNotification(id:widget.sliderID)
+      ..dispatch(context);
   }
   void trackMe(details) {
   // developer.log('tracking:' + details.localOffsetFromOrigin.dx.toString());
     setState(() {
 
-      myX = origin + details.localOffsetFromOrigin.dx;
+      myX = origin + details.localPosition.dx;
       if (myX > ( widget.screenWidth)) {
         myX = widget.screenWidth;
       }
@@ -71,9 +97,9 @@ void initState() {
       child:Padding(
       padding:EdgeInsets.symmetric(vertical:32.0, horizontal: 6.0),
       child: GestureDetector(
-        onTapDown: pressDown,
-        onTapUp: letUp,
-        onLongPressMoveUpdate: trackMe,
+        onHorizontalDragStart: pressDown,
+        onHorizontalDragEnd: letUp,
+        onHorizontalDragUpdate: trackMe,
         onTapCancel: tapCancel,
         child: Container(
       height:40,
