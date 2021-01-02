@@ -22,14 +22,17 @@ class NavButton extends StatefulWidget {
 class NavButtonState extends State<NavButton> {
   double endWidth, endHeight;
   bool onState;
-  double tileWidth, tileHeight, innerBoxHeightPercentage, innerBoxWidthPercentage;
+  double tileWidth,
+      tileHeight,
+      innerBoxHeightPercentage,
+      innerBoxWidthPercentage;
 
   @override
   void initState() {
     super.initState();
     tileWidth = widget.navWidth;
     tileHeight = widget.navHeight;
-    
+
     endWidth = tileWidth * .9;
     endHeight = tileHeight * .9;
     onState = false;
@@ -37,8 +40,7 @@ class NavButtonState extends State<NavButton> {
     if (widget.textString == "") {
       innerBoxWidthPercentage = .75;
       innerBoxHeightPercentage = .75;
-    }
-    else {
+    } else {
       innerBoxWidthPercentage = .94;
       innerBoxHeightPercentage = .75;
     }
@@ -78,13 +80,13 @@ class NavButtonState extends State<NavButton> {
                 tween: Tween(begin: 0.0, end: 1.0),
                 duration: Duration(milliseconds: 200),
                 builder: (_, num percentage, __) {
-                  return Stack(children: [
+                  return Transform.scale( scale: percentage, child: Stack(children: [
                     Align(
                       alignment: Alignment.center,
                       child: Container(
                         alignment: Alignment.center,
-                        width: endWidth * percentage,
-                        height: endHeight * percentage,
+                        width: endWidth,
+                        height: endHeight,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: myColor,
@@ -102,8 +104,10 @@ class NavButtonState extends State<NavButton> {
                       child: Stack(children: [
                         Container(
                           alignment: Alignment.center,
-                          width: endWidth * percentage * innerBoxWidthPercentage,
-                          height: endHeight * percentage * innerBoxHeightPercentage,
+                          width:
+                              endWidth * percentage * innerBoxWidthPercentage,
+                          height:
+                              endHeight * percentage * innerBoxHeightPercentage,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
                             color: myCenterColor,
@@ -114,6 +118,7 @@ class NavButtonState extends State<NavButton> {
                     Align(alignment: Alignment.center, child: buttonChild())
                   ]
                       //)
+                      )
                       );
                 })));
   }

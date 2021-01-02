@@ -102,7 +102,9 @@ class _GameState extends State<Game> {
             BkgImageWidget(),
             ColorFilterWidget(),
             Center(
-              child: Column(
+              child: Padding( 
+                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                child:Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   board,
@@ -133,6 +135,7 @@ class _GameState extends State<Game> {
                                 color: HexColor("#aa60c6f9"), size: 44.0), 65.0, 65.0),
                       ])
                 ],
+              ),
               ),
             )
           ])),

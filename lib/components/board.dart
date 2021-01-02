@@ -147,7 +147,7 @@ void checkForWin() {
   }
 
   Widget buildRow(rowNum) {
-    double boardSize = MediaQuery.of(context).size.width;
+    double boardSize = MediaQuery.of(context).size.width - 20.0;
     double tileSize = boardSize / tileCount;
 
     List tiles = <Widget>[];
