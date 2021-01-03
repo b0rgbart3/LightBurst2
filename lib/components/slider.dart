@@ -8,11 +8,11 @@ import 'ball.dart';
 import '../classes/notifications.dart';
 
 class SettingsSlider extends StatefulWidget {
-  SettingsSlider({Key key, this.screenWidth, this.sliderID, this.min, this.max}) : super(key: key);
+  SettingsSlider({Key key, this.screenWidth, this.sliderID, this.min, this.max, this.current}) : super(key: key);
 
   final double screenWidth;
   final String sliderID;
-  final int min, max;
+  final int min, max, current;
 
 var myKey = UniqueKey();
   @override
@@ -53,12 +53,12 @@ void initState() {
       onNotification: (notification) {
         // We get a notification message here -- but we don't respond to it -
         // we let it bubble up to the settingsEditor... 
-        
+
         // developer.log('Got notified: ' + notification.id.toString());
        // return true;
       },
       child:
-        Ball( key: widget.myKey, screenWidth:widget.screenWidth-82.0, sliderID: widget.sliderID, min: widget.min, max: widget.max )
+        Ball( key: widget.myKey, screenWidth:widget.screenWidth-82.0, sliderID: widget.sliderID, min: widget.min, max: widget.max, current: widget.current )
         )
       ]
 

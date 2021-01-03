@@ -7,10 +7,10 @@ import '../pages/gamewon.dart';
 import '../classes/notifications.dart';
 
 class Ball extends StatefulWidget {
-  Ball({Key key, this.screenWidth, this.sliderID, this.min, this.max}) : super(key: key);
+  Ball({Key key, this.screenWidth, this.sliderID, this.min, this.max, this.current}) : super(key: key);
   final double screenWidth;
   final String sliderID;
-  final int min,max;
+  final int min,max, current;
 
   @override
   State createState() => BallState();
@@ -18,20 +18,46 @@ class Ball extends StatefulWidget {
 
 class BallState extends State<Ball> {
 
- int myIntValue = 0;
- double ballWidth = 50.0;
+  int myIntValue;
+  double ballWidth = 50.0;
+  double range;
+  bool tracking = false;
+  double myX;
+  double origin;
 
 @override
 void initState() {
   super.initState();
+  range = (widget.max - widget.min).toDouble();
+  myIntValue = widget.current;
+
+  // var myPos = range * (myX/widget.screenWidth) + widget.min;
+
+  var valueWidth = widget.screenWidth / range;
+  myX = (myIntValue - widget.min) * valueWidth;
+
+ // myX = (sliderWidth / range) * (myIntValue - widget.min) + least;
+  origin = myX;
+
+  //origin = (sliderWidth / myIntValue) - ballWidth;
+  //developer.log('range: ' + range.toString());
+  //developer.log('sliderWidth: ' + sliderWidth.toString());
+  // developer.log('least: ' + least.toString());
+  // developer.log('most: ' + most.toString());
+  developer.log('valueWidth: ' + valueWidth.toString());
+  developer.log('myIntValue: ' + myIntValue.toString());
+   developer.log('myX: ' + myX.toString());
+   developer.log("----------");
+  // developer.log("origin: " + origin.toString());
+  // developer.log("myX: " + myX.toString());
+
+ 
 }
   
-  bool tracking = false;
-  double myX = 0.0;
-  double origin = 0.0;
+
   @override
   Widget build(BuildContext context) {
-
+   // developer.log('rebuilding the ball');
 
   void pressDown(details) {
    // developer.log("pressDown:" + details.toString());
@@ -55,8 +81,7 @@ void initState() {
         myX = 0.0;
       }
 
-      var diff = widget.max - widget.min;
-      myIntValue = ((( (myX + (ballWidth/2)) / (diff))/widget.max) / diff).round() + widget.min;
+      myIntValue = (myX / range).round();
       developer.log("INT: " + myIntValue.toString());
 
 
@@ -65,7 +90,7 @@ void initState() {
   void letUp(details) {
    // developer.log('letup:' + details.toString());
     
-    DragNotification(id:widget.sliderID)
+    DragNotification(id:widget.sliderID, value: myIntValue)
       ..dispatch(context);
   }
   void trackMe(details) {
@@ -80,10 +105,15 @@ void initState() {
         myX = 0.0;
       }
 
-      var diff = widget.max - widget.min;
-      myIntValue = ((( (myX + (ballWidth/2)) / (diff))/widget.max) / diff).round() + widget.min;
-      developer.log("INT: " + myIntValue.toString());
+      var myPos = range * (myX/widget.screenWidth) + widget.min;
+      
+      
+      // developer.log("myX: " + myX.toString());
+      // developer.log("screenWidth: " + widget.screenWidth.toString());
+      // developer.log("myPos: " + myPos.toString());
+      //developer.log("INT: " + myIntValue.toString());
      
+      myIntValue = myPos.round();
     });
   }
   void tapCancel() {

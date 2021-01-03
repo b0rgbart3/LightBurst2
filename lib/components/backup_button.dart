@@ -124,7 +124,7 @@ class NavButtonState extends State<NavButton> {
   void pressUp(details) {
    //  developer.log('press up');'
  
-   developer.log("dispatching touch notification.");
+   // developer.log("dispatching touch notification.");
     PlayNotification(id: widget.id)..dispatch(context);
     // toggleMe();
     // Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
@@ -155,7 +155,7 @@ class NavButtonState extends State<NavButton> {
     setState(() {
  
       onState = !onState;
-      developer.log('toggling tile');
+      // developer.log('toggling tile');
       }
     );
   }

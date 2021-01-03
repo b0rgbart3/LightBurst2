@@ -129,7 +129,7 @@ class TileState extends State<Tile> {
   void pressUp(details) {
    //  developer.log('press up');'
    if (widget.touchable) {
-   developer.log("dispatching touch notification.");
+   // developer.log("dispatching touch notification.");
     PlayNotification(id: widget.id)..dispatch(context);
     // toggleMe();
     // Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
