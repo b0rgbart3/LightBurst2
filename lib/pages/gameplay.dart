@@ -71,14 +71,17 @@ class _GameState extends State<Game> {
   }
 
 
-  void _settingsEditor() {
-    Navigator.push(
+ _settingsEditor() async {
+    final result = await Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
         .then((value) => setState(() {
               // maybe set some state value here....
               //  developer.log("RE_SETTING STATE for BOARD");
+              developer.log("Value back: " + value.toString());
+              boardKey.currentState.setNewValues(value);
               boardKey.currentState.clearBoard();
             }));
+    developer.log("back from settingsEditor");
   }
 
   var onState = true;

@@ -21,7 +21,7 @@ class SettingsEditorState extends State<SettingsEditor> {
 
   void _submitSettings() {
     setState(() {});
-    Navigator.pop(context);
+    Navigator.pop(context, {"boardSize": boardSize});
   }
 
   Widget settingsBox(contents) {
@@ -91,7 +91,7 @@ class SettingsEditorState extends State<SettingsEditor> {
                                    boardSize = notification.value;
                                 });
                                
-                                return true;
+                               // return true;
                               },
                               child: boardSizeSetting()),
                          

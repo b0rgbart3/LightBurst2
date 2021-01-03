@@ -123,6 +123,11 @@ void checkForWin() {
   }
 }
 
+  void setNewValues(values) {
+    //tileCount = values.boardSize;
+    developer.log("values about to set to: " + values["boardSize"].toString());
+    tileCount = values["boardSize"];
+  }
   @override
   Widget build(BuildContext context) {
     developer.log("REBUILDING BOARD.");
