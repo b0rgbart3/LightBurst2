@@ -21,20 +21,21 @@ class BoardState extends State<Board> {
   List tileList = [];
   List keyList = [];
   bool tilesCreated = false;
+  Settings mySettings = Settings();
   int tileCount; 
   int sequenceLength;
   Sequence _sequence;
-  Settings mySettings = Settings();
+
   
 @override
 void initState() {
   super.initState();
   clearBoard();
   if (tileCount==null) {
-    tileCount = 5;
+    tileCount = mySettings.boardSize;
   }
   if (sequenceLength == null) {
-    sequenceLength = 4;
+    sequenceLength = mySettings.sequenceLength;
   }
 }
   
@@ -53,10 +54,10 @@ void initState() {
     keyList = [];
     tilesCreated = false;
     if (tileCount==null) {
-      tileCount = 5;
+      tileCount = mySettings.boardSize;
     }
     if (sequenceLength == null) {
-      sequenceLength = 4;
+      sequenceLength = mySettings.sequenceLength;
     }
     for (var i = 0; i < tileCount * tileCount; i++) {
       boardList.add(false);

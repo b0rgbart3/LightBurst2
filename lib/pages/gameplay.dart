@@ -10,8 +10,8 @@ import '../model/settings.dart';
 
 class GamePlay extends StatelessWidget {
   // This widget is the root of the application.
-  Settings mySettings;
-  GamePlay(this.mySettings);
+  Settings mySettings = Settings();
+  GamePlay();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class GamePlay extends StatelessWidget {
   mySettings = Settings();
 
   void returnToWelcome() {
-      Navigator.pop(context, mySettings);
+      Navigator.pop(context);
     }
 
     return MaterialApp(
@@ -77,7 +77,7 @@ class _GameState extends State<Game> {
     });
   }
 
-
+ 
  _settingsEditor() {
     Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))

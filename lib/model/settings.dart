@@ -2,8 +2,10 @@
 
 class Settings {
 
-  int _boardSize = 5;
-  int _sequenceLength = 4;
+  int _boardSize;
+  int _sequenceLength;
+  int initialBoardSize = 5;
+  int initialSequenceLength = 4;
 
   //Settings( this._boardSize, this._sequenceLength);
   
@@ -22,8 +24,22 @@ class Settings {
   // Options.withColor( this.color, this.boardSize, this.sequenceLength)
   // colorset get color => color;   This is a "getter" for the color value
 
-  int get boardSize => _boardSize;
-  int get sequenceLength => _sequenceLength;
+//  int get boardSize => _boardSize;
+
+  int get boardSize {
+    if (_boardSize == null) {
+      _boardSize = initialBoardSize;
+    }
+     return _boardSize;
+  }
+ //  int get sequenceLength => _sequenceLength;
+
+  int get sequenceLength {
+    if (_sequenceLength == null) {
+      _sequenceLength = initialSequenceLength;
+    }
+    return _sequenceLength;
+  }
 
   set boardSize (int newSize) {
     _boardSize = newSize;

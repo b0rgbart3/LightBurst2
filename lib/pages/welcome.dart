@@ -16,11 +16,12 @@ class Welcome extends StatelessWidget {
   int sequenceLength;
   Settings mySettings;
 
-void backInWelcome(value) {
+void backInWelcome() {
   
-      keys.forEach( (key) => key.currentState.turnOff );
-      developer.log("Back in Welcome: " + value.boardSize.toString());
-      mySettings = value;
+      keys.forEach( (key) => key.currentState.turnOff() );
+      developer.log("Back in Welcome: ");
+
+      // mySettings = value;
 }
   void aboutToPlay(context) async {
     keys.forEach( (key) => key.currentState.turnOn() );
@@ -41,8 +42,8 @@ void backInWelcome(value) {
 //   }
 
     //developer.log('About to play');
-    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay(mySettings)))
-    .then((value) => backInWelcome(value)
+    Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
+    .then((value) => backInWelcome()
     
 
        );
@@ -86,6 +87,8 @@ void backInWelcome(value) {
   
   @override
   Widget build(BuildContext context) {
+
+    developer.log("Building the welcome tiles");
 
     if (boardSize == null) {
       boardSize = 5;

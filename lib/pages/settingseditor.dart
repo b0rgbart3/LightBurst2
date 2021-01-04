@@ -17,9 +17,10 @@ class SettingsEditor extends StatefulWidget {
 
 class SettingsEditorState extends State<SettingsEditor> {
 
+
+  Settings mySettings = Settings();  // returns our settings singleton
   int boardSize;
   int sequenceLength;
-  Settings mySettings = Settings();  // returns our settings singleton
 
   void _submitSettings() {
     setState(() {});
@@ -75,6 +76,10 @@ class SettingsEditorState extends State<SettingsEditor> {
     // Grab the values from our settings object
     boardSize = mySettings.boardSize;
     sequenceLength = mySettings.sequenceLength;
+
+    developer.log("About to build the settings editor:");
+    developer.log("boardSize: " + boardSize.toString());
+    developer.log("sequenceLength: " + sequenceLength.toString());
 
     return Scaffold(
       body: Column(children: [

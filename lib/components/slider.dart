@@ -54,7 +54,7 @@ void initState() {
         // We get a notification message here -- but we don't respond to it -
         // we let it bubble up to the settingsEditor... 
 
-        // developer.log('Got notified: ' + notification.id.toString());
+         developer.log('Got notified: ' + notification.id.toString());
        // return true;
       },
       child:
