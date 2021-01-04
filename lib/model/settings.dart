@@ -2,8 +2,8 @@
 
 class Settings {
 
-  int _boardSize;
-  int _sequenceLength;
+  int _boardSize = 5;
+  int _sequenceLength = 4;
 
   //Settings( this._boardSize, this._sequenceLength);
   

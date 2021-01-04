@@ -6,23 +6,63 @@ import '../components/box.dart';
 import '../classes/colorset.dart';
 import '../components/tile.dart';
 import '../classes/notifications.dart';
+import '../model/settings.dart';
 
 class Welcome extends StatelessWidget {
 
   List tiles=[];
   List keys = [];
+  int boardSize;
+  int sequenceLength;
+  Settings mySettings;
 
-  void aboutToPlay(context) {
+void backInWelcome(value) {
+  
+      keys.forEach( (key) => key.currentState.turnOff );
+      developer.log("Back in Welcome: " + value.boardSize.toString());
+      mySettings = value;
+}
+  void aboutToPlay(context) async {
     keys.forEach( (key) => key.currentState.turnOn() );
 
+
+
+//  _settingsEditor() async {
+//     final result = await Navigator.push(
+//             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
+//         .then((value) => setState(() {
+//               // maybe set some state value here....
+//               //  developer.log("RE_SETTING STATE for BOARD");
+//              // developer.log("Value back: " + value.toString());
+//               boardKey.currentState.setNewValues(value);
+//               boardKey.currentState.clearBoard();
+//             }));
+//    // developer.log("back from settingsEditor");
+//   }
+
     //developer.log('About to play');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
-    .then((value) =>  keys.forEach( (key) => key.currentState.turnOff() ));
+    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay(mySettings)))
+    .then((value) => backInWelcome(value)
+    
+
+       );
+    
+
+            // .then((value) => setState(() {
+            //   // maybe set some state value here....
+            //   //  developer.log("RE_SETTING STATE for BOARD");
+            //  // developer.log("Value back: " + value.toString());
+            //   boardKey.currentState.setNewValues(value);
+            //   boardKey.currentState.clearBoard();
+            // }));
+
         // .then((value) => setState(() {
         //   // this make is so that when we swipe right to get back to this welcome
         //   // screen, the tile will be in its original condition.
         //       onState = false;
         //     }));
+
+
   }
 
   void buildTiles() {
@@ -46,6 +86,13 @@ class Welcome extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+
+    if (boardSize == null) {
+      boardSize = 5;
+    }
+    if (sequenceLength == null) {
+      sequenceLength = 4;
+    }
 
     buildTiles();
     Widget cross() {

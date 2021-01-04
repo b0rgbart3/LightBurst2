@@ -5,15 +5,22 @@ import '../components/interface.dart';
 import 'settingseditor.dart';
 import '../components/navbutton.dart';
 import 'package:hexcolor/hexcolor.dart';
+import '../model/settings.dart';
+
 
 class GamePlay extends StatelessWidget {
   // This widget is the root of the application.
+  Settings mySettings;
+  GamePlay(this.mySettings);
+
   @override
   Widget build(BuildContext context) {
     var sensitivity = 8;
 
+  mySettings = Settings();
+
   void returnToWelcome() {
-      Navigator.pop(context);
+      Navigator.pop(context, mySettings);
     }
 
     return MaterialApp(
@@ -71,17 +78,17 @@ class _GameState extends State<Game> {
   }
 
 
- _settingsEditor() async {
-    final result = await Navigator.push(
+ _settingsEditor() {
+    Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
         .then((value) => setState(() {
               // maybe set some state value here....
               //  developer.log("RE_SETTING STATE for BOARD");
-              developer.log("Value back: " + value.toString());
-              boardKey.currentState.setNewValues(value);
+             // developer.log("Value back: " + value.toString());
+              boardKey.currentState.setNewValues(); // used to include the "passed value" here
               boardKey.currentState.clearBoard();
             }));
-    developer.log("back from settingsEditor");
+   // developer.log("back from settingsEditor");
   }
 
   var onState = true;

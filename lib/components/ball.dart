@@ -44,10 +44,10 @@ void initState() {
   //developer.log('sliderWidth: ' + sliderWidth.toString());
   // developer.log('least: ' + least.toString());
   // developer.log('most: ' + most.toString());
-  developer.log('valueWidth: ' + valueWidth.toString());
-  developer.log('myIntValue: ' + myIntValue.toString());
-   developer.log('myX: ' + myX.toString());
-   developer.log("----------");
+  // developer.log('valueWidth: ' + valueWidth.toString());
+  // developer.log('myIntValue: ' + myIntValue.toString());
+  //  developer.log('myX: ' + myX.toString());
+  //  developer.log("----------");
   // developer.log("origin: " + origin.toString());
   // developer.log("myX: " + myX.toString());
 

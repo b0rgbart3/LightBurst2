@@ -6,6 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../components/slider.dart';
 import '../classes/notifications.dart';
 import 'dart:developer' as developer;
+import '../model/settings.dart';
 
 class SettingsEditor extends StatefulWidget {
   SettingsEditor({Key key, this.title}) : super(key: key);
@@ -16,12 +17,16 @@ class SettingsEditor extends StatefulWidget {
 
 class SettingsEditorState extends State<SettingsEditor> {
 
-  int boardSize = 5;
-  int sequenceLength = 4;
+  int boardSize;
+  int sequenceLength;
+  Settings mySettings = Settings();  // returns our settings singleton
 
   void _submitSettings() {
     setState(() {});
-    Navigator.pop(context, {"boardSize": boardSize});
+  //  Navigator.pop(context, {"boardSize": boardSize, "sequenceLength": sequenceLength});
+  mySettings.sequenceLength = sequenceLength;
+  mySettings.boardSize = boardSize;
+  Navigator.pop(context);
   }
 
   Widget settingsBox(contents) {
@@ -50,7 +55,7 @@ class SettingsEditorState extends State<SettingsEditor> {
   Widget sequenceLengthSetting() {
     double screenWidth = MediaQuery.of(context).size.width;
 
-    developer.log("In editor: boardSize: " + boardSize.toString());
+    //developer.log("In editor: boardSize: " + boardSize.toString());
     return settingsBox(Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Container(
@@ -66,6 +71,11 @@ class SettingsEditorState extends State<SettingsEditor> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Grab the values from our settings object
+    boardSize = mySettings.boardSize;
+    sequenceLength = mySettings.sequenceLength;
+
     return Scaffold(
       body: Column(children: [
         Stack(alignment: Alignment.center, children: [
@@ -83,32 +93,34 @@ class SettingsEditorState extends State<SettingsEditor> {
                           TitleText("SETTINGS"),
                           NotificationListener<DragNotification>(
                               onNotification: (notification) {
-                                developer.log('Got notified: ' +
-                                    notification.value.toString());
+                                //developer.log('Got notified: ' +
+                                  //  notification.value.toString());
                                 // update the boardSize value based on the notification
                                 // that is coming from the ball getting dragged by the user
                                 setState(() {
                                    boardSize = notification.value;
+                                   mySettings.boardSize = boardSize;
                                 });
                                
                                // return true;
                               },
                               child: boardSizeSetting()),
                          
-                        //  NotificationListener<DragNotification>(
-                        //    onNotification: (notification) {
-                        //         developer.log('Got notified: ' +
-                        //             notification.value.toString());
-                        //         // update the boardSize value based on the notification
-                        //         // that is coming from the ball getting dragged by the user
-                        //         setState(() {
-                        //            sequenceLength = notification.value;
-                        //         });
+                         NotificationListener<DragNotification>(
+                           onNotification: (notification) {
+                               // developer.log('Got notified: ' +
+                                  //  notification.value.toString());
+                                // update the boardSize value based on the notification
+                                // that is coming from the ball getting dragged by the user
+                                setState(() {
+                                   sequenceLength = notification.value;
+                                   mySettings.sequenceLength = sequenceLength;
+                                });
                                
-                        //         return true;
-                        //       },
-                        //    child:
-                        //   sequenceLengthSetting()),
+                                return true;
+                              },
+                           child:
+                          sequenceLengthSetting()),
                           NavButton(
                               null,
                               _submitSettings,

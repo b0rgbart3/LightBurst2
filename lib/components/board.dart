@@ -4,6 +4,7 @@ import 'box.dart';
 import '../sequence.dart';
 import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
+import '../model/settings.dart';
 
 class Board extends StatefulWidget {
   Board({Key key, this.title}) : super(key: key);
@@ -20,14 +21,21 @@ class BoardState extends State<Board> {
   List tileList = [];
   List keyList = [];
   bool tilesCreated = false;
-  int tileCount = 5;
-  int sequenceLength = 4;
+  int tileCount; 
+  int sequenceLength;
   Sequence _sequence;
+  Settings mySettings = Settings();
   
 @override
 void initState() {
   super.initState();
   clearBoard();
+  if (tileCount==null) {
+    tileCount = 5;
+  }
+  if (sequenceLength == null) {
+    sequenceLength = 4;
+  }
 }
   
   void gameWon() async {
@@ -44,13 +52,19 @@ void initState() {
     tileList = [];
     keyList = [];
     tilesCreated = false;
+    if (tileCount==null) {
+      tileCount = 5;
+    }
+    if (sequenceLength == null) {
+      sequenceLength = 4;
+    }
     for (var i = 0; i < tileCount * tileCount; i++) {
       boardList.add(false);
     }
    //  developer.log("CREATING NEW SEQUENCE.");
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
-    // developer.log('SEQUENCE: ' + _sequence.touches.toString());
+    developer.log('SEQUENCE: ' + _sequence.touches.toString());
     //developer.log(boardList.toString());
     _sequence.touches.forEach((tileID) => 
        touchTile(tileID)
@@ -123,14 +137,22 @@ void checkForWin() {
   }
 }
 
-  void setNewValues(values) {
+  void setNewValues() {
+    // Note: I used to pass the values in as an object coming from the
+    // Notifier.
+
     //tileCount = values.boardSize;
-    developer.log("values about to set to: " + values["boardSize"].toString());
-    tileCount = values["boardSize"];
+    //developer.log("values about to set to: " + values["boardSize"].toString());
+    // tileCount = values["boardSize"];
+    // sequenceLength = values["sequenceLength"];
+
+    tileCount = mySettings.boardSize;
+    sequenceLength = mySettings.sequenceLength;
   }
   @override
   Widget build(BuildContext context) {
-    developer.log("REBUILDING BOARD.");
+
+    //developer.log("REBUILDING BOARD.");
     // developer.log(boardList.toString());
     return NotificationListener<TouchNotification> (
       onNotification: (notification) {
