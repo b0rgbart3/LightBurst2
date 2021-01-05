@@ -8,59 +8,6 @@ import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
 
 
-// class GamePlay extends StatelessWidget {
-//   // This widget is the root of the application.
-//   Settings mySettings = Settings();
-//   GamePlay();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var sensitivity = 8;
-
-//   mySettings = Settings();
-
-//   Key gameKey = UniqueKey();
-//   //  GlobalKey<BoardState> boardKey = GlobalKey();
-
-//   void returnToWelcome() {
-//       Navigator.pop(context);
-//     }
-
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'LightBurst',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//         visualDensity: VisualDensity.adaptivePlatformDensity,
-//       ),
-//       home: GestureDetector(
-//           onHorizontalDragUpdate: (details) {
-//             // Note: Sensitivity is integer used when you don't want to mess up vertical drag
-//             // developer.log(details.delta.dx.toString());
-//             if (details.delta.dx > sensitivity) {
-//               // Right Swipe
-//               // developer.log("swipe right");
-//               returnToWelcome();
-//             } else if (details.delta.dx < -sensitivity) {
-//               //Left Swipe
-//               // developer.log("swipe left");
-//               Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                       builder: (context) => SettingsEditor())).then((value) =>
-         
-//                   // setState(() {
-//                   //   // this make is so that when we swipe right to get back to this welcome
-//                   //   // screen, the tile will be in its original condition.
-//                   //       onState = false;
-//                   //     })
-//                       )
-//             }
-//           },
-//           child: Game(key: gameKey, title: 'LightBurst', returnToWelcome: returnToWelcome )),
-//     );
-//   }
-// }
 
 class Game extends StatefulWidget {
   Game({Key key, this.title, this.returnToWelcome}) : super(key: key);
@@ -116,15 +63,7 @@ class _GameState extends State<Game> {
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
         .then(
           (value) => _determineChange(value)
-          // (value) => setState(() {
-          //     // If the settings have changed, then we need to 
-          //     // clear the Board and start a new one.
 
-          //     // var settingsChanged = boardKey.currentState.setNewValues(); 
-          //     // if (settingsChanged) {
-          //     //   boardKey.currentState.clearBoard();
-          //     // }
-          //   })
       );
 
   }
@@ -135,11 +74,16 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-    var board = Board(key: boardKey);
+    var board;
     var mySettings = Settings();
     var sensitivity = 8;
     var showSequence = false;
 
+    // We only need to create a board if it hasn't already been created.
+    //if (!mySettings.boardCreated) {
+      developer.log("creating a new board");
+       board = Board(key: boardKey);
+    
     if (mySettings.showSequence) {
       showSequence = true;
     }

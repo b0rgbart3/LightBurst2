@@ -17,9 +17,9 @@ class Board extends StatefulWidget {
 class BoardState extends State<Board> {
 
  // int _counter = 0;
-  List boardList = [];
-  List tileList = [];
-  List keyList = [];
+  List boardList;
+  List tileList;
+  List keyList;
   bool tilesCreated = false;
   Settings mySettings = Settings();
   int tileCount; 
@@ -29,14 +29,29 @@ class BoardState extends State<Board> {
   
 @override
 void initState() {
-  super.initState();
-  clearBoard();
-  if (tileCount==null) {
-    tileCount = mySettings.boardSize;
-  }
-  if (sequenceLength == null) {
-    sequenceLength = mySettings.sequenceLength;
-  }
+    super.initState();
+
+  // Only set these Lists to empty if they haven't
+  // already been created.
+    if (boardList == null) {
+      boardList = [];
+    }
+    if (tileList == null) {
+      tileList = [];
+    }
+    if (keyList == null) {
+      keyList = [];
+     // clearBoard();
+    }
+
+
+    
+    if (tileCount==null) {
+      tileCount = mySettings.boardSize;
+    }
+    if (sequenceLength == null) {
+      sequenceLength = mySettings.sequenceLength;
+    }
 }
   
   void gameWon() async {
@@ -53,6 +68,8 @@ void initState() {
     tileList = [];
     keyList = [];
     tilesCreated = false;
+
+
     if (tileCount==null) {
       tileCount = mySettings.boardSize;
     }
@@ -62,7 +79,7 @@ void initState() {
     for (var i = 0; i < tileCount * tileCount; i++) {
       boardList.add(false);
     }
-   //  developer.log("CREATING NEW SEQUENCE.");
+     developer.log("Clearing the board.");
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
     //developer.log('SEQUENCE: ' + _sequence.touches.toString());
@@ -72,6 +89,7 @@ void initState() {
     _sequence.touches.forEach((tileID) => 
        touchTile(tileID)
     );
+    mySettings.boardList = boardList;
   }
   void touchTile( tileID ) {
     // developer.log("In TouchTile: " + tileID.toString());
@@ -128,8 +146,9 @@ void initState() {
   }
 
   void updateBoxes() {
+
       for (var i = 0; i < tileCount*tileCount; i++) {
-        
+            developer.log("In updateBoxes, keyList["+i.toString()+"]: " + keyList[i].toString());
         // I am toggling the reveal parameter of each box
         // twice -- not because I want the parameter to
         // change, but because I want to trigger the box
@@ -177,7 +196,7 @@ void checkForWin() {
   @override
   Widget build(BuildContext context) {
 
-    //developer.log("REBUILDING BOARD.");
+    developer.log("BUILDING BOARD.");
     // developer.log(boardList.toString());
     return NotificationListener<TouchNotification> (
       onNotification: (notification) {
@@ -202,6 +221,7 @@ void checkForWin() {
     double boardSize = MediaQuery.of(context).size.width - 20.0;
     double tileSize = boardSize / tileCount;
 
+    developer.log("buildRow");
     List tiles = <Widget>[];
 
 // Dynamically build a whole row of tiles
@@ -214,6 +234,14 @@ void checkForWin() {
      }
       var key = GlobalKey();
      // developer.log('Key: ' + key.toString());
+      if (boardList == null || boardList.length < 1) {
+        developer.log("There is no board.");
+        if (mySettings.boardList.length > 0) {
+          boardList = mySettings.boardList;
+        } else {
+          clearBoard();
+        }
+      }
       var box = Box(key, tileSize, rowNum, i, boardList[rowNum * tileCount + i], revealThisBox);
       tiles.add(box);
       tileList.add(box);

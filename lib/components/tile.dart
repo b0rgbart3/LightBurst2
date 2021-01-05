@@ -153,7 +153,7 @@ class TileState extends State<Tile> {
   void turnOff() {
     setState(() {
       onState = false;
-      developer.log("turning myself off.");
+    //  developer.log("turning myself off.");
     });
   }
 

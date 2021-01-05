@@ -3,6 +3,8 @@
 class Settings {
 
   int _boardSize;
+  bool _boardCreated;
+  List _boardList;
   int _sequenceLength;
   int initialBoardSize = 5;
   int initialSequenceLength = 4;
@@ -54,6 +56,21 @@ class Settings {
     }
      return _boardSize;
   }
+
+  bool get boardCreated {
+    if (_boardCreated == null) {
+      _boardCreated = false;
+    }
+    return _boardCreated;
+  }
+
+  List get boardList {
+    if (_boardList == null) {
+      _boardList = [];
+    }
+
+    return _boardList;
+  }
  //  int get sequenceLength => _sequenceLength;
 
   int get sequenceLength {
@@ -67,6 +84,10 @@ class Settings {
     _boardSize = newSize;
   }
 
+  set boardList (List newBoardList) {
+    _boardList = newBoardList;
+  }
+  
   set sequenceLength( int newSequenceLength) {
     
     if (newSequenceLength < 10 && newSequenceLength > 3) {
@@ -80,10 +101,15 @@ class Settings {
 
   set sequence( List newSequence ) {
     _sequence = newSequence;
+    _boardCreated = true;
   }
 
   set sequenceOfIndexes( List newSequenceOfIndexes) {
     _sequenceOfIndexes = newSequenceOfIndexes;
+  }
+
+  set boardCreated( bool newBoardCreated) {
+    _boardCreated = newBoardCreated;
   }
   
   void toggleShowSequence() {
