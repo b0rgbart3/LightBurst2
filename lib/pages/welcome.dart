@@ -42,7 +42,7 @@ void backInWelcome() {
 //   }
 
     //developer.log('About to play');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Game()))
     .then((value) => backInWelcome()
     
 

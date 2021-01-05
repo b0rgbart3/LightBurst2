@@ -23,7 +23,15 @@ void generateRandomSequence(sequenceLength) {
       var _randomID = {"row": _randomRow, "col": _randomCol};
       var _associatedIndex = _randomRow*tileCount + _randomCol;
       touches.add(_randomID);
+
+      // If this index is not already in our list, then we can add it to our list
+      // This is because if the tile was touched twice that is the same
+      // as not touching it at all -- so we only want to include it in our
+      // touched list if it has been hit an "odd" number of times.
+      
+      if (sequenceOfIndexes.indexOf(_associatedIndex) == -1) {
       sequenceOfIndexes.add(_associatedIndex);
+      }
     }
     mySettings.sequence = touches;
     mySettings.sequenceOfIndexes = sequenceOfIndexes;
