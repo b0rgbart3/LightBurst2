@@ -127,6 +127,20 @@ void initState() {
    // developer.log(boardList.toString());
   }
 
+  void updateBoxes() {
+      for (var i = 0; i < tileCount*tileCount; i++) {
+        
+        // I am toggling the reveal parameter of each box
+        // twice -- not because I want the parameter to
+        // change, but because I want to trigger the box
+        // to redraw itself (to turn on the hinting).
+        // That's why I am toggling them twice
+        keyList[i].currentState.toggleReveal();
+        keyList[i].currentState.toggleReveal();
+     
+      }
+  }
+
 void checkForWin() {
   bool won = true;
   for (var i = 0; i < tileCount*tileCount; i++) {

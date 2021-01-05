@@ -13,6 +13,7 @@ class Settings {
   bool _showSequence;
   List _sequence = [];
   List _sequenceOfIndexes = [];
+  
 
   //Settings( this._boardSize, this._sequenceLength);
   

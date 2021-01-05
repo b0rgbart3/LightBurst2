@@ -16,7 +16,8 @@ class ChangeNotification extends Notification {
 }
 
 class Box extends StatefulWidget {
-  final key, tileSize, rowNum, colNum, initialState, reveal;
+  final key, tileSize, rowNum, colNum, initialState;
+  bool reveal;
 
   Box(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState, this.reveal);
 
@@ -72,7 +73,7 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
                         );
     thisList.add(outerBox);
     thisList.add(innerBox);
-    if (reveal) {
+    if (reveal && mySettings.showSequence) {
       thisList.add( boxText("this"));
     }
     return thisList;
@@ -148,6 +149,12 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
   void toggleMe() {
     setState(() {
       onState = !onState;
+    });
+  }
+
+  void toggleReveal() {
+        setState(() {
+      widget.reveal = !widget.reveal;
     });
   }
 }

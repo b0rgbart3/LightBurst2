@@ -88,6 +88,10 @@ class _GameState extends State<Game> {
 
  _showSequence() {
    mySettings.toggleShowSequence();
+   boardKey.currentState.updateBoxes();
+  //  setState(() {
+  //    // boardKey.currentState.build(context);
+  //  });
 
  }
  _settingsEditor() {
