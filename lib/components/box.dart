@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
-// import 'interface.dart';
+import '../model/settings.dart';
+import 'interface.dart';
 
 class TouchNotification extends Notification {
   final Object myID;
@@ -15,9 +16,9 @@ class ChangeNotification extends Notification {
 }
 
 class Box extends StatefulWidget {
-  final key, tileSize, rowNum, colNum, initialState;
+  final key, tileSize, rowNum, colNum, initialState, reveal;
 
-  Box(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState);
+  Box(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState, this.reveal);
 
   void toggleMyself() {}
 
@@ -28,7 +29,54 @@ class Box extends StatefulWidget {
 class BoxState extends State<Box> {
   double endSize;
   bool onState;
+  Settings mySettings = Settings();
+  
 
+List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
+    List thisList = <Widget>[];
+    Widget outerBox = Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: myWidth,
+                            height: myWidth,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: myColor,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: myShadowColor,
+                                    blurRadius: 5,
+                                    spreadRadius: 5),
+                              ],
+                            ),
+                          ),
+                        );
+    Widget innerBox = Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: myWidth * .75,
+                            height: myWidth * .75,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(7),
+                              color: myCenterColor,
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //       color: myShadowColor,
+                              //       blurRadius: 5,
+                              //       spreadRadius: 5),
+                              // ],
+                            ),
+                          ),
+                        );
+    thisList.add(outerBox);
+    thisList.add(innerBox);
+    if (reveal) {
+      thisList.add( boxText("this"));
+    }
+    return thisList;
+  }
   @override
   void initState() {
     super.initState();
@@ -73,44 +121,7 @@ class BoxState extends State<Box> {
                         toggleMe();
                         return true;
                       },
-                      child: Stack(children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: myWidth,
-                            height: myWidth,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: myColor,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: myShadowColor,
-                                    blurRadius: 5,
-                                    spreadRadius: 5),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: myWidth * .75,
-                            height: myWidth * .75,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              color: myCenterColor,
-                              // boxShadow: [
-                              //   BoxShadow(
-                              //       color: myShadowColor,
-                              //       blurRadius: 5,
-                              //       spreadRadius: 5),
-                              // ],
-                            ),
-                          ),
-                        )
-                      ]));
+                      child: Stack(children: boxChildren(myWidth, myColor, myShadowColor, myCenterColor, widget.reveal)));
                 })));
   }
 

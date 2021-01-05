@@ -68,6 +68,7 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   int _counter = 0;
+  Settings mySettings = Settings();
 
   void _freshGame() {
     setState(() {
@@ -77,7 +78,10 @@ class _GameState extends State<Game> {
     });
   }
 
- 
+ _showSequence() {
+   mySettings.toggleShowSequence();
+
+ }
  _settingsEditor() {
     Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
@@ -98,6 +102,7 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     var board = Board(key: boardKey);
+    var mySettings = Settings();
 
     return Scaffold(
       // appBar: AppBar(
@@ -118,10 +123,14 @@ class _GameState extends State<Game> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   board,
-                  Text(
-                    '$_counter',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
+                  Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:[
+                    boxText("SL: " + mySettings.sequenceLength.toString())
+                  ]),
+                  // Text(
+                  //   '$_counter',
+                  //   style: Theme.of(context).textTheme.headline4,
+                  // ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -132,6 +141,12 @@ class _GameState extends State<Game> {
                             Icon(Icons.navigate_before,
                                 color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0),
                         NavButton(
+                            null,
+                            _showSequence,
+                            "",
+                            Icon(Icons.visibility,
+                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0),
+                    NavButton(
                             null,
                             _freshGame,
                             "",

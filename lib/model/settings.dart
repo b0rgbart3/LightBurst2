@@ -6,6 +6,13 @@ class Settings {
   int _sequenceLength;
   int initialBoardSize = 5;
   int initialSequenceLength = 4;
+  int _minBoardSize = 3;
+  int _maxBoardSize = 10;
+  int _minSequenceLength = 4;
+  int _maxSequenceLength = 10;
+  bool _showSequence;
+  List _sequence = [];
+  List _sequenceOfIndexes = [];
 
   //Settings( this._boardSize, this._sequenceLength);
   
@@ -23,8 +30,22 @@ class Settings {
   // Named Constructor could look like this:
   // Options.withColor( this.color, this.boardSize, this.sequenceLength)
   // colorset get color => color;   This is a "getter" for the color value
-
 //  int get boardSize => _boardSize;
+
+  int get minBoardSize => _minBoardSize;
+ int get maxBoardSize => _maxBoardSize;
+
+   int get minSequenceLength => _minSequenceLength;
+ int get maxSequenceLength => _maxSequenceLength;
+ List get sequence => _sequence;
+ List get sequenceOfIndexes => _sequenceOfIndexes;
+
+ bool get showSequence {
+   if (_showSequence == null) {
+     _showSequence = false;
+   }
+   return _showSequence;
+ }
 
   int get boardSize {
     if (_boardSize == null) {
@@ -52,6 +73,25 @@ class Settings {
     }
   }
 
+  set showSequence( bool newShowSequence) {
+    _showSequence = newShowSequence;
+  }
+
+  set sequence( List newSequence ) {
+    _sequence = newSequence;
+  }
+
+  set sequenceOfIndexes( List newSequenceOfIndexes) {
+    _sequenceOfIndexes = newSequenceOfIndexes;
+  }
+  
+  void toggleShowSequence() {
+       if (_showSequence == null) {
+     _showSequence = false;
+   } 
+    _showSequence = !_showSequence;
+   
+  }
 // A Collection of key value pairs
 // Maps can be iterated
 // String is the key

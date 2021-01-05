@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'box.dart';
 // import 'dart:math';
-import '../sequence.dart';
+import '../model/sequence.dart';
 import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
 import '../classes/notifications.dart';

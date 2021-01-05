@@ -49,7 +49,7 @@ class SettingsEditorState extends State<SettingsEditor> {
             child: Stack(children: [
           Align(child: subTitleText('BOARD SIZE: ' + boardSize.toString())),
           SettingsSlider(
-              screenWidth: screenWidth, sliderID: "boardSize", min: 4, max: 8, current: boardSize)
+              screenWidth: screenWidth, sliderID: "boardSize", min: mySettings.minBoardSize, max: mySettings.maxBoardSize, current: boardSize)
         ]))));
   }
 
@@ -65,8 +65,8 @@ class SettingsEditorState extends State<SettingsEditor> {
           SettingsSlider(
               screenWidth: screenWidth,
               sliderID: "sequenceLength",
-              min: 4,
-              max: 8, current:sequenceLength)
+              min: mySettings.minSequenceLength,
+              max: mySettings.maxSequenceLength, current:sequenceLength)
         ]))));
   }
 

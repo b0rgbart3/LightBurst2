@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'box.dart';
 // import 'dart:math';
-import '../sequence.dart';
+import '../model/sequence.dart';
 import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
 import '../model/settings.dart';
@@ -66,6 +66,8 @@ void initState() {
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
     developer.log('SEQUENCE: ' + _sequence.touches.toString());
+    developer.log('Indexes: ' + _sequence.sequenceOfIndexes.toString());
+
     //developer.log(boardList.toString());
     _sequence.touches.forEach((tileID) => 
        touchTile(tileID)
@@ -183,9 +185,14 @@ void checkForWin() {
 // Dynamically build a whole row of tiles
     for (var i = 0; i < tileCount; i++) {
      // developer.log("building.... boardlist item = " + boardList[rowNum * tileCount + i].toString());
+     var thisIndex = rowNum*tileCount + i;
+     var revealThisBox = false;
+     if (mySettings.sequenceOfIndexes.indexOf(thisIndex) != -1) {
+       revealThisBox = true;
+     }
       var key = GlobalKey();
      // developer.log('Key: ' + key.toString());
-      var box = Box(key, tileSize, rowNum, i, boardList[rowNum * tileCount + i]);
+      var box = Box(key, tileSize, rowNum, i, boardList[rowNum * tileCount + i], revealThisBox);
       tiles.add(box);
       tileList.add(box);
       keyList.add(key);
