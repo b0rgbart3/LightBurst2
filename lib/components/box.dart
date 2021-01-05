@@ -74,7 +74,24 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
     thisList.add(outerBox);
     thisList.add(innerBox);
     if (reveal && mySettings.showSequence) {
-      thisList.add( boxText("this"));
+      thisList.add( Align( alignment: Alignment.center, 
+      child: 
+      Container(
+        width:30,
+        height:30,
+        decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.black,
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //       color: myShadowColor,
+                              //       blurRadius: 5,
+                              //       spreadRadius: 5),
+                              // ],
+                            ),
+
+      )
+       ) );
     }
     return thisList;
   }

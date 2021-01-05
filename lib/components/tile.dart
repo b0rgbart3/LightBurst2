@@ -20,6 +20,7 @@ class Tile extends StatefulWidget {
 
 class TileState extends State<Tile> {
   double endSize;
+  double endScale = .9;
   bool onState;
   double tileSize = 90.0;
 
@@ -59,9 +60,9 @@ class TileState extends State<Tile> {
             onTapUp: pressUp,
             onTapCancel: pressCancel,
             child: TweenAnimationBuilder(
-                tween: Tween(begin: 0.0, end: endSize),
-                duration: Duration(milliseconds: 200),
-                builder: (_, num myWidth, __) {
+                tween: Tween(begin: 0.0, end: endScale),
+                duration: Duration(milliseconds: 150),
+                builder: (_, num myScale, __) {
                   return 
                   // NotificationListener<ChangeNotification>(
                   //     onNotification: (notification) {
@@ -71,13 +72,17 @@ class TileState extends State<Tile> {
                   //       return true;
                   //     },
                     //  child: 
+                    Transform.scale(
+                      alignment: Alignment.center,
+                      scale: myScale,
+                      child:
                       Stack(children: [
                         Align(
                           alignment: Alignment.center,
                           child: Container(
                             alignment: Alignment.center,
-                            width: myWidth,
-                            height: myWidth,
+                            width: endSize,
+                            height: endSize,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: myColor,
@@ -95,8 +100,8 @@ class TileState extends State<Tile> {
                           child: Stack(children: [
                             Container(
                               alignment: Alignment.center,
-                              width: myWidth * .75,
-                              height: myWidth * .75,
+                              width: endSize * .75,
+                              height: endSize * .75,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7),
                                 color: myCenterColor,
@@ -109,6 +114,7 @@ class TileState extends State<Tile> {
                             child: boxText(widget.textString))
                       ]
                       //)
+                      )
                       );
                 })));
   }
@@ -116,13 +122,15 @@ class TileState extends State<Tile> {
   void pressDown(details) {
     // developer.log('press down');
     setState(() {
-      endSize = tileSize * .75;
+      // endSize = tileSize * .75;
+      endScale = .75;
     });
   }
 
   void pressCancel() {
     setState(() {
-      endSize = tileSize * .9;
+     // endSize = tileSize * .9;
+     endScale = .9;
     });
   }
 
@@ -140,7 +148,8 @@ class TileState extends State<Tile> {
     //         }));
    }
     setState(() {
-      endSize = tileSize * .9;
+     // endSize = tileSize * .9;
+     endScale = .9;
     });
   }
 

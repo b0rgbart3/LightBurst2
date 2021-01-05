@@ -22,6 +22,7 @@ class NavButton extends StatefulWidget {
 
 class NavButtonState extends State<NavButton> {
   double endWidth, endHeight;
+  double endScale = .9;
   bool onState;
   double tileWidth,
       tileHeight,
@@ -78,8 +79,8 @@ class NavButtonState extends State<NavButton> {
             onTapUp: pressUp,
             onTapCancel: pressCancel,
             child: TweenAnimationBuilder(
-                tween: Tween(begin: 0.0, end: 1.0),
-                duration: Duration(milliseconds: 200),
+                tween: Tween(begin: 0.75, end: endScale),
+                duration: Duration(milliseconds: 40),
                 builder: (_, num percentage, __) {
                   return Transform.scale( scale: percentage, child: Stack(children: [
                     Align(
@@ -106,9 +107,9 @@ class NavButtonState extends State<NavButton> {
                         Container(
                           alignment: Alignment.center,
                           width:
-                              endWidth * percentage * innerBoxWidthPercentage,
+                              endWidth * innerBoxWidthPercentage,
                           height:
-                              endHeight * percentage * innerBoxHeightPercentage,
+                              endHeight * innerBoxHeightPercentage,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
                             color: myCenterColor,
@@ -116,7 +117,7 @@ class NavButtonState extends State<NavButton> {
                         ),
                       ]),
                     ),
-                    Align(alignment: Alignment.center, child: buttonChild())
+                    Align(alignment: Alignment.center, child: buttonChild() )
                   ]
                       //)
                       )
@@ -127,15 +128,17 @@ class NavButtonState extends State<NavButton> {
   void pressDown(details) {
     // developer.log('press down');
     setState(() {
-      endWidth = tileWidth * .75;
-      endHeight = tileHeight * .75;
+      // endWidth = tileWidth * .75;
+      // endHeight = tileHeight * .75;
+      endScale = .75;
     });
   }
 
   void pressCancel() {
     setState(() {
-      endWidth = tileWidth * .9;
-      endHeight = tileHeight * .9;
+      // endWidth = tileWidth * .9;
+      // endHeight = tileHeight * .9;
+      endScale = .9;
     });
   }
 
@@ -143,8 +146,9 @@ class NavButtonState extends State<NavButton> {
     widget.onPressed();
 
     setState(() {
-      endWidth = tileWidth * .9;
-      endHeight = tileHeight * .9;
+      // endWidth = tileWidth * .9;
+      // endHeight = tileHeight * .9;
+      endScale = .9;
     });
   }
 
