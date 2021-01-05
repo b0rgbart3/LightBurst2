@@ -82,7 +82,7 @@ void initState() {
       }
 
       myIntValue = (myX / range).round();
-      developer.log("INT: " + myIntValue.toString());
+      //("INT: " + myIntValue.toString());
 
 
     });

@@ -88,7 +88,7 @@ void backInWelcome() {
   @override
   Widget build(BuildContext context) {
 
-    developer.log("Building the welcome tiles");
+    // developer.log("Building the welcome tiles");
 
     if (boardSize == null) {
       boardSize = 5;

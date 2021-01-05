@@ -65,8 +65,8 @@ void initState() {
    //  developer.log("CREATING NEW SEQUENCE.");
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
-    developer.log('SEQUENCE: ' + _sequence.touches.toString());
-    developer.log('Indexes: ' + _sequence.sequenceOfIndexes.toString());
+    //developer.log('SEQUENCE: ' + _sequence.touches.toString());
+    //developer.log('Indexes: ' + _sequence.sequenceOfIndexes.toString());
 
     //developer.log(boardList.toString());
     _sequence.touches.forEach((tileID) => 

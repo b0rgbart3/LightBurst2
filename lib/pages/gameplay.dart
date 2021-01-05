@@ -72,6 +72,7 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   int _counter = 0;
+ GlobalKey<NavButtonState> revealKey = GlobalKey();
   Settings mySettings = Settings();
 
   void _freshGame() {
@@ -89,23 +90,42 @@ class _GameState extends State<Game> {
  _showSequence() {
    mySettings.toggleShowSequence();
    boardKey.currentState.updateBoxes();
+   revealKey.currentState.toggleMe();
   //  setState(() {
   //    // boardKey.currentState.build(context);
   //  });
 
  }
+ _determineChange(changed) {
+   developer.log(changed.toString());
+   // we get a boolean back from the Settings Editor
+   // and Only if the settings have changed
+   // do we need to call set State
+
+     if (changed) {
+       setState(() {
+          var settingsChanged = boardKey.currentState.setNewValues(); 
+          if (settingsChanged) {
+            boardKey.currentState.clearBoard();
+          }
+        });
+     }
+ }
  _settingsEditor() {
     Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
-        .then((value) => setState(() {
-              // If the settings have changed, then we need to 
-              // clear the Board and start a new one.
+        .then(
+          (value) => _determineChange(value)
+          // (value) => setState(() {
+          //     // If the settings have changed, then we need to 
+          //     // clear the Board and start a new one.
 
-              var settingsChanged = boardKey.currentState.setNewValues(); 
-              if (settingsChanged) {
-                boardKey.currentState.clearBoard();
-              }
-            }));
+          //     // var settingsChanged = boardKey.currentState.setNewValues(); 
+          //     // if (settingsChanged) {
+          //     //   boardKey.currentState.clearBoard();
+          //     // }
+          //   })
+      );
 
   }
 
@@ -118,6 +138,11 @@ class _GameState extends State<Game> {
     var board = Board(key: boardKey);
     var mySettings = Settings();
     var sensitivity = 8;
+    var showSequence = false;
+
+    if (mySettings.showSequence) {
+      showSequence = true;
+    }
 
     // Not sure if we need the Scaffold here or not - since we are not
     // using the appBar.  It's likely that we don't need it
@@ -170,25 +195,25 @@ class _GameState extends State<Game> {
                             returnToWelcome,
                             "",
                             Icon(Icons.navigate_before,
-                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0),
+                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0, false),
                         NavButton(
-                            null,
+                            revealKey,
                             _showSequence,
                             "",
                             Icon(Icons.visibility,
-                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0),
+                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0, showSequence),
                     NavButton(
                             null,
                             _freshGame,
                             "",
                             Icon(Icons.add,
-                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0),
+                                color: HexColor("#aa60c6f9"), size: 54.0), 65.0, 65.0, false),
                         NavButton(
                             null,
                             _settingsEditor,
                             "",
                             Icon(Icons.settings,
-                                color: HexColor("#aa60c6f9"), size: 44.0), 65.0, 65.0),
+                                color: HexColor("#aa60c6f9"), size: 44.0), 65.0, 65.0, false),
                       ])
                 ],
               ),

@@ -24,7 +24,7 @@ class GameWon extends StatelessWidget {
           boxText("You completed the puzzle."),
           
           NavButton(
-            UniqueKey(), newGame,"PLAY AGAIN", null, 300, 60),
+            UniqueKey(), newGame,"PLAY AGAIN", null, 300, 60, false),
           // RaisedButton(
           //   onPressed: () { newGame(context); },
           //   child: const Text('PLAY AGAIN', style: TextStyle(fontSize: 20)),

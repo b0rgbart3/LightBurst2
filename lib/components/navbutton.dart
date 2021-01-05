@@ -11,9 +11,10 @@ import '../classes/notifications.dart';
 class NavButton extends StatefulWidget {
   final key, onPressed, textString, icon;
   double navWidth, navHeight;
+  bool onState;
 
   NavButton(this.key, this.onPressed, this.textString, this.icon, this.navWidth,
-      this.navHeight);
+      this.navHeight, this.onState);
 
   @override
   State createState() => NavButtonState();
@@ -35,7 +36,7 @@ class NavButtonState extends State<NavButton> {
 
     endWidth = tileWidth * .9;
     endHeight = tileHeight * .9;
-    onState = false;
+    onState = widget.onState;
 
     if (widget.textString == "") {
       innerBoxWidthPercentage = .75;

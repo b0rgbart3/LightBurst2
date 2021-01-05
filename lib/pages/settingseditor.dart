@@ -23,11 +23,23 @@ class SettingsEditorState extends State<SettingsEditor> {
   int sequenceLength;
 
   void _submitSettings() {
-    setState(() {});
-  //  Navigator.pop(context, {"boardSize": boardSize, "sequenceLength": sequenceLength});
-  mySettings.sequenceLength = sequenceLength;
-  mySettings.boardSize = boardSize;
-  Navigator.pop(context);
+      setState(() {}); // Does this do anything?
+
+      //  Navigator.pop(context, {"boardSize": boardSize, "sequenceLength": sequenceLength});
+
+      var changed = false;
+      if (mySettings.sequenceLength != sequenceLength) {
+      mySettings.sequenceLength = sequenceLength;
+      changed = true;
+      }
+
+      if (mySettings.boardSize != boardSize) {
+      mySettings.boardSize = boardSize;
+      changed = true;
+      }
+
+
+      Navigator.pop(context, changed );
   }
 
   Widget settingsBox(contents) {
@@ -77,9 +89,9 @@ class SettingsEditorState extends State<SettingsEditor> {
     boardSize = mySettings.boardSize;
     sequenceLength = mySettings.sequenceLength;
 
-    developer.log("About to build the settings editor:");
-    developer.log("boardSize: " + boardSize.toString());
-    developer.log("sequenceLength: " + sequenceLength.toString());
+    // developer.log("About to build the settings editor:");
+    // developer.log("boardSize: " + boardSize.toString());
+    // developer.log("sequenceLength: " + sequenceLength.toString());
 
     return Scaffold(
       body: Column(children: [
@@ -133,7 +145,7 @@ class SettingsEditorState extends State<SettingsEditor> {
                               Icon(Icons.done,
                                   size: 54.0, color: HexColor("#aa60c6f9")),
                               65.0,
-                              65.0),
+                              65.0, false),
                         ],
                       ))
           ))
