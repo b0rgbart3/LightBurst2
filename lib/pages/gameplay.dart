@@ -94,13 +94,15 @@ class _GameState extends State<Game> {
     Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
         .then((value) => setState(() {
-              // maybe set some state value here....
-              //  developer.log("RE_SETTING STATE for BOARD");
-             // developer.log("Value back: " + value.toString());
-              boardKey.currentState.setNewValues(); // used to include the "passed value" here
-              boardKey.currentState.clearBoard();
+              // If the settings have changed, then we need to 
+              // clear the Board and start a new one.
+
+              var settingsChanged = boardKey.currentState.setNewValues(); 
+              if (settingsChanged) {
+                boardKey.currentState.clearBoard();
+              }
             }));
-   // developer.log("back from settingsEditor");
+
   }
 
   var onState = true;
@@ -112,6 +114,9 @@ class _GameState extends State<Game> {
     var board = Board(key: boardKey);
     var mySettings = Settings();
     var sensitivity = 8;
+
+    // Not sure if we need the Scaffold here or not - since we are not
+    // using the appBar.  It's likely that we don't need it
 
     return Scaffold(
       // appBar: AppBar(
@@ -127,24 +132,10 @@ class _GameState extends State<Game> {
             // developer.log(details.delta.dx.toString());
             if (details.delta.dx > sensitivity) {
               // Right Swipe
-              // developer.log("swipe right");
               returnToWelcome();
             } else if (details.delta.dx < -sensitivity) {
               //Left Swipe
-              // developer.log("swipe left");
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SettingsEditor())).then((value) =>
-         
-                  setState(() {
-                    // this make is so that when we swipe right to get back to this welcome
-                    // screen, the tile will be in its original condition.
-                       // onState = false;
-                       developer.log('do something');
-                      }
-                      ) 
-                      );
+               _settingsEditor();
             }
           },
           child:
@@ -166,10 +157,7 @@ class _GameState extends State<Game> {
                   children:[
                     boxText("SL: " + mySettings.sequenceLength.toString())
                   ]),
-                  // Text(
-                  //   '$_counter',
-                  //   style: Theme.of(context).textTheme.headline4,
-                  // ),
+
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -204,7 +192,7 @@ class _GameState extends State<Game> {
             )
           ])),
       )
-      // This trailing comma makes auto-formatting nicer for build methods.
+      
     );
   }
 }

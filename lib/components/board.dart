@@ -140,18 +140,26 @@ void checkForWin() {
   }
 }
 
-  void setNewValues() {
+// Returns true if the values are "new".
+// If the values are the same as before, we return false
+
+  bool setNewValues() {
     // Note: I used to pass the values in as an object coming from the
     // Notifier.
+    var settingsChanged = false;
 
-    //tileCount = values.boardSize;
-    //developer.log("values about to set to: " + values["boardSize"].toString());
-    // tileCount = values["boardSize"];
-    // sequenceLength = values["sequenceLength"];
-
-    tileCount = mySettings.boardSize;
-    sequenceLength = mySettings.sequenceLength;
+    if (tileCount != mySettings.boardSize) {
+      tileCount = mySettings.boardSize;
+      settingsChanged = true;
+    }
+    if (sequenceLength != mySettings.sequenceLength) {
+      sequenceLength = mySettings.sequenceLength;
+      settingsChanged = true;
+    }
+    return settingsChanged;
   }
+
+
   @override
   Widget build(BuildContext context) {
 
