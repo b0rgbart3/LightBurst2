@@ -24,7 +24,6 @@ class BoardState extends State<Board> {
   Settings mySettings = Settings();
   int tileCount; 
   int sequenceLength;
-  Sequence _sequence;
 
   
 @override
@@ -80,16 +79,14 @@ void initState() {
       boardList.add(false);
     }
      //developer.log("Clearing the board.");
-    _sequence = new Sequence(sequenceLength, tileCount);
-    _sequence.generateRandomSequence(sequenceLength);
-    //developer.log('SEQUENCE: ' + _sequence.touches.toString());
-    //developer.log('Indexes: ' + _sequence.sequenceIndexes.toString());
+    // _sequence = new Sequence(sequenceLength, tileCount);
+    // _sequence.generateRandomSequence(sequenceLength);
 
-    //developer.log(boardList.toString());
-    _sequence.touches.forEach((tileID) => 
+      mySettings.boardList = boardList;
+      mySettings.sequence.touches.forEach((tileID) => 
        touchTile(tileID)
     );
-    mySettings.boardList = boardList;
+  
   }
   
   // This is the main method that gets invoked when a box is touched.
@@ -220,6 +217,7 @@ void checkForWin() {
 
   Widget buildRows() {
 
+developer.log("full sequence: " +  mySettings.sequence.fullSequence.toString());
     List rows = <Widget>[];
 
     for (var i = 0; i < tileCount; i++) {
@@ -240,7 +238,7 @@ void checkForWin() {
      // developer.log("building.... boardlist item = " + boardList[rowNum * tileCount + i].toString());
      var thisIndex = rowNum*tileCount + i;
      var revealThisBox = false;
-     if (mySettings.sequenceIndexes.indexOf(thisIndex) != -1) {
+     if (mySettings.sequence.fullSequenceIndexes.indexOf(thisIndex) != -1) {
        revealThisBox = true;
      }
       var key = GlobalKey();

@@ -9,8 +9,12 @@ class Sequence {
   final tileCount;
   Settings mySettings = Settings();
   
+  
   List touches = [];
   List sequenceIndexes = [];
+  List fullSequence = [];
+  List fullSequenceIndexes = [];
+  
 
 void generateRandomSequence(sequenceLength) {
 
@@ -33,8 +37,11 @@ void generateRandomSequence(sequenceLength) {
       sequenceIndexes.add(_associatedIndex);
       }
     }
-    mySettings.sequence = this;
-    mySettings.sequenceIndexes = sequenceIndexes;
+    // mySettings.sequence = this;
+    // mySettings.sequenceIndexes = sequenceIndexes;
+    fullSequence = touches;
+    fullSequenceIndexes = sequenceIndexes;
+
    // developer.log(touches.toString());
   }
 
@@ -53,10 +60,12 @@ void generateRandomSequence(sequenceLength) {
       // this is because the user is now making their life harder than it needs to be
       // by selecting a tile that is not in the sequence.
 
-      touches.add(tileID);
-      mySettings.addTosequenceIndexes(tileID);
+      fullSequence.add(tileID);
+      fullSequenceIndexes.add(tileID);
     } 
   }
+
+  
 
 
 }

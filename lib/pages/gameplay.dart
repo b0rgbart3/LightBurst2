@@ -36,8 +36,8 @@ class _GameState extends State<Game> {
 
  _showSequence() {
    mySettings.toggleShowSequence();
-   boardKey.currentState.updateBoxes();
-   revealKey.currentState.toggleMe();
+   boardKey.currentState.updateBoxes();  // trigger the board to redraw itself
+   revealKey.currentState.toggleMe();  // turn the reveal button to the highlighted state
   //  setState(() {
   //    // boardKey.currentState.build(context);
   //  });

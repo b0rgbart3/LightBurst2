@@ -16,7 +16,7 @@ class Settings {
   int _maxSequenceLength = 10;
   bool _showSequence;
   Sequence _sequence;
-  List _sequenceIndexes = [];
+  // List _sequenceIndexes = [];
   
 
   //Settings( this._boardSize, this._sequenceLength);
@@ -42,8 +42,13 @@ class Settings {
 
    int get minSequenceLength => _minSequenceLength;
  int get maxSequenceLength => _maxSequenceLength;
- Sequence get sequence => _sequence;
- List get sequenceIndexes => _sequenceIndexes;
+ Sequence get sequence {
+   if (_sequence == null) {
+     _sequence = new Sequence(_sequenceLength, _boardSize);
+   }
+   return _sequence;
+ }
+ //List get sequenceIndexes => _sequenceIndexes;
 
  bool get showSequence {
    if (_showSequence == null) {
@@ -88,6 +93,10 @@ class Settings {
 
   set boardList (List newBoardList) {
     _boardList = newBoardList;
+    _sequence = new Sequence(_sequenceLength, _boardSize);
+    _sequence.generateRandomSequence(sequenceLength);
+
+    
   }
   
   set sequenceLength( int newSequenceLength) {
@@ -106,18 +115,18 @@ class Settings {
     _boardCreated = true;
   }
 
-  set sequenceIndexes( List newsequenceIndexes) {
-    _sequenceIndexes = newsequenceIndexes;
-  }
+  // set sequenceIndexes( List newsequenceIndexes) {
+  //   _sequenceIndexes = newsequenceIndexes;
+  // }
 
   set boardCreated( bool newBoardCreated) {
     _boardCreated = newBoardCreated;
   }
 
-  void addTosequenceIndexes( tileID ) {
-    var thisIndex = tileID["row"] * _boardSize + tileID["col"];
-    _sequenceIndexes.add(thisIndex);
-  }
+  // void addTosequenceIndexes( tileID ) {
+  //   var thisIndex = tileID["row"] * _boardSize + tileID["col"];
+  //   _sequenceIndexes.add(thisIndex);
+  // }
   void toggleShowSequence() {
        if (_showSequence == null) {
      _showSequence = false;
