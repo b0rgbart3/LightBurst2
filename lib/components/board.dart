@@ -91,6 +91,13 @@ void initState() {
     );
     mySettings.boardList = boardList;
   }
+  
+  // This is the main method that gets invoked when a box is touched.
+  // So we need to toggle the tile, and it's neighbors, and update
+  // the sequence -- because if this tile is not in the sequence,
+  // then we need to add it to the sequence (the user just made it harder on 
+  // themselves )
+
   void touchTile( tileID ) {
     // developer.log("In TouchTile: " + tileID.toString());
    // var index = tileID['row'] * tileCount + tileID['col'];
@@ -131,6 +138,7 @@ void initState() {
       
       keyList[index].currentState.toggleMe();
       boardList[index] = !boardList[index];
+      mySettings.sequence.updateSequence(index);
       checkForWin();
    }
     else {

@@ -1,4 +1,6 @@
-
+import 'dart:developer' as developer;
+import 'dart:math';
+import '../model/sequence.dart';
 
 class Settings {
 
@@ -13,7 +15,7 @@ class Settings {
   int _minSequenceLength = 4;
   int _maxSequenceLength = 10;
   bool _showSequence;
-  List _sequence = [];
+  Sequence _sequence;
   List _sequenceOfIndexes = [];
   
 
@@ -40,7 +42,7 @@ class Settings {
 
    int get minSequenceLength => _minSequenceLength;
  int get maxSequenceLength => _maxSequenceLength;
- List get sequence => _sequence;
+ Sequence get sequence => _sequence;
  List get sequenceOfIndexes => _sequenceOfIndexes;
 
  bool get showSequence {
@@ -99,7 +101,7 @@ class Settings {
     _showSequence = newShowSequence;
   }
 
-  set sequence( List newSequence ) {
+  set sequence( Sequence newSequence ) {
     _sequence = newSequence;
     _boardCreated = true;
   }
@@ -111,7 +113,8 @@ class Settings {
   set boardCreated( bool newBoardCreated) {
     _boardCreated = newBoardCreated;
   }
-  
+
+
   void toggleShowSequence() {
        if (_showSequence == null) {
      _showSequence = false;

@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'settings.dart';
-// import 'dart:developer' as developer;
+import 'dart:developer' as developer;
 
 class Sequence {
 
@@ -33,10 +33,21 @@ void generateRandomSequence(sequenceLength) {
       sequenceOfIndexes.add(_associatedIndex);
       }
     }
-    mySettings.sequence = touches;
+    mySettings.sequence = this;
     mySettings.sequenceOfIndexes = sequenceOfIndexes;
    // developer.log(touches.toString());
   }
 
+  void updateSequence( index ) {
+ 
+
+    var row = (index/tileCount).round();
+    var col = index%tileCount;
+
+    developer.log("updating sequence:" + row.toString() + ", " + col.toString());
+
+    
+  }
+  
 
 }
