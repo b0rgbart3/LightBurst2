@@ -83,7 +83,7 @@ void initState() {
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
     //developer.log('SEQUENCE: ' + _sequence.touches.toString());
-    //developer.log('Indexes: ' + _sequence.sequenceOfIndexes.toString());
+    //developer.log('Indexes: ' + _sequence.sequenceIndexes.toString());
 
     //developer.log(boardList.toString());
     _sequence.touches.forEach((tileID) => 
@@ -240,7 +240,7 @@ void checkForWin() {
      // developer.log("building.... boardlist item = " + boardList[rowNum * tileCount + i].toString());
      var thisIndex = rowNum*tileCount + i;
      var revealThisBox = false;
-     if (mySettings.sequenceOfIndexes.indexOf(thisIndex) != -1) {
+     if (mySettings.sequenceIndexes.indexOf(thisIndex) != -1) {
        revealThisBox = true;
      }
       var key = GlobalKey();

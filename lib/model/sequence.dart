@@ -10,7 +10,7 @@ class Sequence {
   Settings mySettings = Settings();
   
   List touches = [];
-  List sequenceOfIndexes = [];
+  List sequenceIndexes = [];
 
 void generateRandomSequence(sequenceLength) {
 
@@ -29,12 +29,12 @@ void generateRandomSequence(sequenceLength) {
       // as not touching it at all -- so we only want to include it in our
       // touched list if it has been hit an "odd" number of times.
       
-      if (sequenceOfIndexes.indexOf(_associatedIndex) == -1) {
-      sequenceOfIndexes.add(_associatedIndex);
+      if (sequenceIndexes.indexOf(_associatedIndex) == -1) {
+      sequenceIndexes.add(_associatedIndex);
       }
     }
     mySettings.sequence = this;
-    mySettings.sequenceOfIndexes = sequenceOfIndexes;
+    mySettings.sequenceIndexes = sequenceIndexes;
    // developer.log(touches.toString());
   }
 
@@ -54,7 +54,7 @@ void generateRandomSequence(sequenceLength) {
       // by selecting a tile that is not in the sequence.
 
       touches.add(tileID);
-      mySettings.addToSequenceOfIndexes(tileID);
+      mySettings.addTosequenceIndexes(tileID);
     } 
   }
 
