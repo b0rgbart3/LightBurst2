@@ -40,11 +40,11 @@ class NavButtonState extends State<NavButton> {
     onState = widget.onState;
 
     if (widget.textString == "") {
-      innerBoxWidthPercentage = .75;
-      innerBoxHeightPercentage = .75;
+      innerBoxWidthPercentage = .95;
+      innerBoxHeightPercentage = .9;
     } else {
-      innerBoxWidthPercentage = .94;
-      innerBoxHeightPercentage = .75;
+      innerBoxWidthPercentage = .91;
+      innerBoxHeightPercentage = .88;
     }
   }
 
