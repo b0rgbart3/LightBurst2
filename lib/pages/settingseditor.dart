@@ -21,19 +21,22 @@ class SettingsEditorState extends State<SettingsEditor> {
   Settings mySettings = Settings();  // returns our settings singleton
   int boardSize;
   int sequenceLength;
+  int originalBoardSize, originalSequenceLength;
 
   void _submitSettings() {
       setState(() {}); // Does this do anything?
 
       //  Navigator.pop(context, {"boardSize": boardSize, "sequenceLength": sequenceLength});
 
+      developer.log("In _submitSettings, sequenceLength = " + sequenceLength.toString());
+      developer.log("In _submitSettings, mySettings.sequenceLength = " + mySettings.sequenceLength.toString());
       var changed = false;
-      if (mySettings.sequenceLength != sequenceLength) {
+      if (mySettings.sequenceLength != originalSequenceLength) {
       mySettings.sequenceLength = sequenceLength;
       changed = true;
       }
 
-      if (mySettings.boardSize != boardSize) {
+      if (mySettings.boardSize != originalBoardSize) {
       mySettings.boardSize = boardSize;
       changed = true;
       }
@@ -88,6 +91,13 @@ class SettingsEditorState extends State<SettingsEditor> {
     // Grab the values from our settings object
     boardSize = mySettings.boardSize;
     sequenceLength = mySettings.sequenceLength;
+    
+    if (originalBoardSize == null) {
+      originalBoardSize = boardSize;
+    }
+    if (originalSequenceLength == null) {
+      originalSequenceLength = sequenceLength;
+    }
 
     // developer.log("About to build the settings editor:");
     // developer.log("boardSize: " + boardSize.toString());

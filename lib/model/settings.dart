@@ -114,7 +114,10 @@ class Settings {
     _boardCreated = newBoardCreated;
   }
 
-
+  void addToSequenceOfIndexes( tileID ) {
+    var thisIndex = tileID["row"] * _boardSize + tileID["col"];
+    _sequenceOfIndexes.add(thisIndex);
+  }
   void toggleShowSequence() {
        if (_showSequence == null) {
      _showSequence = false;

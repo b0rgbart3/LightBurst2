@@ -38,16 +38,25 @@ void generateRandomSequence(sequenceLength) {
    // developer.log(touches.toString());
   }
 
-  void updateSequence( index ) {
+  void updateSequence( tileID ) {
  
 
-    var row = (index/tileCount).round();
-    var col = index%tileCount;
+    var row = tileID["row"];
+    var col = tileID["col"];
 
     developer.log("updating sequence:" + row.toString() + ", " + col.toString());
+    developer.log(touches.toString());
+    final found = touches.indexWhere((element) =>
+        element["row"] == row && element["col"] == col);
+    if (found == -1) {
+      // then this touch is not in our sequence, so we need to add it to the sequence
+      // this is because the user is now making their life harder than it needs to be
+      // by selecting a tile that is not in the sequence.
 
-    
+      touches.add(tileID);
+      mySettings.addToSequenceOfIndexes(tileID);
+    } 
   }
-  
+
 
 }

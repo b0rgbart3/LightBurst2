@@ -79,7 +79,7 @@ void initState() {
     for (var i = 0; i < tileCount * tileCount; i++) {
       boardList.add(false);
     }
-     developer.log("Clearing the board.");
+     //developer.log("Clearing the board.");
     _sequence = new Sequence(sequenceLength, tileCount);
     _sequence.generateRandomSequence(sequenceLength);
     //developer.log('SEQUENCE: ' + _sequence.touches.toString());
@@ -107,23 +107,26 @@ void initState() {
     //above
     var above = tileID['row'] -1;
     if (above >= 0) { 
-    //  developer.log("above tile is: " + above.toString());
+     //developer.log("above tile");
      toggleTile(  {'row': above, 'col':  tileID['col'] });
     }
      //below
     var below = tileID['row'] +1;
     if (below < tileCount) { 
+      //developer.log("below tile");
       toggleTile(  {'row': below, 'col':  tileID['col'] });
     }
 
     //left
     var left = tileID['col'] -1;
     if (left >= 0) { 
+     // developer.log("left tile");
      toggleTile(  {'row': tileID['row'], 'col':  left});
     }
      //right
     var right = tileID['col'] + 1;
     if (right < tileCount) { 
+    //  developer.log("right tile");
           toggleTile(  {'row': tileID['row'], 'col':  right});
     }
   }
@@ -138,7 +141,7 @@ void initState() {
       
       keyList[index].currentState.toggleMe();
       boardList[index] = !boardList[index];
-      mySettings.sequence.updateSequence(index);
+      mySettings.sequence.updateSequence(tileID);
       checkForWin();
    }
     else {
@@ -156,7 +159,7 @@ void initState() {
   void updateBoxes() {
 
       for (var i = 0; i < tileCount*tileCount; i++) {
-            developer.log("In updateBoxes, keyList["+i.toString()+"]: " + keyList[i].toString());
+           // developer.log("In updateBoxes, keyList["+i.toString()+"]: " + keyList[i].toString());
         // I am toggling the reveal parameter of each box
         // twice -- not because I want the parameter to
         // change, but because I want to trigger the box

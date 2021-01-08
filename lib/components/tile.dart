@@ -170,7 +170,7 @@ class TileState extends State<Tile> {
     setState(() {
       if (widget.touchable) {
       onState = !onState;
-      developer.log('toggling tile');
+    //  developer.log('toggling tile');
       }
     });
   }

@@ -44,10 +44,12 @@ class _GameState extends State<Game> {
 
  }
  _determineChange(changed) {
-   developer.log(changed.toString());
+   //developer.log(changed.toString());
    // we get a boolean back from the Settings Editor
    // and Only if the settings have changed
    // do we need to call set State
+
+  //developer.log("changed: " + changed.toString());
 
      if (changed) {
        setState(() {
@@ -81,7 +83,7 @@ class _GameState extends State<Game> {
 
     // We only need to create a board if it hasn't already been created.
     //if (!mySettings.boardCreated) {
-      developer.log("creating a new board");
+      //("creating a new board");
        board = Board(key: boardKey);
     
     if (mySettings.showSequence) {
