@@ -60,7 +60,7 @@ void generateRandomSequence(sequenceLength) {
     // developer.log(touches.toString());
     final found = fullSequenceIndexes.indexWhere((element) =>
         element == tileIndex);
-    developer.log("found: " + found.toString());
+   // developer.log("found: " + found.toString());
 
     if (found == -1) {
       // then this touch is not in our sequence, so we need to add it to the sequence
@@ -99,26 +99,62 @@ void generateRandomSequence(sequenceLength) {
 
 
 
+int findYourOwnDamnObject( needle, haystack ) {
 
-void checkForRemovals(tileID) {
+    var row = needle["row"];
+    var col = needle["col"];
 
-developer.log("In Check for Removals.");
-    //  fullSequence.forEach(( tileID ) {
-    //     developer.log("About to check: " + tileID.toString());
-    //  });
+    for (var i = 0; i < haystack.length; i++) {
+      if ((haystack[i]["row"] == row) && (haystack[i]["col"] == col)) {
+        return i;
+      }
+    }
 
-developer.log("---about to check: " + tileID.toString());
-  //  final found = touches.indexWhere((element) =>
-  //       element == tileID);
+   return -1;
+}
+bool checkForRemovals(tileID) {
+     var row = tileID["row"];
   
+    var col = tileID["col"];
 
-  // Trying to find the right index here - but not getting it....
-  var index = touches.indexOf(tileID);
-  developer.log("Index: " + index.toString());
-  developer.log("Touches: " + touches.toString());
+// developer.log("In Check for Removals.");
+// developer.log("---about to check: " + tileID.toString());
+
+  
+  // remove this tileID from the main Touches List
+
+  var index = findYourOwnDamnObject(tileID, touches);
+  // developer.log("Index: " + index.toString());
+  //  developer.log("Touches before: " + touches.toString());
+
   if (index != null && index != -1) {
-  touches.removeAt(index);}
-    developer.log("Touches: " + touches.toString());
+  touches.removeAt(index);
+  } else {
+    return false;
+  }
+    //  developer.log("Touches after: " + touches.toString());
+
+  // remove this tileID from the main SequenceIndexes List
+
+  var tileIndex = row*tileCount + col;
+  // developer.log("sequence indexes before: " + sequenceIndexes.toString());
+  // developer.log("tile index: " + tileIndex.toString());
+  sequenceIndexes.remove(tileIndex);
+// developer.log("sequence indexes after: " + sequenceIndexes.toString());
+
+  // remove this tileID from the FullSequence List
+
+  var fsIndex = findYourOwnDamnObject(tileID, fullSequence);
+  if (fsIndex != null && fsIndex != -1) {
+    fullSequence.removeAt(index);
+  }
+
+// remove this tileID from the FullSequenceIndexes List
+
+fullSequenceIndexes.remove(tileIndex);
+return true;
+ 
+
   //  var tileIndex = tileID["row"]*tileCount + tileID["col"];
   // sequenceIndexes.remove(tileIndex);
   // fullSequence.remove(tileID);

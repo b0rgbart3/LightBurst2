@@ -144,6 +144,12 @@ void initState() {
 
   }
 
+  void redrawTile( tileID) {
+    var index = tileID['row'] * tileCount + tileID['col'];
+
+    keyList[index].currentState.toggleReveal();
+
+  }
   void toggleTile( tileID ) {
      var index = tileID['row'] * tileCount + tileID['col'];
      // developer.log('toggle index: ' + index.toString());
@@ -197,6 +203,14 @@ void checkForWin() {
   }
 }
 
+bool getCurrentState( tileID ) {
+  var index = tileID['row'] * tileCount + tileID['col'];
+
+  return  boardList[index];
+  // developer.log("Board List: " + boardList.toString());
+  // developer.log("Tile List: " + tileList.toString());
+
+}
 // Returns true if the values are "new".
 // If the values are the same as before, we return false
 
@@ -226,17 +240,21 @@ void checkForWin() {
       onNotification: (notification) {
         // developer.log('Got notified: ' + notification.myID.toString());
         touchTile(notification.myID);
+        var onState = getCurrentState(notification.myID);
         // We only want to check for removal if the the user is touching
         // the tile - not the app
-        if (tilesCreated) {
-          // var tileIndex = notification.myID["row"]*tileCount + notification.myID["col"];
+        // if (tilesCreated && (onState==false)) {
+        //   var thisTile = notification.myID;
+        //    //var tileIndex = thisTile["row"]*tileCount + thisTile["col"];
 
-          developer.log("notification ID: " + notification.myID.toString());
-          mySettings.sequence.checkForRemovals( notification.myID );
-          // setState(() {
-            
-          // });
-        }
+        //    developer.log("notification ID: " + notification.myID.toString());
+        //  // developer.log("About to check: " + tileIndex.toString());
+        //   var removed = mySettings.sequence.checkForRemovals( notification.myID );
+        //   if (removed) {
+        //     redrawTile(notification.myID);
+        //   }
+          
+        // }
         return true;
       },
       child:buildRows() );
