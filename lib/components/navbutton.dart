@@ -167,7 +167,7 @@ class NavButtonState extends State<NavButton> {
   void toggleMe() {
     setState(() {
       onState = !onState;
-      developer.log('toggling tile');
+     // developer.log('toggling tile');
     });
   }
 }

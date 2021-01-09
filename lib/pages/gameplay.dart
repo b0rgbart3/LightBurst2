@@ -19,7 +19,7 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   int _counter = 0;
- GlobalKey<NavButtonState> revealKey = GlobalKey();
+  GlobalKey<NavButtonState> revealKey = GlobalKey();
   Settings mySettings = Settings();
 
   void _freshGame() {

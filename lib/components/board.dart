@@ -101,6 +101,7 @@ void initState() {
     // developer.log('Index: ' + index.toString());
     toggleTile( tileID );
 
+
     //above
     var above = tileID['row'] -1;
     if (above >= 0) { 
@@ -126,6 +127,19 @@ void initState() {
     //  developer.log("right tile");
           toggleTile(  {'row': tileID['row'], 'col':  right});
     }
+
+
+        var alreadyExists = mySettings.sequence.updateSequence(tileID);
+    if (alreadyExists == -1) {
+      // setState(() {
+      //   updateBoxes();
+      // });
+      var tileIndex = tileID["row"]*tileCount + tileID["col"];
+      keyList[tileIndex].currentState.toggleReveal();
+//      keyList[tileIndex].curentState.
+    }
+
+
   }
 
   void toggleTile( tileID ) {
@@ -138,14 +152,14 @@ void initState() {
       
       keyList[index].currentState.toggleMe();
       boardList[index] = !boardList[index];
-      mySettings.sequence.updateSequence(tileID);
+      
       checkForWin();
    }
     else {
       boardList[index] = !boardList[index];
     }
     
-
+    // mySettings.boardList = boardList;
     // if (tilesCreated) {
     //   // tileList[index].widget.toggleMe();
     // }
@@ -204,12 +218,13 @@ void checkForWin() {
   @override
   Widget build(BuildContext context) {
 
-    developer.log("BUILDING BOARD.");
+   // developer.log("BUILDING BOARD.");
     // developer.log(boardList.toString());
     return NotificationListener<TouchNotification> (
       onNotification: (notification) {
         // developer.log('Got notified: ' + notification.myID.toString());
         touchTile(notification.myID);
+        mySettings.sequence.checkForRemovals(notification.myID);
         return true;
       },
       child:buildRows() );
@@ -217,7 +232,7 @@ void checkForWin() {
 
   Widget buildRows() {
 
-developer.log("full sequence: " +  mySettings.sequence.fullSequence.toString());
+// developer.log("full sequence: " +  mySettings.sequence.fullSequence.toString());
     List rows = <Widget>[];
 
     for (var i = 0; i < tileCount; i++) {
@@ -230,7 +245,7 @@ developer.log("full sequence: " +  mySettings.sequence.fullSequence.toString());
     double boardSize = MediaQuery.of(context).size.width - 20.0;
     double tileSize = boardSize / tileCount;
 
-    developer.log("buildRow");
+   // developer.log("buildRow");
     List tiles = <Widget>[];
 
 // Dynamically build a whole row of tiles
@@ -244,7 +259,7 @@ developer.log("full sequence: " +  mySettings.sequence.fullSequence.toString());
       var key = GlobalKey();
      // developer.log('Key: ' + key.toString());
       if (boardList == null || boardList.length < 1) {
-        developer.log("There is no board.");
+       // developer.log("There is no board.");
         if (mySettings.boardList.length > 0) {
           boardList = mySettings.boardList;
         } else {
