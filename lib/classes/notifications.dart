@@ -19,3 +19,14 @@ class DragNotification extends Notification {
   DragNotification({this.id, this.value});
 }
 
+class TouchNotification extends Notification {
+  final Object myID;
+
+  const TouchNotification({this.myID});
+}
+
+class ChangeNotification extends Notification {
+  final Object myID;
+
+  const ChangeNotification({this.myID});
+}

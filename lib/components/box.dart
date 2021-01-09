@@ -2,18 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 import '../model/settings.dart';
 import 'interface.dart';
+import '../classes/notifications.dart';
 
-class TouchNotification extends Notification {
-  final Object myID;
 
-  const TouchNotification({this.myID});
-}
-
-class ChangeNotification extends Notification {
-  final Object myID;
-
-  const ChangeNotification({this.myID});
-}
 
 class Box extends StatefulWidget {
   final key, tileSize, rowNum, colNum, initialState;

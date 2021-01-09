@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'settings.dart';
 import 'dart:developer' as developer;
+// import '../classes/tileID.dart';
 
 class Sequence {
 
@@ -110,17 +111,18 @@ developer.log("---about to check: " + tileID.toString());
   //  final found = touches.indexWhere((element) =>
   //       element == tileID);
   
-  // Here I need to check to see if the tile that just got touched
-  // is in the original sequence.... but somehow I need to only
-  // do this on User touches -- not the computer generated touches
-  // that happen when building the board -- so I guess I need to
-  // check if the board is done building, and only run this
-  // method in that case.
-  touches.remove(tileID);
-   var tileIndex = tileID["row"]*tileCount + tileID["col"];
-  sequenceIndexes.remove(tileIndex);
-  fullSequence.remove(tileID);
-  fullSequenceIndexes.remove(tileIndex);
+
+  // Trying to find the right index here - but not getting it....
+  var index = touches.indexOf(tileID);
+  developer.log("Index: " + index.toString());
+  developer.log("Touches: " + touches.toString());
+  if (index != null && index != -1) {
+  touches.removeAt(index);}
+    developer.log("Touches: " + touches.toString());
+  //  var tileIndex = tileID["row"]*tileCount + tileID["col"];
+  // sequenceIndexes.remove(tileIndex);
+  // fullSequence.remove(tileID);
+  // fullSequenceIndexes.remove(tileIndex);
 
       // if (boardList[tileIndex] == false) {
       //   developer.log("checking this tile: " + tileID.toString());

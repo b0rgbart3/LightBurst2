@@ -5,6 +5,8 @@ import '../model/sequence.dart';
 import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
 import '../model/settings.dart';
+import '../classes/notifications.dart';
+import '../classes/tileID.dart';
 
 class Board extends StatefulWidget {
   Board({Key key, this.title}) : super(key: key);
@@ -224,7 +226,17 @@ void checkForWin() {
       onNotification: (notification) {
         // developer.log('Got notified: ' + notification.myID.toString());
         touchTile(notification.myID);
-        mySettings.sequence.checkForRemovals(notification.myID);
+        // We only want to check for removal if the the user is touching
+        // the tile - not the app
+        if (tilesCreated) {
+          // var tileIndex = notification.myID["row"]*tileCount + notification.myID["col"];
+
+          developer.log("notification ID: " + notification.myID.toString());
+          mySettings.sequence.checkForRemovals( notification.myID );
+          // setState(() {
+            
+          // });
+        }
         return true;
       },
       child:buildRows() );
