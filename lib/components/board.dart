@@ -19,12 +19,11 @@ class Board extends StatefulWidget {
 class BoardState extends State<Board> {
 
  // int _counter = 0;
-  List boardList;
+ // List boardList;
   List tileList;
   List keyList;
   bool tilesCreated = false;
   Settings mySettings = Settings();
-  int tileCount; 
   int sequenceLength;
 
   
@@ -34,9 +33,9 @@ void initState() {
 
   // Only set these Lists to empty if they haven't
   // already been created.
-    if (boardList == null) {
-      boardList = [];
-    }
+    // if (boardList == null) {
+    //   boardList = [];
+    // }
     if (tileList == null) {
       tileList = [];
     }
@@ -46,10 +45,7 @@ void initState() {
     }
 
 
-    
-    if (tileCount==null) {
-      tileCount = mySettings.boardSize;
-    }
+
     if (sequenceLength == null) {
       sequenceLength = mySettings.sequenceLength;
     }
@@ -65,28 +61,27 @@ void initState() {
   }
 
   void clearBoard() {
-    boardList = [];
+ //   boardList = [];
     tileList = [];
     keyList = [];
     tilesCreated = false;
 
 
-    if (tileCount==null) {
-      tileCount = mySettings.boardSize;
-    }
     if (sequenceLength == null) {
       sequenceLength = mySettings.sequenceLength;
     }
-    for (var i = 0; i < tileCount * tileCount; i++) {
-      boardList.add(false);
-    }
+    // for (var i = 0; i < tileCount * tileCount; i++) {
+    //   boardList.add(false);
+    // }
      //developer.log("Clearing the board.");
     // _sequence = new Sequence(sequenceLength, tileCount);
     // _sequence.generateRandomSequence(sequenceLength);
 
-      mySettings.boardList = boardList;
-      mySettings.sequence.touches.forEach((tileID) => 
-       touchTile(tileID)
+      mySettings.freshBoardList();
+     // developer.log("My sequence: " + mySettings.sequence.touches.toString());
+      mySettings.sequence.touches.forEach((tileID) {
+       // developer.log("Touching tile");
+       touchTile(tileID); }
     );
   
   }
@@ -112,7 +107,7 @@ void initState() {
     }
      //below
     var below = tileID['row'] +1;
-    if (below < tileCount) { 
+    if (below < mySettings.boardSize) { 
       //developer.log("below tile");
       toggleTile(  {'row': below, 'col':  tileID['col'] });
     }
@@ -125,7 +120,7 @@ void initState() {
     }
      //right
     var right = tileID['col'] + 1;
-    if (right < tileCount) { 
+    if (right < mySettings.boardSize) { 
     //  developer.log("right tile");
           toggleTile(  {'row': tileID['row'], 'col':  right});
     }
@@ -136,37 +131,39 @@ void initState() {
       // setState(() {
       //   updateBoxes();
       // });
-      var tileIndex = tileID["row"]*tileCount + tileID["col"];
+      var tileIndex = tileID["row"]*mySettings.boardSize + tileID["col"];
       keyList[tileIndex].currentState.toggleReveal();
 //      keyList[tileIndex].curentState.
     }
+    
+  //  developer.log("After touching, boardList: " + mySettings.boardList.toString());
 
 
   }
 
   void redrawTile( tileID) {
-    var index = tileID['row'] * tileCount + tileID['col'];
+    var index = tileID['row'] * mySettings.boardSize + tileID['col'];
 
     keyList[index].currentState.toggleReveal();
 
   }
   void toggleTile( tileID ) {
-     var index = tileID['row'] * tileCount + tileID['col'];
+     var index = tileID['row'] * mySettings.boardSize + tileID['col'];
      // developer.log('toggle index: ' + index.toString());
-    if (tilesCreated) {
+
+    mySettings.toggleTile(index);
+    
+        if (tilesCreated) {
      // developer.log(".....DISPATCHING CHANGE......");
       // ChangeNotification(myID: {tileID})..dispatch(context);
       // tileList[index].toggleMyself();
       
       keyList[index].currentState.toggleMe();
-      boardList[index] = !boardList[index];
+     // boardList[index] = !boardList[index];
       
+     // developer.log("About to check for win.");
       checkForWin();
    }
-    else {
-      boardList[index] = !boardList[index];
-    }
-    
     // mySettings.boardList = boardList;
     // if (tilesCreated) {
     //   // tileList[index].widget.toggleMe();
@@ -177,7 +174,7 @@ void initState() {
 
   void updateBoxes() {
 
-      for (var i = 0; i < tileCount*tileCount; i++) {
+      for (var i = 0; i < mySettings.boardSize*mySettings.boardSize; i++) {
            // developer.log("In updateBoxes, keyList["+i.toString()+"]: " + keyList[i].toString());
         // I am toggling the reveal parameter of each box
         // twice -- not because I want the parameter to
@@ -192,8 +189,8 @@ void initState() {
 
 void checkForWin() {
   bool won = true;
-  for (var i = 0; i < tileCount*tileCount; i++) {
-    if (boardList[i]) {
+  for (var i = 0; i < mySettings.boardSize*mySettings.boardSize; i++) {
+    if (mySettings.boardList[i]) {
       won = false;
       break;
     }
@@ -204,9 +201,9 @@ void checkForWin() {
 }
 
 bool getCurrentState( tileID ) {
-  var index = tileID['row'] * tileCount + tileID['col'];
+  var index = tileID['row'] * mySettings.boardSize + tileID['col'];
 
-  return  boardList[index];
+  return  mySettings.boardList[index];
   // developer.log("Board List: " + boardList.toString());
   // developer.log("Tile List: " + tileList.toString());
 
@@ -219,10 +216,7 @@ bool getCurrentState( tileID ) {
     // Notifier.
     var settingsChanged = false;
 
-    if (tileCount != mySettings.boardSize) {
-      tileCount = mySettings.boardSize;
-      settingsChanged = true;
-    }
+
     if (sequenceLength != mySettings.sequenceLength) {
       sequenceLength = mySettings.sequenceLength;
       settingsChanged = true;
@@ -265,49 +259,54 @@ bool getCurrentState( tileID ) {
 // developer.log("full sequence: " +  mySettings.sequence.fullSequence.toString());
     List rows = <Widget>[];
 
-    for (var i = 0; i < tileCount; i++) {
+    for (var i = 0; i < mySettings.boardSize; i++) {
       rows.add(buildRow(i));
     }
     return Column(children: rows);
   }
 
   Widget buildRow(rowNum) {
-    double boardSize = MediaQuery.of(context).size.width - 20.0;
-    double tileSize = boardSize / tileCount;
+    double screenSize = MediaQuery.of(context).size.width - 20.0;
+    double tileSize = screenSize / mySettings.boardSize;
 
    // developer.log("buildRow");
     List tiles = <Widget>[];
+    //developer.log("mySettings boardSize: " + mySettings.boardSize.toString());
 
+      if (mySettings.boardList.length < 1) {
+        //developer.log("There is no board.");
+        if (mySettings.boardList.length <= 0) {
+          {
+          clearBoard();
+        }
+      }
+      }
 // Dynamically build a whole row of tiles
-    for (var i = 0; i < tileCount; i++) {
-     // developer.log("building.... boardlist item = " + boardList[rowNum * tileCount + i].toString());
-     var thisIndex = rowNum*tileCount + i;
+    for (var i = 0; i < mySettings.boardSize; i++) {
+     var thisIndex = rowNum*mySettings.boardSize + i;
+    // developer.log("building.... boardlist item = " + mySettings.boardList.toString());
      var revealThisBox = false;
      if (mySettings.sequence.fullSequenceIndexes.indexOf(thisIndex) != -1) {
        revealThisBox = true;
      }
       var key = GlobalKey();
      // developer.log('Key: ' + key.toString());
-      if (boardList == null || boardList.length < 1) {
-       // developer.log("There is no board.");
-        if (mySettings.boardList.length > 0) {
-          boardList = mySettings.boardList;
-        } else {
-          clearBoard();
-        }
-      }
-      var box = Box(key, tileSize, rowNum, i, boardList[rowNum * tileCount + i], revealThisBox);
+
+      var box = Box(key, tileSize, rowNum, i, mySettings.boardList[rowNum * mySettings.boardSize + i], revealThisBox);
       tiles.add(box);
+     // developer.log("adding tile");
       tileList.add(box);
       keyList.add(key);
-    }
-    tilesCreated = true;
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: tiles);
+    
+   
   }
-
+ tilesCreated = true;
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: tiles);
   // void updateBoard(boxState, rowNum, colNum) {
   //   var index = rowNum * tileCount + colNum;
   //   boardList[index] = !boardList[index];
 
   // }
+  }
+
 }

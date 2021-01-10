@@ -50,6 +50,24 @@ class Settings {
  }
  //List get sequenceIndexes => _sequenceIndexes;
 
+void freshBoardList() {
+  _boardList = [];
+ // developer.log("Inside freshBoardList: " + _boardSize.toString());
+  for (var i = 0; i < (_boardSize *_boardSize); i++) {
+   // developer.log("_boardList: " + _boardList.toString());
+    _boardList.add(false);
+    
+  }
+  _sequence = new Sequence(_sequenceLength, _boardSize);
+  _sequence.generateRandomSequence(sequenceLength);
+  // developer.log("_boardList: " + _boardList.toString());
+}
+void toggleTile( index ) {
+  _boardList[index] = !_boardList[index];
+ // developer.log("toggleing tile.");
+  
+}
+
  bool get showSequence {
    if (_showSequence == null) {
      _showSequence = false;
@@ -91,13 +109,13 @@ class Settings {
     _boardSize = newSize;
   }
 
-  set boardList (List newBoardList) {
-    _boardList = newBoardList;
-    _sequence = new Sequence(_sequenceLength, _boardSize);
-    _sequence.generateRandomSequence(sequenceLength);
+  // set boardList (List newBoardList) {
+  //   _boardList = newBoardList;
+  //   _sequence = new Sequence(_sequenceLength, _boardSize);
+  //   _sequence.generateRandomSequence(sequenceLength);
 
     
-  }
+  // }
   
   set sequenceLength( int newSequenceLength) {
     

@@ -21,6 +21,8 @@ class _GameState extends State<Game> {
   int _counter = 0;
   GlobalKey<NavButtonState> revealKey = GlobalKey();
   Settings mySettings = Settings();
+  int oldBoardSize;
+  int oldSequenceLength;
 
   void _freshGame() {
     setState(() {
@@ -50,17 +52,23 @@ class _GameState extends State<Game> {
    // do we need to call set State
 
   //developer.log("changed: " + changed.toString());
+    // if ((mySettings.boardSize != oldBoardSize) || (mySettings.sequenceLength != oldSequenceLength)) {
+    //   changed = true;
+    // }
 
      if (changed) {
        setState(() {
-          var settingsChanged = boardKey.currentState.setNewValues(); 
-          if (settingsChanged) {
+        //  var settingsChanged = boardKey.currentState.setNewValues(); 
+          //if (settingsChanged) {
             boardKey.currentState.clearBoard();
-          }
+         // }
         });
      }
  }
  _settingsEditor() {
+   oldBoardSize = mySettings.boardSize;
+   oldSequenceLength = mySettings.sequenceLength;
+
     Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
         .then(

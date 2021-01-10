@@ -24,24 +24,27 @@ class SettingsEditorState extends State<SettingsEditor> {
   int originalBoardSize, originalSequenceLength;
 
   void _submitSettings() {
-      setState(() {}); // Does this do anything?
+      //setState(() {}); // Does this do anything?
 
       //  Navigator.pop(context, {"boardSize": boardSize, "sequenceLength": sequenceLength});
 
-      developer.log("In _submitSettings, sequenceLength = " + sequenceLength.toString());
-      developer.log("In _submitSettings, mySettings.sequenceLength = " + mySettings.sequenceLength.toString());
+     // developer.log("In _submitSettings, sequenceLength = " + sequenceLength.toString());
+     // developer.log("In _submitSettings, mySettings.sequenceLength = " + mySettings.sequenceLength.toString());
       var changed = false;
+      // developer.log("mysettings sequence: " + mySettings.sequenceLength.toString());
+      // developer.log("original sequence length: " + originalSequenceLength.toString());
       if (mySettings.sequenceLength != originalSequenceLength) {
       mySettings.sequenceLength = sequenceLength;
       changed = true;
       }
-
+      developer.log("mysettings boardSize: " + mySettings.boardSize.toString());
+      developer.log("original board size: " + originalBoardSize.toString());
       if (mySettings.boardSize != originalBoardSize) {
       mySettings.boardSize = boardSize;
       changed = true;
       }
 
-
+      developer.log("Leaving settings editor: changed=" + changed.toString());
       Navigator.pop(context, changed );
   }
 
@@ -92,6 +95,9 @@ class SettingsEditorState extends State<SettingsEditor> {
     boardSize = mySettings.boardSize;
     sequenceLength = mySettings.sequenceLength;
     
+    developer.log("building settings editor");
+    // originalBoardSize = boardSize;
+    // originalSequenceLength = sequenceLength;
     if (originalBoardSize == null) {
       originalBoardSize = boardSize;
     }
