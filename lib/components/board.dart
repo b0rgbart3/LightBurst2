@@ -98,6 +98,9 @@ void initState() {
     // developer.log('Index: ' + index.toString());
     toggleTile( tileID );
 
+   if (tilesCreated) {
+     mySettings.sequence.checkForRemovals(tileID);
+   }
 
     //above
     var above = tileID['row'] -1;
@@ -154,6 +157,7 @@ void initState() {
     mySettings.toggleTile(index);
     
         if (tilesCreated) {
+         // mySettings.checkForRemoval(tileID);
      // developer.log(".....DISPATCHING CHANGE......");
       // ChangeNotification(myID: {tileID})..dispatch(context);
       // tileList[index].toggleMyself();
@@ -234,7 +238,7 @@ bool getCurrentState( tileID ) {
       onNotification: (notification) {
         // developer.log('Got notified: ' + notification.myID.toString());
         touchTile(notification.myID);
-        var onState = getCurrentState(notification.myID);
+        //var onState = getCurrentState(notification.myID);
         // We only want to check for removal if the the user is touching
         // the tile - not the app
         // if (tilesCreated && (onState==false)) {

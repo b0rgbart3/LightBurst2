@@ -68,6 +68,8 @@ void toggleTile( index ) {
   
 }
 
+
+
  bool get showSequence {
    if (_showSequence == null) {
      _showSequence = false;

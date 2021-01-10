@@ -37,14 +37,14 @@ class SettingsEditorState extends State<SettingsEditor> {
       mySettings.sequenceLength = sequenceLength;
       changed = true;
       }
-      developer.log("mysettings boardSize: " + mySettings.boardSize.toString());
-      developer.log("original board size: " + originalBoardSize.toString());
+      // developer.log("mysettings boardSize: " + mySettings.boardSize.toString());
+      // developer.log("original board size: " + originalBoardSize.toString());
       if (mySettings.boardSize != originalBoardSize) {
       mySettings.boardSize = boardSize;
       changed = true;
       }
 
-      developer.log("Leaving settings editor: changed=" + changed.toString());
+      // developer.log("Leaving settings editor: changed=" + changed.toString());
       Navigator.pop(context, changed );
   }
 
@@ -95,7 +95,7 @@ class SettingsEditorState extends State<SettingsEditor> {
     boardSize = mySettings.boardSize;
     sequenceLength = mySettings.sequenceLength;
     
-    developer.log("building settings editor");
+    // developer.log("building settings editor");
     // originalBoardSize = boardSize;
     // originalSequenceLength = sequenceLength;
     if (originalBoardSize == null) {
