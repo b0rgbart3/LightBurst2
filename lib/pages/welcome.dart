@@ -67,8 +67,7 @@ void backInWelcome() {
     buildTiles();
     Widget cross() {
 
-      Colorset introColorSet = Colorset(Colorset.colorssets['blue']);
-
+      
       return NotificationListener<PlayNotification> (
       onNotification: (notification) {
        //  developer.log('Got notified: ' + notification.id.toString());
