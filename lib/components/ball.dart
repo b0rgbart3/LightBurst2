@@ -90,7 +90,7 @@ void initState() {
   void letUp(details) {
    // developer.log('letup:' + details.toString());
     
-    DragNotification(id:widget.sliderID, value: myIntValue)
+    DragNotification(id:widget.sliderID, value: myIntValue, drop: true)
       ..dispatch(context);
   }
   void trackMe(details) {
@@ -115,6 +115,8 @@ void initState() {
      
       myIntValue = myPos.round();
     });
+        DragNotification(id:widget.sliderID, value: myIntValue, drop:false)
+      ..dispatch(context);
   }
   void tapCancel() {
    // developer.log('tapCancel:');

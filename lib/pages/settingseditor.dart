@@ -57,8 +57,8 @@ class SettingsEditorState extends State<SettingsEditor> {
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Container(
             child: Stack(children: [
-          Align(child: subTitleText('BOARD SIZE: ' + boardSize.toString())),
-          SettingsSlider(
+          
+          SettingsSlider(title:"BOARD SIZE",
               screenWidth: screenWidth, sliderID: "boardSize", min: mySettings.minBoardSize, max: mySettings.maxBoardSize, current: boardSize)
         ]))));
   }
@@ -70,8 +70,8 @@ class SettingsEditorState extends State<SettingsEditor> {
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Container(
             child: Stack(children: [
-          Align(child: subTitleText('SEQUENCE LENGTH: ' + sequenceLength.toString())),
-          SettingsSlider(
+  
+          SettingsSlider(title: "SEQUENCE LENGTH",
               screenWidth: screenWidth,
               sliderID: "sequenceLength",
               min: mySettings.minSequenceLength,
@@ -125,16 +125,15 @@ class SettingsEditorState extends State<SettingsEditor> {
                          
                          NotificationListener<DragNotification>(
                            onNotification: (notification) {
-                               // developer.log('Got notified: ' +
-                                  //  notification.value.toString());
-                                // update the boardSize value based on the notification
+                                // update the sequenceLength value based on the notification
                                 // that is coming from the ball getting dragged by the user
                                 setState(() {
                                    sequenceLength = notification.value;
+                                   developer.log("seq len: " + notification.value.toString());
                                    mySettings.sequenceLength = sequenceLength;
                                 });
                                
-                                return true;
+                                // return true;
                               },
                            child:
                           sequenceLengthSetting()),

@@ -26,7 +26,7 @@ class _GameState extends State<Game> {
     setState(() {
       _counter++;
       boardKey.currentState.clearBoard();
-      //board.currentState.clearBoard();
+  
     });
   }
 

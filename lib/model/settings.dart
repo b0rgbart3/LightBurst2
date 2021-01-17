@@ -14,7 +14,7 @@ class Settings {
   int initialSequenceLength = 4;
   int _minBoardSize = 3;
   int _maxBoardSize = 10;
-  int _minSequenceLength = 4;
+  int _minSequenceLength = 3;
   int _maxSequenceLength = 10;
   bool _showSequence;
   Sequence _sequence;
@@ -109,15 +109,9 @@ class Settings {
     _boardSize = newSize;
   }
 
-  // set boardList (List newBoardList) {
-  //   _boardList = newBoardList;
-  //   _sequence = new Sequence(_sequenceLength, _boardSize);
-  //   _sequence.generateRandomSequence(sequenceLength);
-
-  // }
 
   set sequenceLength(int newSequenceLength) {
-    if (newSequenceLength < 10 && newSequenceLength > 3) {
+    if (newSequenceLength <=maxSequenceLength && newSequenceLength >= minSequenceLength) {
       _sequenceLength = newSequenceLength;
     }
   }
@@ -131,18 +125,12 @@ class Settings {
     _boardCreated = true;
   }
 
-  // set sequenceIndexes( List newsequenceIndexes) {
-  //   _sequenceIndexes = newsequenceIndexes;
-  // }
 
   set boardCreated(bool newBoardCreated) {
     _boardCreated = newBoardCreated;
   }
 
-  // void addTosequenceIndexes( tileID ) {
-  //   var thisIndex = tileID["row"] * _boardSize + tileID["col"];
-  //   _sequenceIndexes.add(thisIndex);
-  // }
+
   void toggleShowSequence() {
     if (_showSequence == null) {
       _showSequence = false;

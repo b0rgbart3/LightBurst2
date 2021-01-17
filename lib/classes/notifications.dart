@@ -13,11 +13,13 @@ class PlayNotification extends Notification {
 class DragNotification extends Notification {
   final Object id;
   int value;
+  bool drop;
 
   // Need to Add Settings Value to this notification object
 
-  DragNotification({this.id, this.value});
+  DragNotification({this.id, this.value, this.drop});
 }
+
 
 class TouchNotification extends Notification {
   final Object myID;
