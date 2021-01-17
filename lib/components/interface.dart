@@ -67,18 +67,18 @@ class TitleText extends StatelessWidget {
 }
 
 
-Widget boxText(myString) {
+Widget boxText(myString, textColor, textShadowColor) {
     return Text(myString,
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Colors.white,
+          color: textColor,
           decoration: TextDecoration.none,
           fontFamily: 'Heebo',
           fontSize: 30,
           fontWeight: FontWeight.w600,
           shadows: [
             Shadow(
-              color: Colors.black,
+              color: textShadowColor,
               offset: Offset(0, 0),
               blurRadius: 30,
             ),

@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 // import 'pages/gameplay.dart';
 import 'pages/welcome.dart';
 
+// Kick off the application
 void main() {
   runApp(LightBurst());
 }
 
+// We start with a stateless widget - that
+// launches a "Material App" -- and displays
+// Welcome as our "homepage".
 
 class LightBurst extends StatelessWidget {
   // This widget is the root of the application.

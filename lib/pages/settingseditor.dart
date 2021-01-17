@@ -17,34 +17,26 @@ class SettingsEditor extends StatefulWidget {
 
 class SettingsEditorState extends State<SettingsEditor> {
 
-
-  Settings mySettings = Settings();  // returns our settings singleton
+// returns our settings singleton
+  Settings mySettings = Settings();  
   int boardSize;
   int sequenceLength;
   int originalBoardSize, originalSequenceLength;
 
   void _submitSettings() {
-      //setState(() {}); // Does this do anything?
 
-      //  Navigator.pop(context, {"boardSize": boardSize, "sequenceLength": sequenceLength});
-
-     // developer.log("In _submitSettings, sequenceLength = " + sequenceLength.toString());
-     // developer.log("In _submitSettings, mySettings.sequenceLength = " + mySettings.sequenceLength.toString());
       var changed = false;
-      // developer.log("mysettings sequence: " + mySettings.sequenceLength.toString());
-      // developer.log("original sequence length: " + originalSequenceLength.toString());
+
       if (mySettings.sequenceLength != originalSequenceLength) {
       mySettings.sequenceLength = sequenceLength;
       changed = true;
       }
-      // developer.log("mysettings boardSize: " + mySettings.boardSize.toString());
-      // developer.log("original board size: " + originalBoardSize.toString());
+
       if (mySettings.boardSize != originalBoardSize) {
       mySettings.boardSize = boardSize;
       changed = true;
       }
 
-      // developer.log("Leaving settings editor: changed=" + changed.toString());
       Navigator.pop(context, changed );
   }
 
@@ -74,8 +66,7 @@ class SettingsEditorState extends State<SettingsEditor> {
   Widget sequenceLengthSetting() {
     double screenWidth = MediaQuery.of(context).size.width;
 
-    //developer.log("In editor: boardSize: " + boardSize.toString());
-    return settingsBox(Padding(
+     return settingsBox(Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Container(
             child: Stack(children: [
@@ -94,20 +85,13 @@ class SettingsEditorState extends State<SettingsEditor> {
     // Grab the values from our settings object
     boardSize = mySettings.boardSize;
     sequenceLength = mySettings.sequenceLength;
-    
-    // developer.log("building settings editor");
-    // originalBoardSize = boardSize;
-    // originalSequenceLength = sequenceLength;
+
     if (originalBoardSize == null) {
       originalBoardSize = boardSize;
     }
     if (originalSequenceLength == null) {
       originalSequenceLength = sequenceLength;
     }
-
-    // developer.log("About to build the settings editor:");
-    // developer.log("boardSize: " + boardSize.toString());
-    // developer.log("sequenceLength: " + sequenceLength.toString());
 
     return Scaffold(
       body: Column(children: [

@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'interface.dart';
 import '../pages/gameplay.dart';
 import '../classes/notifications.dart';
+import '../classes/colorset.dart';
 
 // This widget is my custom navigation button widget
 // It produces a square button for icon navigation
@@ -50,21 +51,35 @@ class NavButtonState extends State<NavButton> {
 
   @override
   Widget build(BuildContext context) {
-    var myColor, myShadowColor, myCenterColor;
+    Colorset introColorSet = new Colorset(0);
+
+    var insideColor, outsideColor, shadowColor, textColor, textShadowColor;
+
+   // var myColor, myShadowColor, myCenterColor;
 
     if (onState) {
-      myColor = Color(0xff00aaff);
-      myShadowColor = Color(0x8800ccff);
-      myCenterColor = Color(0x44ffffff);
+      // myColor = Color(0xff00aaff);
+      // myShadowColor = Color(0x8800ccff);
+      // myCenterColor = Color(0x44ffffff);
+            insideColor = Color(introColorSet.insideHi);
+      outsideColor = Color(introColorSet.outsideHi);
+      shadowColor = Color(introColorSet.shadowHi);
+      textColor = Color(introColorSet.textHi);
+      textShadowColor = Color(introColorSet.textShadowHi);
     } else {
-      myColor = Color(0xff004488);
-      myShadowColor = Color(0x44001122);
-      myCenterColor = Color(0x33001122);
+      // myColor = Color(0xff004488);
+      // myShadowColor = Color(0x44001122);
+      // myCenterColor = Color(0x33001122);
+           insideColor = Color(introColorSet.inside);
+       outsideColor = Color(introColorSet.outside);
+       shadowColor = Color(introColorSet.shadow);
+       textColor = Color(introColorSet.text);
+       textShadowColor = Color(introColorSet.textShadow);
     }
 
     Widget buttonChild() {
       if (widget.textString != "") {
-        return boxText(widget.textString);
+        return boxText(widget.textString, textColor, textShadowColor);
       } else {
         return widget.icon;
       }
@@ -91,10 +106,10 @@ class NavButtonState extends State<NavButton> {
                         height: endHeight,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: myColor,
+                          color: outsideColor,
                           boxShadow: [
                             BoxShadow(
-                                color: myShadowColor,
+                                color: shadowColor,
                                 blurRadius: 5,
                                 spreadRadius: 5),
                           ],
@@ -112,7 +127,7 @@ class NavButtonState extends State<NavButton> {
                               endHeight * innerBoxHeightPercentage,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
-                            color: myCenterColor,
+                            color: insideColor,
                           ),
                         ),
                       ]),

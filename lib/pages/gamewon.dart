@@ -20,8 +20,8 @@ class GameWon extends StatelessWidget {
           height:200,
           alignment: Alignment.center,
           child:
-          Column( children: [boxText("NICE JOB!"),
-          boxText("You completed the puzzle."),
+          Column( children: [boxText("NICE JOB!", Colors.white, Colors.black),
+          boxText("You completed the puzzle.", Colors.white, Colors.black),
           
           NavButton(
             UniqueKey(), newGame,"PLAY AGAIN", null, 300, 60, false),

@@ -7,8 +7,6 @@ import '../components/navbutton.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
 
-
-
 class Game extends StatefulWidget {
   Game({Key key, this.title, this.returnToWelcome}) : super(key: key);
   final String title;
@@ -124,7 +122,7 @@ class _GameState extends State<Game> {
           child:
       
       Container(
-          color: Colors.blue[900],
+         // color: Colors.blue[900],
           child: Stack(children: [
             // Image.asset('images/bkg1.jpg'),
             BkgImageWidget(),
@@ -138,7 +136,7 @@ class _GameState extends State<Game> {
                   board,
                   Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:[
-                    boxText("SL: " + mySettings.sequenceLength.toString())
+                    boxText("SL: " + mySettings.sequenceLength.toString(), Colors.white, Colors.black)
                   ]),
 
                   Row(

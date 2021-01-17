@@ -8,6 +8,25 @@ import '../components/tile.dart';
 import '../classes/notifications.dart';
 import '../model/settings.dart';
 
+// This is our welcome / home page
+// it displays the cross hairs of tiles with the play
+// button in the middle.  This acts sort of like a splash
+// logo intro screen.  Note: the game doesn't start until
+// the user clicks "play" -- this is a psychological device
+// to put the user in the mindset to enjoy the game.
+
+// Note: this welcome screen uses "tiles" instead of boxes
+// which means there is some duplication between the Box
+// component and the 'tile' component -- but for now I still
+// have both because I wanted to display the word "play" in
+// the middle of the middle tile and have it scale appropriately
+// but for most of the rest of the game there is no text
+// so the rest of the game uses the 'box' component.  
+
+// I would like to refactor this welcome screen to also use
+// the box component instead of the tile component, but for
+// now this is the way it is coded.
+
 class Welcome extends StatelessWidget {
 
   List tiles=[];
@@ -17,16 +36,11 @@ class Welcome extends StatelessWidget {
   Settings mySettings;
 
 void backInWelcome() {
-  
       keys.forEach( (key) => key.currentState.turnOff() );
-     // developer.log("Back in Welcome: ");
-
 }
   void aboutToPlay(context) async {
     keys.forEach( (key) => key.currentState.turnOn() );
 
-
-    //developer.log('About to play');
     Navigator.push(context, MaterialPageRoute(builder: (context) => Game()))
     .then((value) => backInWelcome()
        );
@@ -55,8 +69,6 @@ void backInWelcome() {
   @override
   Widget build(BuildContext context) {
 
-    // developer.log("Building the welcome tiles");
-
     if (boardSize == null) {
       boardSize = 5;
     }
@@ -70,8 +82,6 @@ void backInWelcome() {
       
       return NotificationListener<PlayNotification> (
       onNotification: (notification) {
-       //  developer.log('Got notified: ' + notification.id.toString());
-       // touchTile(notification.myID);
          aboutToPlay(context);
         return true;
       },

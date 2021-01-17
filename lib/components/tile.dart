@@ -38,7 +38,7 @@ class TileState extends State<Tile> {
   Widget build(BuildContext context) {
     Colorset introColorSet = new Colorset(0);
 
-    var myColor, myShadowColor, myCenterColor;
+    var insideColor, outsideColor, shadowColor, textColor, textShadowColor;
 
     if (widget.touchable) {
       onState= true;
@@ -47,17 +47,21 @@ class TileState extends State<Tile> {
       // myColor = Color(0xff00aaff);
       // myShadowColor = Color(0x8800ccff);
       // myCenterColor = Color(0x44ffffff);
-      myColor = Color(introColorSet.insideHi);
-      myCenterColor = Color(introColorSet.outsideHi);
-      myShadowColor = Color(introColorSet.shadowHi);
+      insideColor = Color(introColorSet.insideHi);
+      outsideColor = Color(introColorSet.outsideHi);
+      shadowColor = Color(introColorSet.shadowHi);
+      textColor = Color(introColorSet.textHi);
+      textShadowColor = Color(introColorSet.textShadowHi);
 
     } else {
       // myColor = Color(0xff004488);
       // myShadowColor = Color(0x44001122);
       // myCenterColor = Color(0x33001122);
-       myColor = Color(introColorSet.inside);
-      myCenterColor = Color(introColorSet.outside);
-      myShadowColor = Color(introColorSet.shadow);
+       insideColor = Color(introColorSet.inside);
+       outsideColor = Color(introColorSet.outside);
+       shadowColor = Color(introColorSet.shadow);
+       textColor = Color(introColorSet.text);
+       textShadowColor = Color(introColorSet.textShadow);
       
     }
 
@@ -95,10 +99,10 @@ class TileState extends State<Tile> {
                             height: endSize,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: myColor,
+                              color: outsideColor,
                               boxShadow: [
                                 BoxShadow(
-                                    color: myShadowColor,
+                                    color: shadowColor,
                                     blurRadius: 5,
                                     spreadRadius: 5),
                               ],
@@ -114,14 +118,14 @@ class TileState extends State<Tile> {
                               height: endSize * .75,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7),
-                                color: myCenterColor,
+                                color: insideColor,
                               ),
                             ),
                           ]),
                         ),
                         Align(
                             alignment: Alignment.center,
-                            child: boxText(widget.textString))
+                            child: boxText(widget.textString, textColor, textShadowColor))
                       ]
                       //)
                       )

@@ -5,13 +5,14 @@
 
 class Colorset {
 
-  num inside,outside,shadow,text,insideHi,outsideHi, shadowHi, textHi;
+  num inside,outside,shadow,text,textShadow, insideHi,outsideHi, shadowHi, textHi, textShadowHi;
 
   static const colorsets = [
-    [0xff004488,0x44001122,0x33001122,0xffffffff,
-     0xff00aaff,0x8800ccff,0xff33ccff,0xff004488],
-    [0xffff1d58,0xffd01f25,0x66d01f25,0xffffffff,
-     0xffff8888,0xffff1d48,0x55ff1d48,0xffd01f25]
+    // inside      //outside    //shadow     //text        //textShadow
+    [0xFF084F96,0xFF0E3F70,0xE0061F39,0xff33ccff, 0xff000000,
+     0xAF5DC9FF,0xFF26A5DB,0xff33ccff,0xffffffff, 0xFF071625],
+    [0xffff1d58,0xffd01f25,0x66d01f25,0xffffffff, 0xff000000,
+     0xffff8888,0xffff1d48,0x55ff1d48,0xffd01f25, 0xff000000]
   ];
 
   Colorset( colorID ) {
@@ -20,10 +21,12 @@ class Colorset {
     outside = colors[1];
     shadow = colors[2];
     text = colors[3];
-    insideHi = colors[4];
-    outsideHi = colors[5];
-    shadowHi = colors[6];
-    textHi = colors[7];
+    textShadow = colors[4];
+    insideHi = colors[5];
+    outsideHi = colors[6];
+    shadowHi = colors[7];
+    textHi = colors[8];
+    textShadowHi = colors[9];
 
   }
 //   String outside,inside,outsideHi,insideHi, outsideOff, insideOff;
