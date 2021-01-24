@@ -5,6 +5,7 @@ import '../model/sequence.dart';
 import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
 import '../classes/notifications.dart';
+import '../model/settings.dart';
 
 class Ball extends StatefulWidget {
   Ball({Key key, this.screenWidth, this.sliderID, this.min, this.max, this.current}) : super(key: key);
@@ -57,6 +58,7 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
+      Settings mySettings = Settings();
    // developer.log('rebuilding the ball');
 
   void pressDown(details) {
@@ -127,20 +129,34 @@ void initState() {
     return Transform.translate(
       offset: Offset(myX,10.0),
       child:Padding(
-      padding:EdgeInsets.symmetric(vertical:32.0, horizontal: 6.0),
+      padding:EdgeInsets.symmetric(vertical:28.0, horizontal: 6.0),
       child: GestureDetector(
         onHorizontalDragStart: pressDown,
         onHorizontalDragEnd: letUp,
         onHorizontalDragUpdate: trackMe,
         onTapCancel: tapCancel,
-        child: Container(
-      height:40,
+        child: Stack(
+          alignment: Alignment.center,
+          children:[Container(
+      height:49,
+      width:ballWidth*1.1,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color:mySettings.myColorSet.shadow 
+      )
+    ),
+    Container(
+      height:38,
       width:ballWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color:Colors.blue[100]  
+        color:mySettings.myColorSet.insideHi 
       )
-    ))));
+    )]
+    )
+    )
+    )
+    );
   }
 
 }

@@ -7,6 +7,7 @@ import 'dart:developer' as developer;
 import '../pages/gamewon.dart';
 import 'ball.dart';
 import '../classes/notifications.dart';
+import '../model/settings.dart';
 
 class SettingsSlider extends StatefulWidget {
   SettingsSlider(
@@ -41,6 +42,8 @@ class SliderState extends State<SettingsSlider> {
 
   @override
   Widget build(BuildContext context) {
+    Settings mySettings = Settings();
+
     return Stack(children: [
       Align(child: subTitleText(widget.title +": "+ widget.current.toString())),
       Padding(
@@ -50,10 +53,10 @@ class SliderState extends State<SettingsSlider> {
             height: 10,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.blue,
+              color: mySettings.myColorSet.inside,
               boxShadow: [
                 BoxShadow(
-                    color: Colors.blue[200], blurRadius: 5, spreadRadius: 5),
+                    color: mySettings.myColorSet.shadowHi, blurRadius: 5, spreadRadius: 5),
               ],
             ),
           )),
