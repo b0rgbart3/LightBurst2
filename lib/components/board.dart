@@ -232,8 +232,8 @@ bool getCurrentState( tileID ) {
   @override
   Widget build(BuildContext context) {
 
-   // developer.log("BUILDING BOARD.");
-    // developer.log(boardList.toString());
+    developer.log("BUILDING BOARD.");
+    //developer.log(boardList.toString());
     return NotificationListener<TouchNotification> (
       onNotification: (notification) {
         // developer.log('Got notified: ' + notification.myID.toString());

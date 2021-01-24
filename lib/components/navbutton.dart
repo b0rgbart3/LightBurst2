@@ -4,6 +4,7 @@ import 'interface.dart';
 import '../pages/gameplay.dart';
 import '../classes/notifications.dart';
 import '../classes/colorset.dart';
+import '../model/settings.dart';
 
 // This widget is my custom navigation button widget
 // It produces a square button for icon navigation
@@ -51,30 +52,27 @@ class NavButtonState extends State<NavButton> {
 
   @override
   Widget build(BuildContext context) {
-    Colorset introColorSet = new Colorset(0);
+  Settings mySettings = Settings();
+  Colorset introColorSet = mySettings.myColorSet;
 
     var insideColor, outsideColor, shadowColor, textColor, textShadowColor;
 
    // var myColor, myShadowColor, myCenterColor;
 
     if (onState) {
-      // myColor = Color(0xff00aaff);
-      // myShadowColor = Color(0x8800ccff);
-      // myCenterColor = Color(0x44ffffff);
-            insideColor = Color(introColorSet.insideHi);
-      outsideColor = Color(introColorSet.outsideHi);
-      shadowColor = Color(introColorSet.shadowHi);
-      textColor = Color(introColorSet.textHi);
-      textShadowColor = Color(introColorSet.textShadowHi);
+
+      insideColor = introColorSet.insideHi;
+      outsideColor = introColorSet.outsideHi;
+      shadowColor = introColorSet.shadowHi;
+      textColor = introColorSet.textHi;
+      textShadowColor = introColorSet.textShadowHi;
     } else {
-      // myColor = Color(0xff004488);
-      // myShadowColor = Color(0x44001122);
-      // myCenterColor = Color(0x33001122);
-           insideColor = Color(introColorSet.inside);
-       outsideColor = Color(introColorSet.outside);
-       shadowColor = Color(introColorSet.shadow);
-       textColor = Color(introColorSet.text);
-       textShadowColor = Color(introColorSet.textShadow);
+
+       insideColor = introColorSet.inside;
+       outsideColor = introColorSet.outside;
+       shadowColor = introColorSet.shadow;
+       textColor = introColorSet.text;
+       textShadowColor = introColorSet.textShadow;
     }
 
     Widget buttonChild() {

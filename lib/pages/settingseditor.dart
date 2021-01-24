@@ -142,7 +142,7 @@ class SettingsEditorState extends State<SettingsEditor> {
                               _submitSettings,
                               "",
                               Icon(Icons.done,
-                                  size: 54.0, color: HexColor("#aa60c6f9")),
+                                  size: 54.0, color: mySettings.myColorSet.text),
                               65.0,
                               65.0, false),
                         ],

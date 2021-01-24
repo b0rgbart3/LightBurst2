@@ -38,30 +38,26 @@ class TileState extends State<Tile> {
   Widget build(BuildContext context) {
     Colorset introColorSet = new Colorset(0);
 
-    var insideColor, outsideColor, shadowColor, textColor, textShadowColor;
+    Color insideColor, outsideColor, shadowColor, textColor, textShadowColor;
 
     if (widget.touchable) {
       onState= true;
     }
     if (onState) {
-      // myColor = Color(0xff00aaff);
-      // myShadowColor = Color(0x8800ccff);
-      // myCenterColor = Color(0x44ffffff);
-      insideColor = Color(introColorSet.insideHi);
-      outsideColor = Color(introColorSet.outsideHi);
-      shadowColor = Color(introColorSet.shadowHi);
-      textColor = Color(introColorSet.textHi);
-      textShadowColor = Color(introColorSet.textShadowHi);
+
+      insideColor = introColorSet.insideHi;
+      outsideColor = introColorSet.outsideHi;
+      shadowColor = introColorSet.shadowHi;
+      textColor = introColorSet.textHi;
+      textShadowColor = introColorSet.textShadowHi;
 
     } else {
-      // myColor = Color(0xff004488);
-      // myShadowColor = Color(0x44001122);
-      // myCenterColor = Color(0x33001122);
-       insideColor = Color(introColorSet.inside);
-       outsideColor = Color(introColorSet.outside);
-       shadowColor = Color(introColorSet.shadow);
-       textColor = Color(introColorSet.text);
-       textShadowColor = Color(introColorSet.textShadow);
+
+       insideColor = introColorSet.inside;
+       outsideColor = introColorSet.outside;
+       shadowColor = introColorSet.shadow;
+       textColor = introColorSet.text;
+       textShadowColor = introColorSet.textShadow;
       
     }
 

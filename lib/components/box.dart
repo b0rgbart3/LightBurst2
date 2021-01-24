@@ -25,6 +25,11 @@ class BoxState extends State<Box> {
   
 
 List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
+    
+    // myCenterColor= mySettings.myColorSet.inside;
+    // myColor = mySettings.myColorSet.outside;
+    // myShadowColor = mySettings.myColorSet.shadow;
+   
     List thisList = <Widget>[];
     Widget outerBox = Align(
                           alignment: Alignment.center,
@@ -103,12 +108,18 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
       //myShadowColor = Colors.blue[100];
       myShadowColor = Color(0x8800ccff);
       myCenterColor = Color(0x44ffffff);
+      myCenterColor= mySettings.myColorSet.insideHi;
+      myColor = mySettings.myColorSet.outsideHi;
+      myShadowColor = mySettings.myColorSet.shadowHi;
     } else {
       //myColor = Colors.blue[800];
       myColor = Color(0xff004488);
       // myShadowColor = Colors.blue[900];
       myShadowColor = Color(0x44001122);
       myCenterColor = Color(0x33001122);
+      myCenterColor= mySettings.myColorSet.inside;
+      myColor = mySettings.myColorSet.outside;
+      myShadowColor = mySettings.myColorSet.shadow;
     }
 
     return Container(

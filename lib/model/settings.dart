@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'dart:math';
 import '../model/sequence.dart';
+import '../classes/colorset.dart';
 
 // This Settings class creates a "singleton" which
 // I am using as our Global State Object
@@ -18,6 +19,7 @@ class Settings {
   int _maxSequenceLength = 10;
   bool _showSequence;
   Sequence _sequence;
+  Colorset _myColorSet;
   // List _sequenceIndexes = [];
 
   //Settings( this._boardSize, this._sequenceLength);
@@ -103,6 +105,17 @@ class Settings {
       _sequenceLength = initialSequenceLength;
     }
     return _sequenceLength;
+  }
+
+  Colorset get myColorSet {
+    if (_myColorSet == null) {
+      _myColorSet = new Colorset(1);
+    }
+    return _myColorSet;
+  }
+
+  set myColorSet(newSet) {
+    _myColorSet = Colorset(newSet);
   }
 
   set boardSize(int newSize) {
