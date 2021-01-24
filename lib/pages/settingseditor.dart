@@ -97,7 +97,7 @@ class SettingsEditorState extends State<SettingsEditor> {
       body: Column(children: [
         Stack(alignment: Alignment.center, children: [
           BkgImageWidget(),
-          ColorFilterWidget(),
+          // ColorFilterWidget(),
           Container(
               alignment: Alignment.center,
               child: Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import '../model/settings.dart';
 
 class BkgImageWidget extends StatelessWidget {
   
@@ -8,6 +9,7 @@ class BkgImageWidget extends StatelessWidget {
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    Settings mySettings = Settings();
 
     AssetImage bkgAsset = AssetImage("images/bkg1.jpg");
     Image image = Image(image: bkgAsset,
@@ -16,7 +18,12 @@ class BkgImageWidget extends StatelessWidget {
     height: screenHeight
 
     );
-    return Container(child: image );
+    return Container(child: 
+    ColorFiltered( colorFilter: ColorFilter.mode(mySettings.myColorSet.background, BlendMode.overlay),
+      child:image)
+     );
+     //   return Container(child: image);
+   
   }
 
 }
@@ -25,10 +32,14 @@ class ColorFilterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Settings mySettings = Settings();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    Color c2 = const Color(0x440077ff); // fully opaque white (visible)
-
+   // Color c2 = const Color(0x440077ff); 
+   // fully opaque white (visible)
+    // Color c2 = const Color(0x4400FF9D); 
+      Color c2 = mySettings.myColorSet.shadow;
+    
     return Container(
       color: c2,
       width: screenWidth,

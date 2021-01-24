@@ -4,10 +4,11 @@ import 'interface.dart';
 import '../pages/gameplay.dart';
 import '../classes/notifications.dart';
 import '../classes/colorset.dart';
-
+import '../model/settings.dart';
 
 class Tile extends StatefulWidget {
   final key, id, textString, touchable;
+
 
   Tile(
        this.key, this.id, this.textString, this.touchable);
@@ -36,7 +37,8 @@ class TileState extends State<Tile> {
 
   @override
   Widget build(BuildContext context) {
-    Colorset introColorSet = new Colorset(0);
+      Settings mySettings = Settings();
+    Colorset introColorSet = mySettings.myColorSet; //new Colorset(0);
 
     Color insideColor, outsideColor, shadowColor, textColor, textShadowColor;
 

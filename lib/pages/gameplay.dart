@@ -126,7 +126,7 @@ class _GameState extends State<Game> {
           child: Stack(children: [
             // Image.asset('images/bkg1.jpg'),
             BkgImageWidget(),
-            ColorFilterWidget(),
+            // ColorFilterWidget(),
             Center(
               child: Padding( 
                  padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
