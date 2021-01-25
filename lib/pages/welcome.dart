@@ -27,7 +27,17 @@ import '../model/settings.dart';
 // the box component instead of the tile component, but for
 // now this is the way it is coded.
 
-class Welcome extends StatelessWidget {
+class Welcome extends StatefulWidget {
+  Welcome({Key key, this.title, this.returnToWelcome}) : super(key: key);
+  final String title;
+  final returnToWelcome;
+  @override
+  _WelcomeState createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> {
+
+
 
   List tiles=[];
   List keys = [];
@@ -35,14 +45,28 @@ class Welcome extends StatelessWidget {
   int sequenceLength;
   Settings mySettings;
 
-void backInWelcome() {
-      keys.forEach( (key) => key.currentState.turnOff() );
+void backInWelcome( settingsGotChanged ) {
+      keys.forEach( (key) => {
+         if (key.currentState != null) {
+           key.currentState.turnOff()
+         }
+        }
+         );
+    developer.log("Back in Welcome: " + settingsGotChanged.toString());
+    if (settingsGotChanged) {
+      setState(() {
+        
+      });
+    }
 }
   void aboutToPlay(context) async {
-    keys.forEach( (key) => key.currentState.turnOn() );
+    keys.forEach( (key) => {
+      if (key.currentState != null) {
+        key.currentState.turnOn() }
+        } );
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => Game()))
-    .then((value) => backInWelcome()
+    .then((value) => backInWelcome(value)
        );
 
   }

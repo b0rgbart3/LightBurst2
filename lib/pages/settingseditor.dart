@@ -27,19 +27,23 @@ class SettingsEditorState extends State<SettingsEditor> {
 
   void _submitSettings() {
       var changed = false;
+      var changes = [];
       if (mySettings.sequenceLength != originalSequenceLength) {
       mySettings.sequenceLength = sequenceLength;
       changed = true;
+      changes.add( "sequence" );
       }
       if (mySettings.boardSize != originalBoardSize) {
       mySettings.boardSize = boardSize;
       changed = true;
+      changes.add( "board" );
       }
       if (mySettings.colorIndex != originalColorIndex) {
         mySettings.colorIndex = colorIndex;
         changed = true;
+        changes.add( "color" );
       }
-      Navigator.pop(context, changed );
+      Navigator.pop(context, {"changed":changed, "changes": changes} );
   }
 
   Widget boardSizeSlider() {

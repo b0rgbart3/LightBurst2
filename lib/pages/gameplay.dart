@@ -22,6 +22,7 @@ class _GameState extends State<Game> {
   int oldBoardSize;
   int oldSequenceLength;
   int oldColorIndex, colorIndex;
+  bool myStateGotChanged = false;
 
   void _freshGame() {
     setState(() {
@@ -32,7 +33,7 @@ class _GameState extends State<Game> {
   }
 
     void returnToWelcome() {
-      Navigator.pop(context);
+      Navigator.pop(context, myStateGotChanged);
     }
 
  _showSequence() {
@@ -54,8 +55,14 @@ class _GameState extends State<Game> {
     // if ((mySettings.boardSize != oldBoardSize) || (mySettings.sequenceLength != oldSequenceLength)) {
     //   changed = true;
     // }
-    developer.log("Got back a change: " +changed.toString());
-     if (changed) {
+    developer.log("Got back the changes: " +changed.toString());
+    int requireNewBoard = (changed["changes"].indexOf("board"));
+    int requireNewSeq = (changed["changes"].indexOf("sequence"));
+
+    bool requireNew = (requireNewBoard != -1) || (requireNewSeq != -1);
+
+    developer.log("Require new board: " + requireNew.toString());
+     if (changed.length > 0) {
        setState(() {
         //  var settingsChanged = boardKey.currentState.setNewValues(); 
           //if (settingsChanged) {
@@ -65,11 +72,12 @@ class _GameState extends State<Game> {
             colorIndex = mySettings.colorIndex;
             //   colorIndex = mySettings.colorIndex
              
-
+            myStateGotChanged = true;
             // });
              developer.log("new color index: " + colorIndex.toString());
-
-            boardKey.currentState.clearBoard();
+            if (requireNew) {
+              boardKey.currentState.clearBoard();
+            }
          // }
         });
      }
@@ -128,7 +136,7 @@ class _GameState extends State<Game> {
             // developer.log(details.delta.dx.toString());
             if (details.delta.dx > sensitivity) {
               // Right Swipe
-              returnToWelcome();
+              returnToWelcome(false);
             } else if (details.delta.dx < -sensitivity) {
               //Left Swipe
                _settingsEditor();
