@@ -21,23 +21,42 @@ class SettingsEditorState extends State<SettingsEditor> {
   Settings mySettings = Settings();  
   int boardSize;
   int sequenceLength;
-  int originalBoardSize, originalSequenceLength;
+  int colorIndex;
+  int originalBoardSize, originalSequenceLength, originalColorIndex;
+  int color, minColorIndex, maxColorIndex;
 
   void _submitSettings() {
-
       var changed = false;
-
       if (mySettings.sequenceLength != originalSequenceLength) {
       mySettings.sequenceLength = sequenceLength;
       changed = true;
       }
-
       if (mySettings.boardSize != originalBoardSize) {
       mySettings.boardSize = boardSize;
       changed = true;
       }
-
+      if (mySettings.colorIndex != originalColorIndex) {
+        mySettings.colorIndex = colorIndex;
+        changed = true;
+      }
       Navigator.pop(context, changed );
+  }
+
+  Widget boardSizeSlider() {
+    return  NotificationListener<DragNotification>(
+        onNotification: (notification) {
+          //developer.log('Got notified: ' +
+            //  notification.value.toString());
+          // update the boardSize value based on the notification
+          // that is coming from the ball getting dragged by the user
+          setState(() {
+              boardSize = notification.value;
+              mySettings.boardSize = boardSize;
+          });
+          
+          // return true;
+        },
+        child: boardSizeSetting());
   }
 
   Widget settingsBox(contents) {
@@ -63,6 +82,25 @@ class SettingsEditorState extends State<SettingsEditor> {
         ]))));
   }
 
+  Widget sequenceLengthSlider() {
+    return NotificationListener<DragNotification>(
+        onNotification: (notification) {
+            // update the sequenceLength value based on the notification
+            // that is coming from the ball getting dragged by the user
+            setState(() {
+                sequenceLength = notification.value;
+                developer.log("seq len: " + notification.value.toString());
+                mySettings.sequenceLength = sequenceLength;
+            });
+            
+            // return true;
+          },
+        child:
+      sequenceLengthSetting());
+  }
+
+
+
   Widget sequenceLengthSetting() {
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -79,12 +117,42 @@ class SettingsEditorState extends State<SettingsEditor> {
         ]))));
   }
 
+  Widget colorSlider( editor, context) {
+    return NotificationListener<DragNotification>(
+        onNotification: (notification) {
+            setState(() {
+                colorIndex = notification.value;
+                mySettings.colorIndex = colorIndex;
+                developer.log("color changed" + colorIndex.toString());
+                
+            });
+          },
+        child: colorSetting());
+  }
+  
+  Widget colorSetting() {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+     return settingsBox(Padding(
+        padding: EdgeInsets.symmetric(vertical: 10.0),
+        child: Container(
+            child: Stack(children: [
+  
+          SettingsSlider(title: "COLOR: " + colorIndex.toString(),
+              screenWidth: screenWidth,
+              sliderID: "color",
+              min: mySettings.minColorIndex,
+              max: mySettings.maxColorIndex, current:colorIndex)
+        ]))));
+  }
+
   @override
   Widget build(BuildContext context) {
 
     // Grab the values from our settings object
     boardSize = mySettings.boardSize;
     sequenceLength = mySettings.sequenceLength;
+    colorIndex = mySettings.colorIndex;
 
     if (originalBoardSize == null) {
       originalBoardSize = boardSize;
@@ -92,8 +160,11 @@ class SettingsEditorState extends State<SettingsEditor> {
     if (originalSequenceLength == null) {
       originalSequenceLength = sequenceLength;
     }
+    if (originalColorIndex == null) {
+      originalColorIndex = colorIndex;
+    }
 
-    return Scaffold(
+    return Scaffold( key: UniqueKey(),
       body: Column(children: [
         Stack(alignment: Alignment.center, children: [
           BkgImageWidget(),
@@ -108,35 +179,9 @@ class SettingsEditorState extends State<SettingsEditor> {
                       child: Column(
                         children: [
                           TitleText("SETTINGS"),
-                          NotificationListener<DragNotification>(
-                              onNotification: (notification) {
-                                //developer.log('Got notified: ' +
-                                  //  notification.value.toString());
-                                // update the boardSize value based on the notification
-                                // that is coming from the ball getting dragged by the user
-                                setState(() {
-                                   boardSize = notification.value;
-                                   mySettings.boardSize = boardSize;
-                                });
-                               
-                               // return true;
-                              },
-                              child: boardSizeSetting()),
-                         
-                         NotificationListener<DragNotification>(
-                           onNotification: (notification) {
-                                // update the sequenceLength value based on the notification
-                                // that is coming from the ball getting dragged by the user
-                                setState(() {
-                                   sequenceLength = notification.value;
-                                   developer.log("seq len: " + notification.value.toString());
-                                   mySettings.sequenceLength = sequenceLength;
-                                });
-                               
-                                // return true;
-                              },
-                           child:
-                          sequenceLengthSetting()),
+                          boardSizeSlider(),
+                          sequenceLengthSlider(),
+                          colorSlider(this, context),
                           NavButton(
                               null,
                               _submitSettings,

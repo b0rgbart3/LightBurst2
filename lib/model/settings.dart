@@ -20,6 +20,9 @@ class Settings {
   bool _showSequence;
   Sequence _sequence;
   Colorset _myColorSet;
+  int _colorIndex = 0;
+  int _minColorIndex = 0;
+  int _maxColorIndex =2;
   // List _sequenceIndexes = [];
 
   //Settings( this._boardSize, this._sequenceLength);
@@ -42,9 +45,20 @@ class Settings {
 
   int get minBoardSize => _minBoardSize;
   int get maxBoardSize => _maxBoardSize;
+  int get colorIndex => _colorIndex;
+  int get minColorIndex => _minColorIndex;
 
   int get minSequenceLength => _minSequenceLength;
   int get maxSequenceLength => _maxSequenceLength;
+
+  int get maxColorIndex{
+    if (_maxColorIndex == null) {
+      _maxColorIndex = 2;
+    }
+    return _maxColorIndex;
+  }
+
+
   Sequence get sequence {
     if (_sequence == null) {
       _sequence = new Sequence(_sequenceLength, _boardSize);
@@ -109,9 +123,14 @@ class Settings {
 
   Colorset get myColorSet {
     if (_myColorSet == null) {
-      _myColorSet = new Colorset(1);
+      _myColorSet = new Colorset(_colorIndex);
     }
     return _myColorSet;
+  }
+
+  set colorIndex(newIndex) {
+    _colorIndex = newIndex;
+    _myColorSet = Colorset(_colorIndex);
   }
 
   set myColorSet(newSet) {

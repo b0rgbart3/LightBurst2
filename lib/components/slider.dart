@@ -73,6 +73,10 @@ class SliderState extends State<SettingsSlider> {
               developer.log(notification.value.toString());
               setState(() {
                 widget.current = notification.value;
+
+                if (notification.id == "color") {
+                  mySettings.colorIndex = notification.value;
+                }
               });
               return true;
             }

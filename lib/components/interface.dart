@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
+import 'dart:developer' as developer;
 
 class BkgImageWidget extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
 
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     Settings mySettings = Settings();
-
+    developer.log("building background image: colorIndex: " + mySettings.colorIndex.toString());
     AssetImage bkgAsset = AssetImage("images/bkg1.jpg");
     Image image = Image(image: bkgAsset,
     fit: BoxFit.fill,

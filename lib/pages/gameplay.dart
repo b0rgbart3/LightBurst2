@@ -21,6 +21,7 @@ class _GameState extends State<Game> {
   Settings mySettings = Settings();
   int oldBoardSize;
   int oldSequenceLength;
+  int oldColorIndex, colorIndex;
 
   void _freshGame() {
     setState(() {
@@ -53,11 +54,21 @@ class _GameState extends State<Game> {
     // if ((mySettings.boardSize != oldBoardSize) || (mySettings.sequenceLength != oldSequenceLength)) {
     //   changed = true;
     // }
-
+    developer.log("Got back a change: " +changed.toString());
      if (changed) {
        setState(() {
         //  var settingsChanged = boardKey.currentState.setNewValues(); 
           //if (settingsChanged) {
+            developer.log("old color index: " + oldColorIndex.toString());
+            // boardKey.currentState.setState( () => {
+
+            colorIndex = mySettings.colorIndex;
+            //   colorIndex = mySettings.colorIndex
+             
+
+            // });
+             developer.log("new color index: " + colorIndex.toString());
+
             boardKey.currentState.clearBoard();
          // }
         });
@@ -66,6 +77,7 @@ class _GameState extends State<Game> {
  _settingsEditor() {
    oldBoardSize = mySettings.boardSize;
    oldSequenceLength = mySettings.sequenceLength;
+   oldColorIndex = mySettings.colorIndex;
 
     Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
@@ -86,6 +98,8 @@ class _GameState extends State<Game> {
     var mySettings = Settings();
     var sensitivity = 8;
     var showSequence = false;
+    colorIndex = mySettings.colorIndex;
+    oldColorIndex = colorIndex;
 
     // We only need to create a board if it hasn't already been created.
     //if (!mySettings.boardCreated) {
@@ -105,6 +119,7 @@ class _GameState extends State<Game> {
       //   // the App.build method, and use it to set our appbar title.
       //   title: Text(widget.title),
       // ),
+      key: UniqueKey(),
       body: 
       
       GestureDetector(
@@ -136,7 +151,7 @@ class _GameState extends State<Game> {
                   board,
                   Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:[
-                    boxText("SL: " + mySettings.sequenceLength.toString(), Colors.white, Colors.black)
+                    boxText("SL: " + mySettings.sequenceLength.toString() + ", CS: " + colorIndex.toString(), Colors.white, Colors.black)
                   ]),
 
                   Row(
