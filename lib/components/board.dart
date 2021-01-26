@@ -44,8 +44,6 @@ void initState() {
      // clearBoard();
     }
 
-
-
     if (sequenceLength == null) {
       sequenceLength = mySettings.sequenceLength;
     }
@@ -56,33 +54,28 @@ void initState() {
         .then((value) => setState(() {
       // maybe set some state value here....
     //  developer.log("RE_SETTING STATE for BOARD");
-      clearBoard();
+    mySettings.freshBoardList();
+      clearBoard(true);
             }));
   }
 
-  void clearBoard() {
- //   boardList = [];
+  void clearBoard( fresh ) {
+
     tileList = [];
     keyList = [];
     tilesCreated = false;
 
+    developer.log(mySettings.sequence.touches.toString());
 
-    if (sequenceLength == null) {
+  //  if (sequenceLength == null) {
       sequenceLength = mySettings.sequenceLength;
-    }
-    // for (var i = 0; i < tileCount * tileCount; i++) {
-    //   boardList.add(false);
-    // }
-     //developer.log("Clearing the board.");
-    // _sequence = new Sequence(sequenceLength, tileCount);
-    // _sequence.generateRandomSequence(sequenceLength);
-
-      mySettings.freshBoardList();
-     // developer.log("My sequence: " + mySettings.sequence.touches.toString());
+ //   }
+     if (fresh) {
       mySettings.sequence.touches.forEach((tileID) {
-       // developer.log("Touching tile");
+        developer.log("touching");
        touchTile(tileID); }
     );
+     }
   
   }
   
@@ -93,7 +86,7 @@ void initState() {
   // themselves )
 
   void touchTile( tileID ) {
-    // developer.log("In TouchTile: " + tileID.toString());
+    //developer.log("In TouchTile: " + tileID.toString());
    // var index = tileID['row'] * tileCount + tileID['col'];
     // developer.log('Index: ' + index.toString());
     toggleTile( tileID );
@@ -129,7 +122,7 @@ void initState() {
     }
 
 
-        var alreadyExists = mySettings.sequence.updateSequence(tileID);
+    var alreadyExists = mySettings.sequence.updateSequence(tileID);
     if (alreadyExists == -1) {
       // setState(() {
       //   updateBoxes();
@@ -161,6 +154,8 @@ void initState() {
      // developer.log(".....DISPATCHING CHANGE......");
       // ChangeNotification(myID: {tileID})..dispatch(context);
       // tileList[index].toggleMyself();
+      // developer.log("keyList["+index.toString()+"] = " + keyList[index].toString());
+      // developer.log("State: " +keyList[index].currentState.toString());
       
       keyList[index].currentState.toggleMe();
      // boardList[index] = !boardList[index];
@@ -232,11 +227,11 @@ bool getCurrentState( tileID ) {
   @override
   Widget build(BuildContext context) {
 
-    developer.log("BUILDING BOARD.");
+    // developer.log("BUILDING BOARD.");
     //developer.log(boardList.toString());
     return NotificationListener<TouchNotification> (
       onNotification: (notification) {
-        // developer.log('Got notified: ' + notification.myID.toString());
+       // developer.log('Got notified: ' + notification.myID.toString());
         touchTile(notification.myID);
         //var onState = getCurrentState(notification.myID);
         // We only want to check for removal if the the user is touching
@@ -260,7 +255,7 @@ bool getCurrentState( tileID ) {
 
   Widget buildRows() {
 
-// developer.log("full sequence: " +  mySettings.sequence.fullSequence.toString());
+
     List rows = <Widget>[];
 
     for (var i = 0; i < mySettings.boardSize; i++) {
@@ -273,35 +268,35 @@ bool getCurrentState( tileID ) {
     double screenSize = MediaQuery.of(context).size.width - 20.0;
     double tileSize = screenSize / mySettings.boardSize;
 
-   // developer.log("buildRow");
+
     List tiles = <Widget>[];
-    //developer.log("mySettings boardSize: " + mySettings.boardSize.toString());
 
       if (mySettings.boardList.length < 1) {
-        //developer.log("There is no board.");
+
         if (mySettings.boardList.length <= 0) {
           {
-          clearBoard();
+
+            mySettings.freshBoardList();
+            clearBoard(true);
         }
       }
       }
 // Dynamically build a whole row of tiles
     for (var i = 0; i < mySettings.boardSize; i++) {
      var thisIndex = rowNum*mySettings.boardSize + i;
-    // developer.log("building.... boardlist item = " + mySettings.boardList.toString());
+
      var revealThisBox = false;
      if (mySettings.sequence.fullSequenceIndexes.indexOf(thisIndex) != -1) {
        revealThisBox = true;
      }
-      var key = GlobalKey();
-     // developer.log('Key: ' + key.toString());
+      
+    Key key = GlobalKey();
+  
 
       var box = Box(key, tileSize, rowNum, i, mySettings.boardList[rowNum * mySettings.boardSize + i], revealThisBox);
       tiles.add(box);
-     // developer.log("adding tile");
       tileList.add(box);
       keyList.add(key);
-    
    
   }
  tilesCreated = true;

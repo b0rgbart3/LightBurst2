@@ -93,7 +93,7 @@ class SettingsEditorState extends State<SettingsEditor> {
             // that is coming from the ball getting dragged by the user
             setState(() {
                 sequenceLength = notification.value;
-                developer.log("seq len: " + notification.value.toString());
+               // developer.log("seq len: " + notification.value.toString());
                 mySettings.sequenceLength = sequenceLength;
             });
             
@@ -127,7 +127,7 @@ class SettingsEditorState extends State<SettingsEditor> {
             setState(() {
                 colorIndex = notification.value;
                 mySettings.colorIndex = colorIndex;
-                developer.log("color changed" + colorIndex.toString());
+              //  developer.log("color changed" + colorIndex.toString());
                 
             });
           },

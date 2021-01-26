@@ -139,6 +139,8 @@ class Settings {
 
   set boardSize(int newSize) {
     _boardSize = newSize;
+    _sequence = null;
+    _boardList = null;
   }
 
 
@@ -146,6 +148,8 @@ class Settings {
     if (newSequenceLength <=maxSequenceLength && newSequenceLength >= minSequenceLength) {
       _sequenceLength = newSequenceLength;
     }
+    _sequence = null;
+    _boardList = null;
   }
 
   set showSequence(bool newShowSequence) {
@@ -155,10 +159,12 @@ class Settings {
   set sequence(Sequence newSequence) {
     _sequence = newSequence;
     _boardCreated = true;
+    developer.log("board created: true");
   }
 
 
   set boardCreated(bool newBoardCreated) {
+    developer.log("Changing board created bool");
     _boardCreated = newBoardCreated;
   }
 

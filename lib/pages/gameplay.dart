@@ -8,9 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
 
 class Game extends StatefulWidget {
-  Game({Key key, this.title, this.returnToWelcome}) : super(key: key);
-  final String title;
-  final returnToWelcome;
+  Game({Key key}) : super(key: key);
   @override
   _GameState createState() => _GameState();
 }
@@ -23,11 +21,16 @@ class _GameState extends State<Game> {
   int oldSequenceLength;
   int oldColorIndex, colorIndex;
   bool myStateGotChanged = false;
+    var onState = true;
+  GlobalKey<BoardState> boardKey = GlobalKey();
+  var board;
 
   void _freshGame() {
     setState(() {
       _counter++;
-      boardKey.currentState.clearBoard();
+      developer.log("making a fresh game");
+      mySettings.freshBoardList();
+      boardKey.currentState.clearBoard(true);
   
     });
   }
@@ -55,31 +58,43 @@ class _GameState extends State<Game> {
     // if ((mySettings.boardSize != oldBoardSize) || (mySettings.sequenceLength != oldSequenceLength)) {
     //   changed = true;
     // }
-    developer.log("Got back the changes: " +changed.toString());
+    //developer.log("Got back the changes: " +changed.toString());
     int requireNewBoard = (changed["changes"].indexOf("board"));
     int requireNewSeq = (changed["changes"].indexOf("sequence"));
+    int requireColorChange = (changed["changes"].indexOf("color"));
 
     bool requireNew = (requireNewBoard != -1) || (requireNewSeq != -1);
+    bool colorChange = (requireColorChange != -1);
 
     developer.log("Require new board: " + requireNew.toString());
-     if (changed.length > 0) {
+     if (requireNew) {
        setState(() {
         //  var settingsChanged = boardKey.currentState.setNewValues(); 
           //if (settingsChanged) {
-            developer.log("old color index: " + oldColorIndex.toString());
+           // developer.log("old color index: " + oldColorIndex.toString());
             // boardKey.currentState.setState( () => {
 
             colorIndex = mySettings.colorIndex;
-            //   colorIndex = mySettings.colorIndex
-             
             myStateGotChanged = true;
-            // });
-             developer.log("new color index: " + colorIndex.toString());
-            if (requireNew) {
-              boardKey.currentState.clearBoard();
-            }
+            boardKey.currentState.clearBoard(true);
+            
          // }
         });
+     }
+     else {
+       if (colorChange) {
+       //  developer.log("The color was changed.");
+         setState(() {
+        //    // boardKey.currentState.clearBoard();
+            colorIndex = mySettings.colorIndex;
+            myStateGotChanged = true;
+             boardKey.currentState.clearBoard(false);
+           // boardKey.currentState.clearBoard();
+           
+        });
+       } else {
+      // developer.log("There were no changes to the settings.");
+       }
      }
  }
  _settingsEditor() {
@@ -96,13 +111,11 @@ class _GameState extends State<Game> {
 
   }
 
-  var onState = true;
-  GlobalKey<BoardState> boardKey = GlobalKey();
-  var board;
+
 
   @override
   Widget build(BuildContext context) {
-    var board;
+
     var mySettings = Settings();
     var sensitivity = 8;
     var showSequence = false;
@@ -111,8 +124,9 @@ class _GameState extends State<Game> {
 
     // We only need to create a board if it hasn't already been created.
     //if (!mySettings.boardCreated) {
-      //("creating a new board");
+        developer.log("creating a new board");
        board = Board(key: boardKey);
+    //}
     
     if (mySettings.showSequence) {
       showSequence = true;
@@ -136,7 +150,7 @@ class _GameState extends State<Game> {
             // developer.log(details.delta.dx.toString());
             if (details.delta.dx > sensitivity) {
               // Right Swipe
-              returnToWelcome(false);
+              returnToWelcome();
             } else if (details.delta.dx < -sensitivity) {
               //Left Swipe
                _settingsEditor();

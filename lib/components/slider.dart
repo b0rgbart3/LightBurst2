@@ -65,12 +65,12 @@ class SliderState extends State<SettingsSlider> {
             // We get a notification message here -- 
             // and we let it bubble up to the settingsEditor...
 
-            developer.log('Got notified: ' + notification.id.toString());
+           // developer.log('Got notified: ' + notification.id.toString());
             
             // If the user is still dragging - then we interrupt the notification,
             // and don't let it buble up to the settings Editor.
             if (!notification.drop) {
-              developer.log(notification.value.toString());
+            //  developer.log(notification.value.toString());
               setState(() {
                 widget.current = notification.value;
 

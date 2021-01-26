@@ -52,7 +52,7 @@ void backInWelcome( settingsGotChanged ) {
          }
         }
          );
-    developer.log("Back in Welcome: " + settingsGotChanged.toString());
+   // developer.log("Back in Welcome: " + settingsGotChanged.toString());
     if (settingsGotChanged) {
       setState(() {
         

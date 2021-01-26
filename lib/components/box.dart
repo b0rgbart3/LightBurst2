@@ -158,6 +158,7 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
   }
 
   void pressUp(details) {
+    developer.log("My key: " + widget.key.toString());
     TouchNotification(myID: {'row': widget.rowNum, 'col': widget.colNum})
       ..dispatch(context);
     setState(() {
