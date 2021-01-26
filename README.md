@@ -1,16 +1,38 @@
-# box
+# LightBurst
+a puzzle game - the object of the game is to turn all the lights off
 
-A new Flutter project.
+![screenshot](screenshot.jpg)
+# Table of contents
+1. [Installation](#Installation)
+2. [Usage Rights](#UsageRights)
+3. [Features](#Features)
+5. [Technology](#Technology)
+6. [Credits](#Credits)
+<a name="Installation"></a>
+## Installation
+```sh
+Use a mobile emulator from your IDE.
+```
 
-## Getting Started
+<a name='Usage Rights / License'></a>
+## Usage Rights / License
+This game and the related code is copyrighted (c) by Bart Dority, 2021, all rights are reserved.  Please contact bartdority@gmail.com if you would like to use any part of this code or concepts.  
 
-This project is a starting point for a Flutter application.
+<a name="Features"></a>
+## Features
+1. platform independent
+2.  mobile
+3.  fun
+<a name="Technology"></a>
+## Technology
+1. Flutter
+2.  Dart
+<a name="Credits"></a>
+## Credits
+Bart Dority
 
-A few resources to get you started if this is your first Flutter project:
+**on github:** <a href='github.com/b0rgBart3'>b0rgBart3</a>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+[![](https://github.com/b0rgBart3.png?size=90)](https://github.com/remarkablemark)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Email: borgBart3@gmail.com
