@@ -125,7 +125,7 @@ class _GameState extends State<Game> {
     // We only need to create a board if it hasn't already been created.
     //if (!mySettings.boardCreated) {
         developer.log("creating a new board");
-       board = Board(key: boardKey);
+        board = Board(key: boardKey);
     //}
     
     if (mySettings.showSequence) {
@@ -166,7 +166,7 @@ class _GameState extends State<Game> {
             // ColorFilterWidget(),
             Center(
               child: Padding( 
-                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
                 child:Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

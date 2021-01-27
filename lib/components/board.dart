@@ -265,7 +265,9 @@ bool getCurrentState( tileID ) {
   }
 
   Widget buildRow(rowNum) {
-    double screenSize = MediaQuery.of(context).size.width - 20.0;
+    mySettings.context = context;
+    developer.log("269: mySettings: " + mySettings.toString());
+    double screenSize = mySettings.screenSize;
     double tileSize = screenSize / mySettings.boardSize;
 
 

@@ -2,11 +2,12 @@ import 'dart:developer' as developer;
 import 'dart:math';
 import '../model/sequence.dart';
 import '../classes/colorset.dart';
+import 'package:flutter/material.dart';
 
 // This Settings class creates a "singleton" which
 // I am using as our Global State Object
 
-class Settings {
+class Settings  {
   int _boardSize;
   bool _boardCreated;
   List _boardList;
@@ -17,12 +18,16 @@ class Settings {
   int _maxBoardSize = 10;
   int _minSequenceLength = 3;
   int _maxSequenceLength = 10;
+  double _screenSize;
+  double _screenWidth;
+  double _screenHeight;
   bool _showSequence;
   Sequence _sequence;
   Colorset _myColorSet;
   int _colorIndex = 0;
   int _minColorIndex = 0;
   int _maxColorIndex =2;
+  BuildContext _context;
   // List _sequenceIndexes = [];
 
   //Settings( this._boardSize, this._sequenceLength);
@@ -66,6 +71,10 @@ class Settings {
     return _sequence;
   }
   //List get sequenceIndexes => _sequenceIndexes;
+
+  BuildContext get context {
+    return _context;
+  }
 
   void freshBoardList() {
     _boardList = [];
@@ -126,6 +135,22 @@ class Settings {
       _myColorSet = new Colorset(_colorIndex);
     }
     return _myColorSet;
+  }
+
+  double get screenSize {
+    double _screenWidth = MediaQuery.of(context).size.width;
+    double _screenHeight = MediaQuery.of(context).size.height;
+
+    _screenSize = _screenHeight / 2;
+    if (_screenSize > _screenWidth) {
+      _screenSize = _screenWidth *.9;
+    }
+
+    return _screenSize;
+  }
+
+  set context( newContext ) {
+    _context = newContext;
   }
 
   set colorIndex(newIndex) {
