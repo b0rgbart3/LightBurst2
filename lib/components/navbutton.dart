@@ -40,6 +40,7 @@ class NavButtonState extends State<NavButton> {
     endWidth = tileWidth * .9;
     endHeight = tileHeight * .9;
     onState = widget.onState;
+  
 
     if (widget.textString == "") {
       innerBoxWidthPercentage = .95;
@@ -54,6 +55,9 @@ class NavButtonState extends State<NavButton> {
   Widget build(BuildContext context) {
   Settings mySettings = Settings();
   Colorset introColorSet = mySettings.myColorSet;
+
+    // developer.log("in nav button: onState = " + onState.toString());
+    // developer.log("this icon = " + widget.icon.toString());
 
     var insideColor, outsideColor, shadowColor, textColor, textShadowColor;
 
@@ -161,6 +165,7 @@ class NavButtonState extends State<NavButton> {
     setState(() {
       // endWidth = tileWidth * .9;
       // endHeight = tileHeight * .9;
+      toggleMe();
       endScale = .9;
     });
   }

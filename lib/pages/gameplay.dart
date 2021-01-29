@@ -22,16 +22,13 @@ class _GameState extends State<Game> {
   int oldColorIndex, colorIndex;
   bool myStateGotChanged = false;
     var onState = true;
-  GlobalKey<BoardState> boardKey = GlobalKey();
+ 
   var board;
 
   void _freshGame() {
+    mySettings.freshBoardList();
     setState(() {
       _counter++;
-      developer.log("making a fresh game");
-      mySettings.freshBoardList();
-      boardKey.currentState.clearBoard(true);
-  
     });
   }
 
@@ -41,11 +38,12 @@ class _GameState extends State<Game> {
 
  _showSequence() {
    mySettings.toggleShowSequence();
-   boardKey.currentState.updateBoxes();  // trigger the board to redraw itself
-   revealKey.currentState.toggleMe();  // turn the reveal button to the highlighted state
-  //  setState(() {
-  //    // boardKey.currentState.build(context);
-  //  });
+  // board.currentState.updateBoxes();  // trigger the board to redraw itself
+  // revealKey.currentState.toggleMe();  // turn the reveal button to the highlighted state
+   setState(() {
+     // boardKey.currentState.build(context);
+   });
+  
 
  }
  _determineChange(changed) {
@@ -66,7 +64,6 @@ class _GameState extends State<Game> {
     bool requireNew = (requireNewBoard != -1) || (requireNewSeq != -1);
     bool colorChange = (requireColorChange != -1);
 
-    developer.log("Require new board: " + requireNew.toString());
      if (requireNew) {
        setState(() {
         //  var settingsChanged = boardKey.currentState.setNewValues(); 
@@ -76,7 +73,8 @@ class _GameState extends State<Game> {
 
             colorIndex = mySettings.colorIndex;
             myStateGotChanged = true;
-            boardKey.currentState.clearBoard(true);
+            
+            mySettings.freshBoardList();
             
          // }
         });
@@ -88,7 +86,7 @@ class _GameState extends State<Game> {
         //    // boardKey.currentState.clearBoard();
             colorIndex = mySettings.colorIndex;
             myStateGotChanged = true;
-             boardKey.currentState.clearBoard(false);
+             
            // boardKey.currentState.clearBoard();
            
         });
@@ -118,19 +116,17 @@ class _GameState extends State<Game> {
 
     var mySettings = Settings();
     var sensitivity = 8;
-    var showSequence = false;
+
     colorIndex = mySettings.colorIndex;
     oldColorIndex = colorIndex;
 
     // We only need to create a board if it hasn't already been created.
     //if (!mySettings.boardCreated) {
-        developer.log("creating a new board");
-        board = Board(key: boardKey);
+       
+        board = Board();
+     
     //}
     
-    if (mySettings.showSequence) {
-      showSequence = true;
-    }
 
     // Not sure if we need the Scaffold here or not - since we are not
     // using the appBar.  It's likely that we don't need it
@@ -190,7 +186,7 @@ class _GameState extends State<Game> {
                             _showSequence,
                             "",
                             Icon(Icons.visibility,
-                                color:mySettings.myColorSet.text, size: 54.0), 65.0, 65.0, showSequence),
+                                color:mySettings.myColorSet.text, size: 54.0), 65.0, 65.0, mySettings.showSequence),
                     NavButton(
                             null,
                             _freshGame,

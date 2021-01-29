@@ -1,24 +1,43 @@
 import 'dart:math';
 import 'settings.dart';
 import 'dart:developer' as developer;
+import 'dart:math';
 
 class Sequence {
-
-  Sequence(this.sequenceLength, this.tileCount);
   final sequenceLength;
   final tileCount;
-  Settings mySettings = Settings();
-  
-  
-  List touches = [];
-  List sequenceIndexes = [];
-  List fullSequence = [];
-  List fullSequenceIndexes = [];
-  
 
-void generateRandomSequence(sequenceLength) {
+  List sequenceObjects = [];  // RANDOM ID OBJECTS
+  List sequenceIndexes = [];  // THE INDEX #'s of the touches
+  // The board is an array of true and false values
+  // for on or off tiles
+  List board = []; 
+  List hitList = [];
 
+  Sequence(this.sequenceLength, this.tileCount) {
+    generateRandomSequence();
+  }
 
+  void fresh() {
+    sequenceObjects = [];
+    sequenceIndexes = [];
+    board = [];
+  }
+  bool reveal(index) {
+    return (sequenceIndexes.indexOf(index) != -1);
+  }
+
+void toggleBoard(index) {
+  if ((board != null ) && (board[index] != null)) {
+    if (board[index] == true) {
+      board[index] = false;
+    } else {
+      board[index] = true;
+    }
+  }
+}
+
+void generateRandomSequence() {
     for (var i = 0; i < sequenceLength; i++) {
       var rn = new Random();
       var _randomRow = rn.nextInt(tileCount);
@@ -26,26 +45,86 @@ void generateRandomSequence(sequenceLength) {
       var _randomID = {"row": _randomRow, "col": _randomCol};
       var _associatedIndex = _randomRow*tileCount + _randomCol;
       
-
       // If this index is not already in our list, then we can add it to our list
       // This is because if the tile was touched twice that is the same
       // as not touching it at all -- so we only want to include it in our
       // touched list if it has been hit an "odd" number of times.
       
       if (sequenceIndexes.indexOf(_associatedIndex) == -1) {
-        touches.add(_randomID);
+        sequenceObjects.add(_randomID);
         sequenceIndexes.add(_associatedIndex);
+      } else {
+        i = i-1;  // make sure we add another one to make up for the duplicate.
       }
     }
-    // mySettings.sequence = this;
-    // mySettings.sequenceIndexes = sequenceIndexes;
-    fullSequence = touches;
-    fullSequenceIndexes = sequenceIndexes;
+    generateBoard();
 
-   // developer.log(touches.toString());
   }
 
+void touchBoard(idObject, tileIndex, generator) {
+  toggleBoard(tileIndex);
 
+// only add this to the hit list if it was user generated - not code generated
+
+  if (generator == false) {
+      var indexOfHit = hitList.indexOf(tileIndex);
+      developer.log("indexOfHit: " + indexOfHit.toString());
+  if ((indexOfHit == -1)) {
+    hitList.add(tileIndex);
+    // remove it from the sequence
+  
+    
+
+  } else {
+    hitList.removeAt(indexOfHit);
+    // add it to the sequence
+   // sequenceIndexes.add(tileIndex);
+    //sequenceObjects.add(idObject);
+
+  }
+  checkForRemovals(idObject);
+  developer.log("hit list: " + hitList.toString());
+  developer.log("sequence indexes: " + sequenceIndexes.toString());
+  }
+
+// above
+  if (idObject["row"] > 0) {
+    var aboveIndex = ((idObject["row"] - 1 ) * tileCount) + (idObject["col"]);
+    toggleBoard(aboveIndex);
+  }
+// below
+  if (idObject["row"] + 1 < tileCount) {
+
+    var belowIndex = ((idObject["row"] + 1 ) * tileCount) + (idObject["col"]);
+    toggleBoard(belowIndex);
+  }
+
+// left
+  if (idObject["col"] > 0) {
+    var leftIndex = (idObject["row"] * tileCount) + (idObject["col"]-1);
+    toggleBoard(leftIndex);
+  }
+  // right
+  if (idObject["col"]+1 < tileCount) {
+    var rightIndex = (idObject["row"] * tileCount) + (idObject["col"]+1);
+    toggleBoard(rightIndex);
+  }
+
+}
+
+void generateBoard() {
+  for (var i = 0; i < tileCount * tileCount; i++) {
+    board.add(false);
+  }
+
+  sequenceObjects.forEach( (idObject) {
+      var row = idObject["row"];
+      var col = idObject["col"];
+      var tileIndex = row*tileCount + col;
+                                      // generator vs. human
+      touchBoard(idObject, tileIndex, true);
+  });
+}
 // When a tile gets touched, we check to see if it's in the full sequence
 // and if not, then we need to add it to the full sequence (weather its on or off)
   int updateSequence( tileID ) {
@@ -56,7 +135,7 @@ void generateRandomSequence(sequenceLength) {
 
     //developer.log("updating sequence:" + row.toString() + ", " + col.toString());
     // developer.log(touches.toString());
-    final found = fullSequenceIndexes.indexWhere((element) =>
+    final found = sequenceIndexes.indexWhere((element) =>
         element == tileIndex);
    // developer.log("found: " + found.toString());
 
@@ -65,8 +144,8 @@ void generateRandomSequence(sequenceLength) {
       // this is because the user is now making their life harder than it needs to be
       // by selecting a tile that is not in the sequence.
 
-      fullSequence.add(tileID);
-      fullSequenceIndexes.add(tileIndex);
+      sequenceObjects.add(tileID);
+      sequenceIndexes.add(tileIndex);
       //developer.log("Not found: " + found.toString());
     } 
 
@@ -93,33 +172,35 @@ int findYourOwnDamnObject( needle, haystack ) {
 
    return -1;
 }
+
 bool checkForRemovals(tileID) {
      var row = tileID["row"];
   
     var col = tileID["col"];
 
-  var index = findYourOwnDamnObject(tileID, touches);
-
+  var index = findYourOwnDamnObject(tileID, sequenceObjects);
+    var tileIndex = row*tileCount + col;
 
   if (index != null && index != -1) {
-  touches.removeAt(index);
+  sequenceObjects.removeAt(index);
+  sequenceIndexes.remove(tileIndex);
   } else {
+    sequenceIndexes.add(tileIndex);
+    sequenceObjects.add(tileID);
     return false;
   }
 
 
-  var tileIndex = row*tileCount + col;
-
-  sequenceIndexes.remove(tileIndex);
 
 
-  var fsIndex = findYourOwnDamnObject(tileID, fullSequence);
-  if (fsIndex != null && fsIndex != -1) {
-    fullSequence.removeAt(index);
-  }
+
+  // var fsIndex = findYourOwnDamnObject(tileID, sequenceObjects);
+  // if (fsIndex != null && fsIndex != -1) {
+  //   sequenceObjects.removeAt(index);
+  // }
 
 
-fullSequenceIndexes.remove(tileIndex);
+//sequenceIndexes.remove(tileIndex);
 return true;
  
 

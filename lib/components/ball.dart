@@ -32,26 +32,11 @@ void initState() {
   range = (widget.max - widget.min).toDouble();
   myIntValue = widget.current;
 
-  // var myPos = range * (myX/widget.screenWidth) + widget.min;
-
   var valueWidth = widget.screenWidth / range;
   myX = (myIntValue - widget.min) * valueWidth;
-
- // myX = (sliderWidth / range) * (myIntValue - widget.min) + least;
   origin = myX;
 
-  //origin = (sliderWidth / myIntValue) - ballWidth;
-  //developer.log('range: ' + range.toString());
-  //developer.log('sliderWidth: ' + sliderWidth.toString());
-  // developer.log('least: ' + least.toString());
-  // developer.log('most: ' + most.toString());
-  // developer.log('valueWidth: ' + valueWidth.toString());
-  // developer.log('myIntValue: ' + myIntValue.toString());
-  //  developer.log('myX: ' + myX.toString());
-  //  developer.log("----------");
-  // developer.log("origin: " + origin.toString());
-  // developer.log("myX: " + myX.toString());
-
+  
  
 }
   
@@ -59,10 +44,10 @@ void initState() {
   @override
   Widget build(BuildContext context) {
       Settings mySettings = Settings();
-   // developer.log('rebuilding the ball');
+  
 
   void pressDown(details) {
-   // developer.log("pressDown:" + details.toString());
+ 
     setState(() {
       tracking = true;
       origin = myX;
@@ -84,19 +69,16 @@ void initState() {
       }
 
       myIntValue = (myX / range).round();
-      //("INT: " + myIntValue.toString());
-
 
     });
   }
   void letUp(details) {
-   // developer.log('letup:' + details.toString());
-    
+   
     DragNotification(id:widget.sliderID, value: myIntValue, drop: true)
       ..dispatch(context);
   }
   void trackMe(details) {
-  // developer.log('tracking:' + details.localOffsetFromOrigin.dx.toString());
+  
     setState(() {
 
       myX = origin + details.localPosition.dx;
@@ -109,11 +91,6 @@ void initState() {
 
       var myPos = range * (myX/widget.screenWidth) + widget.min;
       
-      
-      // developer.log("myX: " + myX.toString());
-      // developer.log("screenWidth: " + widget.screenWidth.toString());
-      // developer.log("myPos: " + myPos.toString());
-      //developer.log("INT: " + myIntValue.toString());
      
       myIntValue = myPos.round();
     });
@@ -121,7 +98,7 @@ void initState() {
       ..dispatch(context);
   }
   void tapCancel() {
-   // developer.log('tapCancel:');
+
   }
 
 

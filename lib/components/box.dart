@@ -7,12 +7,9 @@ import '../classes/notifications.dart';
 
 
 class Box extends StatefulWidget {
-  final key, tileSize, rowNum, colNum, initialState;
-  bool reveal;
 
-  Box(this.key, this.tileSize, this.rowNum, this.colNum, this.initialState, this.reveal);
-
-  void toggleMyself() {}
+  Box({Key key, this.index}) : super(key: key);
+  final int index;
 
   @override
   BoxState createState() => BoxState();
@@ -24,16 +21,14 @@ class BoxState extends State<Box> {
   Settings mySettings = Settings();
   
 
-List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
-    
-    // myCenterColor= mySettings.myColorSet.inside;
-    // myColor = mySettings.myColorSet.outside;
-    // myShadowColor = mySettings.myColorSet.shadow;
+List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, index) {
    
     List thisList = <Widget>[];
     Widget outerBox = Align(
                           alignment: Alignment.center,
-                          child: Container(
+                          child: Padding(
+        padding: EdgeInsets.symmetric(vertical: myWidth*.05, horizontal:myWidth*.05),
+        child:Container(
                             alignment: Alignment.center,
                             width: myWidth,
                             height: myWidth,
@@ -48,7 +43,7 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
                               ],
                             ),
                           ),
-                        );
+                        ));
     Widget innerBox = Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -69,7 +64,7 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
                         );
     thisList.add(outerBox);
     thisList.add(innerBox);
-    if (reveal && mySettings.showSequence) {
+    if (mySettings.sequence.reveal(index) && mySettings.showSequence) {
       thisList.add( Align( alignment: Alignment.center, 
       child: 
       Container(
@@ -94,13 +89,13 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
   @override
   void initState() {
     super.initState();
-    endSize = widget.tileSize * .9;
-    onState = widget.initialState;
+    endSize = mySettings.tileSize;
   }
 
   @override
   Widget build(BuildContext context) {
     var myColor, myShadowColor, myCenterColor;
+    onState = mySettings.sequence.board[widget.index];
 
     if (onState) {
       // myColor = Colors.blue[200];
@@ -124,8 +119,8 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
 
     return Container(
         alignment: Alignment.center,
-        width: widget.tileSize,
-        height: widget.tileSize,
+        width: mySettings.tileSize,
+        height: mySettings.tileSize,
         child: GestureDetector(
             onTapDown: pressDown,
             onTapUp: pressUp,
@@ -141,28 +136,28 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
                         toggleMe();
                         return true;
                       },
-                      child: Stack(children: boxChildren(myWidth, myColor, myShadowColor, myCenterColor, widget.reveal)));
+                      child: Stack(children: boxChildren(myWidth, myColor, myShadowColor, myCenterColor, widget.index)));
                 })));
   }
 
   void pressDown(details) {
     setState(() {
-      endSize = widget.tileSize * .75;
+      endSize = mySettings.tileSize * .75;
     });
   }
 
   void pressCancel() {
     setState(() {
-      endSize = widget.tileSize * .9;
+      endSize = mySettings.tileSize * .9;
     });
   }
 
   void pressUp(details) {
-    developer.log("My key: " + widget.key.toString());
-    TouchNotification(myID: {'row': widget.rowNum, 'col': widget.colNum})
+    TouchNotification(myID: widget.index)
       ..dispatch(context);
     setState(() {
-      endSize = widget.tileSize * .9;
+      endSize = mySettings.tileSize * .9;
+      
     });
   }
 
@@ -172,9 +167,5 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, reveal) {
     });
   }
 
-  void toggleReveal() {
-        setState(() {
-      widget.reveal = !widget.reveal;
-    });
-  }
+
 }

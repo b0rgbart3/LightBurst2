@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 class Settings  {
   int _boardSize;
   bool _boardCreated;
-  List _boardList;
   int _sequenceLength;
   int initialBoardSize = 5;
   int initialSequenceLength = 4;
@@ -28,6 +27,8 @@ class Settings  {
   int _minColorIndex = 0;
   int _maxColorIndex =2;
   BuildContext _context;
+  double _tileSize;
+
   // List _sequenceIndexes = [];
 
   //Settings( this._boardSize, this._sequenceLength);
@@ -76,21 +77,35 @@ class Settings  {
     return _context;
   }
 
-  void freshBoardList() {
-    _boardList = [];
-    // developer.log("Inside freshBoardList: " + _boardSize.toString());
-    for (var i = 0; i < (_boardSize * _boardSize); i++) {
-      // developer.log("_boardList: " + _boardList.toString());
-      _boardList.add(false);
+  double get tileSize {
+    if (_tileSize == null) {
+      _tileSize = screenSize / _boardSize;
     }
+    return _tileSize;
+  }
+
+  void freshBoardList() {
+   // _boardList = [];
+    sequence.fresh();
+    _tileSize = null;
+
+    // for (var i = 0; i < (_boardSize * _boardSize); i++) {
+    //   // developer.log("_boardList: " + _boardList.toString());
+    //   _boardList.add(false);
+    // }
     _sequence = new Sequence(_sequenceLength, _boardSize);
-    _sequence.generateRandomSequence(sequenceLength);
+    //_sequence.generateRandomSequence(sequenceLength);
     // developer.log("_boardList: " + _boardList.toString());
   }
 
-  void toggleTile(index) {
-    _boardList[index] = !_boardList[index];
-    // developer.log("toggleing tile.");
+  void toggleTile( tileIndex) {
+    //_boardList[index] = !_boardList[index];
+    //int index = (tileID["row"] * _boardSize ) + tileID["col"];
+    double rowDouble = tileIndex/_boardSize;
+    int row = rowDouble.floor();
+    var tileID= {"row":row ,"col":tileIndex%_boardSize};
+    sequence.touchBoard(tileID, tileIndex, false);
+    //developer.log("toggleing tile: " + index.toString());
   }
 
   bool get showSequence {
@@ -114,13 +129,7 @@ class Settings  {
     return _boardCreated;
   }
 
-  List get boardList {
-    if (_boardList == null) {
-      _boardList = [];
-    }
 
-    return _boardList;
-  }
   //  int get sequenceLength => _sequenceLength;
 
   int get sequenceLength {
@@ -165,7 +174,6 @@ class Settings  {
   set boardSize(int newSize) {
     _boardSize = newSize;
     _sequence = null;
-    _boardList = null;
   }
 
 
@@ -174,7 +182,6 @@ class Settings  {
       _sequenceLength = newSequenceLength;
     }
     _sequence = null;
-    _boardList = null;
   }
 
   set showSequence(bool newShowSequence) {
@@ -184,12 +191,11 @@ class Settings  {
   set sequence(Sequence newSequence) {
     _sequence = newSequence;
     _boardCreated = true;
-    developer.log("board created: true");
   }
 
 
   set boardCreated(bool newBoardCreated) {
-    developer.log("Changing board created bool");
+  
     _boardCreated = newBoardCreated;
   }
 
@@ -199,6 +205,7 @@ class Settings  {
       _showSequence = false;
     }
     _showSequence = !_showSequence;
+
   }
 // A Collection of key value pairs
 // Maps can be iterated
