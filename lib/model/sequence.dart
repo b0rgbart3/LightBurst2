@@ -61,7 +61,9 @@ void generateRandomSequence() {
 
   }
 
-void touchBoard(idObject, tileIndex, generator) {
+bool touchBoard(idObject, tileIndex, generator) {
+  bool goodChoice = false;
+
   toggleBoard(tileIndex);
 
 // only add this to the hit list if it was user generated - not code generated
@@ -71,20 +73,14 @@ void touchBoard(idObject, tileIndex, generator) {
       developer.log("indexOfHit: " + indexOfHit.toString());
   if ((indexOfHit == -1)) {
     hitList.add(tileIndex);
-    // remove it from the sequence
-  
-    
 
   } else {
     hitList.removeAt(indexOfHit);
-    // add it to the sequence
-   // sequenceIndexes.add(tileIndex);
-    //sequenceObjects.add(idObject);
-
   }
-  checkForRemovals(idObject);
+  goodChoice = checkForRemovals(idObject);
   developer.log("hit list: " + hitList.toString());
   developer.log("sequence indexes: " + sequenceIndexes.toString());
+
   }
 
 // above
@@ -109,7 +105,7 @@ void touchBoard(idObject, tileIndex, generator) {
     var rightIndex = (idObject["row"] * tileCount) + (idObject["col"]+1);
     toggleBoard(rightIndex);
   }
-
+  return goodChoice;
 }
 
 void generateBoard() {
@@ -184,6 +180,7 @@ bool checkForRemovals(tileID) {
   if (index != null && index != -1) {
   sequenceObjects.removeAt(index);
   sequenceIndexes.remove(tileIndex);
+
   } else {
     sequenceIndexes.add(tileIndex);
     sequenceObjects.add(tileID);
@@ -191,18 +188,7 @@ bool checkForRemovals(tileID) {
   }
 
 
-
-
-
-  // var fsIndex = findYourOwnDamnObject(tileID, sequenceObjects);
-  // if (fsIndex != null && fsIndex != -1) {
-  //   sequenceObjects.removeAt(index);
-  // }
-
-
-//sequenceIndexes.remove(tileIndex);
-return true;
- 
+   return true;
 
 
     }

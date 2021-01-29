@@ -2,10 +2,13 @@
 import 'package:flutter/material.dart';
 import '../components/interface.dart';
 import '../components/navbutton.dart';
+import '../model/settings.dart';
 
 class GameWon extends StatelessWidget { 
 @override
   Widget build(BuildContext context) {
+      Settings mySettings = Settings();
+
         void newGame() async {
     Navigator.pop(context);
   }
@@ -17,11 +20,13 @@ class GameWon extends StatelessWidget {
         children: [  BkgImageWidget(),
         Container(
           
-          height:200,
+          height:500,
           alignment: Alignment.center,
           child:
           Column( children: [boxText("NICE JOB!", Colors.white, Colors.black),
           boxText("You completed the puzzle.", Colors.white, Colors.black),
+          boxText("Your Score: " + mySettings.score.toString(), Colors.white, Colors.black),
+          boxText("Time: " + mySettings.getDuration.toString(), Colors.white, Colors.black),
           
           NavButton(
             UniqueKey(), newGame,"PLAY AGAIN", null, 300, 60, false),

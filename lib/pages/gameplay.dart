@@ -8,6 +8,7 @@ import 'settingseditor.dart';
 import '../components/navbutton.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
+import '../pages/gamewon.dart';
 
 class Game extends StatefulWidget {
   Game({Key key}) : super(key: key);
@@ -26,7 +27,7 @@ class _GameState extends State<Game> {
   Timer myTimer;
   var onState = true;
   bool revealSequence = false;
-
+  var score; 
   var board;
 
   void _freshGame() {
@@ -36,6 +37,24 @@ class _GameState extends State<Game> {
     });
   }
 
+void checkForWin() {
+  bool won = true;
+  for (var i = 0; i < mySettings.boardSize*mySettings.boardSize; i++) {
+    if (mySettings.sequence.board[i]) {
+      won = false;
+      break;}
+  }
+  if (won) {gameWon();}
+}
+
+  void gameWon() async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => GameWon()))
+        .then((value) => setState(() {
+          // clearBoard();
+    mySettings.freshBoardList();
+
+            }));
+  }
   void helpScreen() {
 
   }
@@ -74,16 +93,7 @@ class _GameState extends State<Game> {
 
 
   _determineChange(changed) {
-    //developer.log(changed.toString());
-    // we get a boolean back from the Settings Editor
-    // and Only if the settings have changed
-    // do we need to call set State
 
-    //developer.log("changed: " + changed.toString());
-    // if ((mySettings.boardSize != oldBoardSize) || (mySettings.sequenceLength != oldSequenceLength)) {
-    //   changed = true;
-    // }
-    //developer.log("Got back the changes: " +changed.toString());
     int requireNewBoard = (changed["changes"].indexOf("board"));
     int requireNewSeq = (changed["changes"].indexOf("sequence"));
     int requireColorChange = (changed["changes"].indexOf("color"));
@@ -121,6 +131,7 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     var mySettings = Settings();
     var sensitivity = 8;
+    score = mySettings.score;
 
     mySettings.context = context;
     revealSequence = mySettings.showSequence;
@@ -177,7 +188,17 @@ class _GameState extends State<Game> {
                   child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    board,
+                    NotificationListener<TouchNotification> (
+                        onNotification: (notification) {
+                          checkForWin();
+                          setState(() {
+          
+                             });
+                            return true;
+                          },
+                    child: board )
+
+                   ,
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -185,7 +206,7 @@ class _GameState extends State<Game> {
                               "SL: " +
                                   mySettings.sequenceLength.toString() +
                                   ", CS: " +
-                                  colorIndex.toString(),
+                                  colorIndex.toString() + " Score: "+score.toString(),
                               Colors.white,
                               Colors.black)
                         ]),

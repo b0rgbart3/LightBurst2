@@ -29,6 +29,11 @@ class Settings  {
   int _maxColorIndex =2;
   BuildContext _context;
   double _tileSize;
+  double _score;
+  double _point;
+  double INITIAL_SCORE = 100.0;
+  Stopwatch _s;
+  
 
   // List _sequenceIndexes = [];
 
@@ -65,6 +70,12 @@ class Settings  {
     return _maxColorIndex;
   }
 
+  double get score {
+    if (_score == null) {
+      _score = INITIAL_SCORE;
+    }
+    return _score;
+  }
 
   Sequence get sequence {
     if (_sequence == null) {
@@ -86,17 +97,12 @@ class Settings  {
   }
 
   void freshBoardList() {
-   // _boardList = [];
     sequence.fresh();
     _tileSize = null;
-
-    // for (var i = 0; i < (_boardSize * _boardSize); i++) {
-    //   // developer.log("_boardList: " + _boardList.toString());
-    //   _boardList.add(false);
-    // }
+    _score = null;
     _sequence = new Sequence(_sequenceLength, _boardSize);
-    //_sequence.generateRandomSequence(sequenceLength);
-    // developer.log("_boardList: " + _boardList.toString());
+     _s = new Stopwatch();
+     _s.start();
   }
 
   void toggleTile( tileIndex) {
@@ -105,7 +111,12 @@ class Settings  {
     double rowDouble = tileIndex/_boardSize;
     int row = rowDouble.floor();
     var tileID= {"row":row ,"col":tileIndex%_boardSize};
-    sequence.touchBoard(tileID, tileIndex, false);
+    bool goodChoice = sequence.touchBoard(tileID, tileIndex, false);
+    if (goodChoice) {
+      _score = _score + _point;
+    } else {
+      _score = _score -(_point*2);
+    }
     //developer.log("toggleing tile: " + index.toString());
   }
 
@@ -127,6 +138,8 @@ class Settings  {
     if (_boardCreated == null) {
       _boardCreated = false;
     }
+     _s = new Stopwatch();
+     _s.start();
     return _boardCreated;
   }
 
@@ -137,6 +150,7 @@ class Settings  {
     if (_sequenceLength == null) {
       _sequenceLength = initialSequenceLength;
     }
+    _point = _sequenceLength * 10.0;
     return _sequenceLength;
   }
 
@@ -206,6 +220,16 @@ class Settings  {
     _showSequence = !_showSequence;
 
   
+
+  }
+
+  int get getDuration {
+    int duration = 0;
+    if (_s != null) {
+    _s.stop();
+    duration = _s.elapsedMilliseconds;
+    }
+    return duration;
 
   }
 // A Collection of key value pairs

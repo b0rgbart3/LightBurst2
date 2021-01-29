@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'box.dart';
 import '../model/sequence.dart';
 import 'dart:developer' as developer;
-import '../pages/gamewon.dart';
 import '../model/settings.dart';
 import '../classes/notifications.dart';
 import '../classes/tileID.dart';
@@ -37,13 +36,7 @@ void initState() {
     }
 }
   
-  void gameWon() async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => GameWon()))
-        .then((value) => setState(() {
-    mySettings.freshBoardList();
-      clearBoard();
-            }));
-  }
+
 
   void clearBoard( ) {
     tileList = [];
@@ -61,20 +54,12 @@ void initState() {
 
   void touchTile( tileIndex ) {
       mySettings.toggleTile( tileIndex);
-      checkForWin();
+
       setState(() {  
       });
+     // checkForWin();
   }
 
-void checkForWin() {
-  bool won = true;
-  for (var i = 0; i < mySettings.boardSize*mySettings.boardSize; i++) {
-    if (mySettings.sequence.board[i]) {
-      won = false;
-      break;}
-  }
-  if (won) {gameWon();}
-}
 
 bool getCurrentState( tileID ) {
   var index = tileID['row'] * mySettings.boardSize + tileID['col'];
@@ -102,7 +87,7 @@ bool getCurrentState( tileID ) {
     return NotificationListener<TouchNotification> (
       onNotification: (notification) {
         touchTile(notification.myID);
-        return true;
+        
       },
       child:buildRows() );
   }

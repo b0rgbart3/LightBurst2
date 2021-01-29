@@ -27,7 +27,7 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, index) {
     Widget outerBox = Align(
                           alignment: Alignment.center,
                           child: Padding(
-        padding: EdgeInsets.symmetric(vertical: myWidth*.05, horizontal:myWidth*.05),
+        padding: EdgeInsets.symmetric(vertical: endSize*.05, horizontal:endSize*.05),
         child:Container(
                             alignment: Alignment.center,
                             width: myWidth,
@@ -125,30 +125,28 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, index) {
             onTapDown: pressDown,
             onTapUp: pressUp,
             onTapCancel: pressCancel,
-            child: TweenAnimationBuilder(
-                tween: Tween(begin: 0.0, end: endSize),
-                duration: Duration(milliseconds: 100),
-                builder: (_, num myWidth, __) {
-                  return NotificationListener<ChangeNotification>(
+            child: NotificationListener<ChangeNotification>(
                       onNotification: (notification) {
-                       // developer.log('Got notified of change: ' +
-                        //    notification.myID.toString());
                         toggleMe();
                         return true;
                       },
-                      child: Stack(children: boxChildren(myWidth, myColor, myShadowColor, myCenterColor, widget.index)));
-                })));
+                      child: Stack(children: boxChildren(endSize, myColor, myShadowColor, myCenterColor, widget.index))
+                      )
+                
+                )
+                );
+                
   }
 
   void pressDown(details) {
     setState(() {
-      endSize = mySettings.tileSize * .75;
+      endSize = mySettings.tileSize * .85;
     });
   }
 
   void pressCancel() {
     setState(() {
-      endSize = mySettings.tileSize * .9;
+      endSize = mySettings.tileSize;
     });
   }
 
@@ -156,7 +154,7 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, index) {
     TouchNotification(myID: widget.index)
       ..dispatch(context);
     setState(() {
-      endSize = mySettings.tileSize * .9;
+      endSize = mySettings.tileSize;
       
     });
   }
