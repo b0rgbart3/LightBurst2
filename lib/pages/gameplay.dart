@@ -9,6 +9,7 @@ import '../components/navbutton.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
 import '../pages/gamewon.dart';
+import '../pages/info.dart';
 
 class Game extends StatefulWidget {
   Game({Key key}) : super(key: key);
@@ -56,7 +57,11 @@ void checkForWin() {
             }));
   }
   void helpScreen() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Info()))
+        .then((value) => setState(() {
+          // clearBoard();
 
+            }));
   }
 
   void returnToWelcome() {
@@ -162,12 +167,16 @@ void checkForWin() {
           onHorizontalDragUpdate: (details) {
             // Note: Sensitivity is integer used when you don't want to mess up vertical drag
             // developer.log(details.delta.dx.toString());
+
+            // For now I am disabling the swipes - because they don't work well on the web
+            // version.
+
             if (details.delta.dx > sensitivity) {
               // Right Swipe
-              returnToWelcome();
+            //  returnToWelcome();
             } else if (details.delta.dx < -sensitivity) {
               //Left Swipe
-              _settingsEditor();
+            //  _settingsEditor();
             }
           },
           child: Container(

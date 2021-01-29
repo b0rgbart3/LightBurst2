@@ -4,7 +4,7 @@ import 'dart:developer' as developer;
 import 'dart:math';
 
 class Sequence {
-  final sequenceLength;
+  int sequenceLength;
   final tileCount;
 
   List sequenceObjects = [];  // RANDOM ID OBJECTS
@@ -38,6 +38,9 @@ void toggleBoard(index) {
 }
 
 void generateRandomSequence() {
+  if (sequenceLength > (tileCount*tileCount)) {
+    sequenceLength = (tileCount*tileCount) -1;
+  }
     for (var i = 0; i < sequenceLength; i++) {
       var rn = new Random();
       var _randomRow = rn.nextInt(tileCount);

@@ -17,14 +17,23 @@ class GameWon extends StatelessWidget {
     Navigator.pop(context);
   }
 
-    return Container(
-        alignment: Alignment.center,
-        color:Colors.black,
+    return Center(
+              child:  Container(
+                  margin: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                  border: Border.all(color: mySettings.myColorSet.background ),
+                  ),
+                  width:mySettings.screenSize*1.1,
+                  height: mySettings.screenSize*1.5,
+                  
+                  
+                
         child: Stack( alignment: Alignment.center,
         children: [  BkgImageWidget(),
         Container(
-          
-          height:500,
+          padding: const EdgeInsets.all(2.0),
+          height:mySettings.screenSize,
           alignment: Alignment.center,
           child:
           Column( children: [boxText("NICE JOB!", Colors.white, Colors.black),
@@ -39,6 +48,7 @@ class GameWon extends StatelessWidget {
           ]
           )
     )])
+    )
     );
 
 

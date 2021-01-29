@@ -81,13 +81,15 @@ class TitleText extends StatelessWidget {
 
 
 Widget boxText(myString, textColor, textShadowColor) {
-    return Text(myString,
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child:Text(myString,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: textColor,
           decoration: TextDecoration.none,
           fontFamily: 'Heebo',
-          fontSize: 30,
+          fontSize: 24,
           fontWeight: FontWeight.w600,
           shadows: [
             Shadow(
@@ -96,7 +98,28 @@ Widget boxText(myString, textColor, textShadowColor) {
               blurRadius: 30,
             ),
           ],
-        ));
+        )));
+  }
+
+Widget infoText(myString, textColor, textShadowColor) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child:Text(myString,
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          color: textColor,
+          decoration: TextDecoration.none,
+          fontFamily: 'Heebo',
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          shadows: [
+            Shadow(
+              color: textShadowColor,
+              offset: Offset(0, 0),
+              blurRadius: 30,
+            ),
+          ],
+        )));
   }
 
 Widget subTitleText(myString) {

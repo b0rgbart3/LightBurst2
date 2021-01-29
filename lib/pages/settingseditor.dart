@@ -94,7 +94,7 @@ class SettingsEditorState extends State<SettingsEditor> {
             // that is coming from the ball getting dragged by the user
             setState(() {
                 sequenceLength = notification.value;
-               // developer.log("seq len: " + notification.value.toString());
+            
                 mySettings.sequenceLength = sequenceLength;
             });
             
@@ -107,7 +107,7 @@ class SettingsEditorState extends State<SettingsEditor> {
 
 
   Widget sequenceLengthSetting() {
-   // double screenWidth = MediaQuery.of(context).size.width;
+
 double screenWidth = mySettings.screenSize;
      return settingsBox(Padding(
         padding: EdgeInsets.symmetric(vertical: 1.0),
@@ -136,7 +136,7 @@ double screenWidth = mySettings.screenSize;
   }
   
   Widget colorSetting() {
-   // double screenWidth = MediaQuery.of(context).size.width;
+
 double screenWidth = mySettings.screenSize;
      return settingsBox(Padding(
         padding: EdgeInsets.symmetric(vertical: 1.0),
