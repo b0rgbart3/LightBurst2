@@ -32,3 +32,9 @@ class ChangeNotification extends Notification {
 
   const ChangeNotification({this.myID});
 }
+
+class TimerEndNotification extends Notification {
+  final Object myID;
+
+  const TimerEndNotification({this.myID});
+}

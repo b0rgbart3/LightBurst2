@@ -3,7 +3,8 @@ import 'dart:math';
 import '../model/sequence.dart';
 import '../classes/colorset.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:async';
+import '../classes/notifications.dart';
 // This Settings class creates a "singleton" which
 // I am using as our Global State Object
 
@@ -200,11 +201,14 @@ class Settings  {
   }
 
 
+
   void toggleShowSequence() {
     if (_showSequence == null) {
       _showSequence = false;
     }
     _showSequence = !_showSequence;
+
+  
 
   }
 // A Collection of key value pairs
