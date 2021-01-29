@@ -8,7 +8,11 @@ class GameWon extends StatelessWidget {
 @override
   Widget build(BuildContext context) {
       Settings mySettings = Settings();
-
+      double duration = mySettings.getDuration;
+      double score = mySettings.score - (duration*5.0);
+      if (score < 0.0) {
+        score = 0;
+      }
         void newGame() async {
     Navigator.pop(context);
   }
@@ -25,15 +29,13 @@ class GameWon extends StatelessWidget {
           child:
           Column( children: [boxText("NICE JOB!", Colors.white, Colors.black),
           boxText("You completed the puzzle.", Colors.white, Colors.black),
-          boxText("Your Score: " + mySettings.score.toString(), Colors.white, Colors.black),
-          boxText("Time: " + mySettings.getDuration.toString(), Colors.white, Colors.black),
+          boxText("Time: " + duration.toStringAsFixed(2) + "s", Colors.white, Colors.black),
+          boxText("Your Score: " + score.toStringAsFixed(0), Colors.white, Colors.black),
+          
           
           NavButton(
             UniqueKey(), newGame,"PLAY AGAIN", null, 300, 60, false),
-          // RaisedButton(
-          //   onPressed: () { newGame(context); },
-          //   child: const Text('PLAY AGAIN', style: TextStyle(fontSize: 20)),
-          // ),
+
           ]
           )
     )])

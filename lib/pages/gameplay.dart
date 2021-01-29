@@ -75,8 +75,10 @@ void checkForWin() {
     });
 
     if (mySettings.showSequence) {
+      mySettings.decreaseScore(mySettings.sequenceLength*50.0);
         myTimer = Timer(Duration(seconds: 3), () {
        //  _showSequence();
+       
        developer.log("timer up");
         mySettings.toggleShowSequence();
         developer.log("show is now: " + mySettings.showSequence.toString());
@@ -205,8 +207,9 @@ void checkForWin() {
                           boxText(
                               "SL: " +
                                   mySettings.sequenceLength.toString() +
-                                  ", CS: " +
-                                  colorIndex.toString() + " Score: "+score.toString(),
+                                  // ", CS: " +
+                                  // colorIndex.toString() + 
+                                  ",  Score: "+score.toString(),
                               Colors.white,
                               Colors.black)
                         ]),

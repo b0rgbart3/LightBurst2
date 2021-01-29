@@ -31,7 +31,7 @@ class Settings  {
   double _tileSize;
   double _score;
   double _point;
-  double INITIAL_SCORE = 100.0;
+  double _initialScore;
   Stopwatch _s;
   
 
@@ -70,9 +70,16 @@ class Settings  {
     return _maxColorIndex;
   }
 
+double get initialScore {
+  if (_initialScore == null) {
+    _initialScore = 100.0 * sequenceLength;
+
+  }
+  return _initialScore;
+}
   double get score {
     if (_score == null) {
-      _score = INITIAL_SCORE;
+      _score = initialScore;
     }
     return _score;
   }
@@ -89,6 +96,10 @@ class Settings  {
     return _context;
   }
 
+  void decreaseScore(demerit) {
+    _score = _score-demerit;
+  }
+
   double get tileSize {
     if (_tileSize == null) {
       _tileSize = screenSize / _boardSize;
@@ -103,6 +114,7 @@ class Settings  {
     _sequence = new Sequence(_sequenceLength, _boardSize);
      _s = new Stopwatch();
      _s.start();
+     _initialScore = null;
   }
 
   void toggleTile( tileIndex) {
@@ -150,7 +162,7 @@ class Settings  {
     if (_sequenceLength == null) {
       _sequenceLength = initialSequenceLength;
     }
-    _point = _sequenceLength * 10.0;
+    _point = _sequenceLength * 20.0;
     return _sequenceLength;
   }
 
@@ -223,11 +235,11 @@ class Settings  {
 
   }
 
-  int get getDuration {
-    int duration = 0;
+  double get getDuration {
+    double duration = 0;
     if (_s != null) {
     _s.stop();
-    duration = _s.elapsedMilliseconds;
+    duration = _s.elapsedMilliseconds / 1000.0;
     }
     return duration;
 
