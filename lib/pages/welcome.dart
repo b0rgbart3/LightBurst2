@@ -43,7 +43,7 @@ class _WelcomeState extends State<Welcome> {
   List keys = [];
   int boardSize;
   int sequenceLength;
-  Settings mySettings;
+   Settings mySettings = Settings();
 
 void backInWelcome( settingsGotChanged ) {
       keys.forEach( (key) => {
@@ -93,6 +93,8 @@ void backInWelcome( settingsGotChanged ) {
   @override
   Widget build(BuildContext context) {
 
+      mySettings.context = context;
+
     if (boardSize == null) {
       boardSize = 5;
     }
@@ -104,15 +106,30 @@ void backInWelcome( settingsGotChanged ) {
     Widget cross() {
 
       
-      return NotificationListener<PlayNotification> (
+      return  Center(
+              child:  Container(
+                  margin: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                  border: Border.all(color: mySettings.myColorSet.background ),
+                  ),
+                  width:mySettings.screenSize*1.1,
+                  height: mySettings.screenSize*1.5,
+                  
+                  child:
+      
+      
+      NotificationListener<PlayNotification> (
       onNotification: (notification) {
          aboutToPlay(context);
         return true;
       },
-      child:
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 70.0),
+        child: Column(children: [
       Column(
         children: [
-         
+         TitleText("LIGHTBURST"),
           tiles[0],
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -124,8 +141,9 @@ void backInWelcome( settingsGotChanged ) {
           ),
              tiles[4],
         ],
-      )
-       );
+      )]))
+       )),)
+       ;
     }
 
     return Column (
@@ -135,13 +153,9 @@ void backInWelcome( settingsGotChanged ) {
           // ColorFilterWidget(),
           Container(
               alignment: Alignment.center,
-              child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 100.0),
-        child: Column(children: [TitleText("LIGHTBURST"), cross()])
-        )
-          )
-        ]
-        )]
+              child: cross())
+        
+        ])]
         );
   }
 }

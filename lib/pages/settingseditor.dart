@@ -65,7 +65,7 @@ class SettingsEditorState extends State<SettingsEditor> {
 
   Widget settingsBox(contents) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 2.0),
         child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -75,9 +75,10 @@ class SettingsEditorState extends State<SettingsEditor> {
   }
 
   Widget boardSizeSetting() {
-    double screenWidth = MediaQuery.of(context).size.width;
+   // double screenWidth = MediaQuery.of(context).size.width;
+   double screenWidth = mySettings.screenSize;
     return settingsBox(Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 1.0),
         child: Container(
             child: Stack(children: [
           
@@ -106,10 +107,10 @@ class SettingsEditorState extends State<SettingsEditor> {
 
 
   Widget sequenceLengthSetting() {
-    double screenWidth = MediaQuery.of(context).size.width;
-
+   // double screenWidth = MediaQuery.of(context).size.width;
+double screenWidth = mySettings.screenSize;
      return settingsBox(Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 1.0),
         child: Container(
             child: Stack(children: [
   
@@ -135,10 +136,10 @@ class SettingsEditorState extends State<SettingsEditor> {
   }
   
   Widget colorSetting() {
-    double screenWidth = MediaQuery.of(context).size.width;
-
+   // double screenWidth = MediaQuery.of(context).size.width;
+double screenWidth = mySettings.screenSize;
      return settingsBox(Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 1.0),
         child: Container(
             child: Stack(children: [
   
@@ -173,14 +174,17 @@ class SettingsEditorState extends State<SettingsEditor> {
         Stack(alignment: Alignment.center, children: [
           BkgImageWidget(),
           // ColorFilterWidget(),
-          Container(
-              alignment: Alignment.center,
-              child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      child: Column(
+           Center(
+              child:  Container(
+                  margin: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                  border: Border.all(color: mySettings.myColorSet.background ),
+                  ),
+                  width:mySettings.screenSize*1.1,
+                  height: mySettings.screenSize*1.5,
+                  
+                  child: Column(
                         children: [
                           TitleText("SETTINGS"),
                           boardSizeSlider(),
@@ -196,7 +200,7 @@ class SettingsEditorState extends State<SettingsEditor> {
                               65.0, false),
                         ],
                       ))
-          ))
+          )
         ]),
       ]),
     );

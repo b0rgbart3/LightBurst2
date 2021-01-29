@@ -36,6 +36,10 @@ class _GameState extends State<Game> {
     });
   }
 
+  void helpScreen() {
+
+  }
+
   void returnToWelcome() {
     Navigator.pop(context, myStateGotChanged);
   }
@@ -64,20 +68,7 @@ class _GameState extends State<Game> {
         });
       });
     }
-  //   if (_showSequence) {
-   
-  //     developer.log("_ShowSequence is true");
 
-  //     var timer = Timer(Duration(seconds: 3), () { 
-  //          developer.log("notify timer ending");
-  //          _showSequence=false;
-  //       TimerEndNotification(myID: false)
-  //     ..dispatch(context);
-
-  
-   
-  //     }
-  //     );
  }
 
 
@@ -102,31 +93,17 @@ class _GameState extends State<Game> {
 
     if (requireNew) {
       setState(() {
-        //  var settingsChanged = boardKey.currentState.setNewValues();
-        //if (settingsChanged) {
-        // developer.log("old color index: " + oldColorIndex.toString());
-        // boardKey.currentState.setState( () => {
-
         colorIndex = mySettings.colorIndex;
         myStateGotChanged = true;
-
         mySettings.freshBoardList();
-
-        // }
       });
     } else {
       if (colorChange) {
-        //  developer.log("The color was changed.");
         setState(() {
-          //    // boardKey.currentState.clearBoard();
           colorIndex = mySettings.colorIndex;
           myStateGotChanged = true;
-
-          // boardKey.currentState.clearBoard();
         });
-      } else {
-        // developer.log("There were no changes to the settings.");
-      }
+      } 
     }
   }
 
@@ -145,6 +122,7 @@ class _GameState extends State<Game> {
     var mySettings = Settings();
     var sensitivity = 8;
 
+    mySettings.context = context;
     revealSequence = mySettings.showSequence;
 
     colorIndex = mySettings.colorIndex;
@@ -180,15 +158,23 @@ class _GameState extends State<Game> {
             }
           },
           child: Container(
+
               // color: Colors.blue[900],
               child: Stack(children: [
             // Image.asset('images/bkg1.jpg'),
             BkgImageWidget(),
             // ColorFilterWidget(),
             Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
-                child: Column(
+              child:  Container(
+                  margin: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                  border: Border.all(color: mySettings.myColorSet.background ),
+                  ),
+                  width:mySettings.screenSize*1.1,
+                  height: mySettings.screenSize*1.5,
+                  
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     board,
@@ -212,11 +198,20 @@ class _GameState extends State<Game> {
                               "",
                               Icon(Icons.navigate_before,
                                   color: mySettings.myColorSet.text,
-                                  size: 54.0),
+                                  size: 64.0),
                               65.0,
                               65.0,
                               false),
-                      
+                                         NavButton(
+                              null,
+                              helpScreen,
+                              "",
+                              Icon(Icons.help_outline,
+                                  color: mySettings.myColorSet.text,
+                                  size: 44.0),
+                              65.0,
+                              65.0,
+                              false),  
                   
                             NavButton(
                                   revealKey,
@@ -224,7 +219,7 @@ class _GameState extends State<Game> {
                                   "",
                                   Icon(Icons.visibility,
                                       color: mySettings.myColorSet.text,
-                                      size: 54.0),
+                                      size: 44.0),
                                   65.0,
                                   65.0,
                                   revealSequence),
@@ -244,13 +239,13 @@ class _GameState extends State<Game> {
                               "",
                               Icon(Icons.settings,
                                   color: mySettings.myColorSet.text,
-                                  size: 44.0),
+                                  size: 40.0),
                               65.0,
                               65.0,
                               false),
                         ])
                   ],
-                ),
+                )
               ),
             )
           ])),

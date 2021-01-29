@@ -48,7 +48,7 @@ class SliderState extends State<SettingsSlider> {
       Align(child: subTitleText(widget.title +": "+ widget.current.toString())),
       Padding(
           padding:
-              EdgeInsets.only(top: 54.0, bottom: 40.0, left: 10.0, right: 10.0),
+              EdgeInsets.only(top: 44.0, bottom: 20.0, left: 10.0, right: 10.0),
           child: Container(
             height: 10,
             decoration: BoxDecoration(
@@ -83,7 +83,7 @@ class SliderState extends State<SettingsSlider> {
           },
           child: Ball(
               key: widget.myKey,
-              screenWidth: widget.screenWidth - 82.0,
+              screenWidth: widget.screenWidth - 36,
               sliderID: widget.sliderID,
               min: widget.min,
               max: widget.max,

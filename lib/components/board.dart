@@ -116,7 +116,7 @@ bool getCurrentState( tileID ) {
   }
 
   Widget buildRow(rowNum) {
-    mySettings.context = context;
+    
     List tiles = <Widget>[];
 
 // Dynamically build a whole row of tiles

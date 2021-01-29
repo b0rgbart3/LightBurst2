@@ -148,13 +148,10 @@ class Settings  {
   }
 
   double get screenSize {
-    double _screenWidth = MediaQuery.of(context).size.width;
-    double _screenHeight = MediaQuery.of(context).size.height;
+     _screenWidth = MediaQuery.of(context).size.width;
+     _screenHeight = MediaQuery.of(context).size.height;
 
-    _screenSize = _screenHeight / 2;
-    if (_screenSize > _screenWidth) {
-      _screenSize = _screenWidth *.9;
-    }
+    _screenSize = _screenHeight *.5;
 
     return _screenSize;
   }

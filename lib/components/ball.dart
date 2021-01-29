@@ -104,7 +104,7 @@ void initState() {
 
 
     return Transform.translate(
-      offset: Offset(myX,10.0),
+      offset: Offset(myX,0.0),
       child:Padding(
       padding:EdgeInsets.symmetric(vertical:28.0, horizontal: 6.0),
       child: GestureDetector(
