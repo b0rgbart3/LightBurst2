@@ -14,9 +14,10 @@ class NavButton extends StatefulWidget {
   final key, onPressed, textString, icon;
   double navWidth, navHeight;
   bool onState;
+  bool toggle;
 
   NavButton(this.key, this.onPressed, this.textString, this.icon, this.navWidth,
-      this.navHeight, this.onState);
+      this.navHeight, this.onState, this.toggle);
 
   @override
   State createState() => NavButtonState();
@@ -184,7 +185,12 @@ class NavButtonState extends State<NavButton> {
 
   void toggleMe() {
     setState(() {
-      onState = !onState;
+      if (widget.toggle) {
+      onState = !onState;}
+      else
+      {
+        onState = false;
+      }
      // developer.log('toggling tile');
     });
   }

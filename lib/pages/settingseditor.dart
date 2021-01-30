@@ -23,6 +23,7 @@ class SettingsEditorState extends State<SettingsEditor> {
   int boardSize;
   int sequenceLength;
   int colorIndex;
+  String colorName;
   int originalBoardSize, originalSequenceLength, originalColorIndex;
   int color, minColorIndex, maxColorIndex;
 
@@ -115,7 +116,7 @@ double screenWidth = mySettings.screenSize;
         child: Container(
             child: Stack(children: [
   
-          SettingsSlider(title: "SEQUENCE LENGTH",
+          SettingsSlider(title: "SEQUENCE LENGTH", 
               screenWidth: screenWidth,
               sliderID: "sequenceLength",
               min: mySettings.minSequenceLength,
@@ -129,6 +130,8 @@ double screenWidth = mySettings.screenSize;
             setState(() {
                 colorIndex = notification.value;
                 mySettings.colorIndex = colorIndex;
+                colorName = mySettings.myColorSet.nameString;
+                
               //  developer.log("color changed" + colorIndex.toString());
                 
             });
@@ -144,7 +147,7 @@ double screenWidth = mySettings.screenSize;
         child: Container(
             child: Stack(children: [
   
-          SettingsSlider(title: "COLOR: " + colorIndex.toString(),
+          SettingsSlider(title: "COLOR",
               screenWidth: screenWidth,
               sliderID: "color",
               min: mySettings.minColorIndex,
@@ -171,22 +174,22 @@ double screenWidth = mySettings.screenSize;
     }
 
     return Framer(Column(
-                        children: [
-                          TitleText("SETTINGS"),
-                          boardSizeSlider(),
-                          sequenceLengthSlider(),
-                          colorSlider(this, context),
-                          NavButton(
-                              null,
-                              _submitSettings,
-                              "",
-                              Icon(Icons.done,
-                                  size: 54.0, color: mySettings.myColorSet.text),
-                              65.0,
-                              65.0, false),
-                        ],
-                      )
-                      );
+          children: [
+            TitleText("SETTINGS"),
+            boardSizeSlider(),
+            sequenceLengthSlider(),
+            colorSlider(this, context),
+            NavButton(
+                null,
+                _submitSettings,
+                "",
+                Icon(Icons.done,
+                    size: 54.0, color: mySettings.myColorSet.text),
+                65.0,
+                65.0, false, false),
+          ],
+        )
+        );
     
   }
 }

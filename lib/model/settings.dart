@@ -170,6 +170,7 @@ double get initialScore {
     if (_myColorSet == null) {
       _myColorSet = new Colorset(_colorIndex);
     }
+    _myColorSet = Colorset(colorIndex);
     return _myColorSet;
   }
 

@@ -9,6 +9,7 @@ import '../components/tile.dart';
 import '../classes/notifications.dart';
 import '../components/navbutton.dart';
 import '../model/settings.dart';
+import '../components/framer.dart';
 
 class Info extends StatelessWidget {
   Settings mySettings = Settings();
@@ -24,9 +25,9 @@ Widget infoWidget( textString, icon ) {
           children:[
             NavButton( null,null,"",Icon(icon,
               color: mySettings.myColorSet.text,
-              size: 40.0), 65.0, 65.0, false), 
+              size: 40.0), 65.0, 65.0, false, false), 
               Container(
-                width:mySettings.screenSize-60,
+                width:mySettings.screenSize*.8,
                 child:
               infoText(textString, Colors.white, Colors.black)
               )
@@ -47,15 +48,13 @@ Widget revealInfo() {
   Widget build(BuildContext context) {
 
       
-      return  Scaffold( 
-        body: Stack( children: [
-          BkgImageWidget(),
+      return  Framer(
           ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.only(bottom:15.0),
               children:[Center(
               child:  Container(
-                  margin: const EdgeInsets.symmetric(vertical:40.0),
+                  margin: const EdgeInsets.only(bottom:40.0),
                   padding: const EdgeInsets.only(bottom:50.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -64,7 +63,7 @@ Widget revealInfo() {
                   width:mySettings.screenSize*1.1,
                   
                   child:Padding(
-        padding: EdgeInsets.only(top: 50.0),
+        padding: EdgeInsets.only(bottom: 50.0),
         child: Column(children: [
       Column(
         children: [
@@ -81,15 +80,15 @@ Widget revealInfo() {
                               Icon(Icons.done,
                                   size: 54.0, color: mySettings.myColorSet.text),
                               65.0,
-                              65.0, false),
+                              65.0, false, false),
         ],
       )])
       )
        )
        
       )]
-      )]
-      ));
+      )
+      );
 
     
 }

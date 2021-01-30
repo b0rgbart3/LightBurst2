@@ -26,7 +26,7 @@ class GameWon extends StatelessWidget {
           boxText(" ", Colors.white, Colors.black),
           
           NavButton(
-            UniqueKey(), newGame,"PLAY AGAIN", null, 300, 60, false),
+            UniqueKey(), newGame,"PLAY AGAIN", null, 300, 60, false, false),
 
           ]
           )

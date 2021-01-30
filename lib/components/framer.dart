@@ -13,7 +13,7 @@ class Framer extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-      return  Column (
+      return  Column ( key: UniqueKey(),
         children: [Stack(alignment: Alignment.center, children: [
           BkgImageWidget(),
           Container(

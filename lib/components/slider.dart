@@ -8,6 +8,7 @@ import '../pages/gamewon.dart';
 import 'ball.dart';
 import '../classes/notifications.dart';
 import '../model/settings.dart';
+import '../classes/colorset.dart';
 
 class SettingsSlider extends StatefulWidget {
   SettingsSlider(
@@ -43,9 +44,15 @@ class SliderState extends State<SettingsSlider> {
   @override
   Widget build(BuildContext context) {
     Settings mySettings = Settings();
+    String myTitle;
+    if (widget.title!="COLOR") {
+    myTitle = widget.title + ": " + widget.current.toString();
+    } else {
+      myTitle = widget.title + ": " + mySettings.myColorSet.nameString.toString();
+    }
 
     return Stack(children: [
-      Align(child: subTitleText(widget.title +": "+ widget.current.toString())),
+      Align(child: subTitleText(myTitle)),
       Padding(
           padding:
               EdgeInsets.only(top: 44.0, bottom: 20.0, left: 10.0, right: 10.0),

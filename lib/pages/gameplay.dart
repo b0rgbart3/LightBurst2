@@ -63,6 +63,11 @@ void checkForWin() {
         .then((value) => setState(() {
           // clearBoard();
 mySettings.showSequence = false;
+ revealSequence = false;
+setState(() {
+  
+});
+
             }));
   }
 
@@ -89,9 +94,9 @@ mySettings.showSequence = false;
        developer.log("timer up");
         mySettings.toggleShowSequence();
         developer.log("show is now: " + mySettings.showSequence.toString());
-        revealSequence = false;
+         revealSequence = false;
         setState(() {
-          
+         
            myTimer.cancel();
         });
       });
@@ -146,7 +151,7 @@ mySettings.showSequence = false;
     revealSequence = mySettings.showSequence;
 
     colorIndex = mySettings.colorIndex;
-    oldColorIndex = colorIndex;
+    //oldColorIndex = colorIndex;
 
     // We only need to create a board if it hasn't already been created.
     //if (!mySettings.boardCreated) {
@@ -188,13 +193,12 @@ mySettings.showSequence = false;
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           boxText("",
-                              //"SL: " +
-                                  // mySettings.sequenceLength.toString() +
-                                  // // ", CS: " +
-                                  // // colorIndex.toString() + 
-                                  // ",  Score: "+score.toString(),
-                              Colors.white,
-                              Colors.black)
+                              // "SL: " +
+                              //     mySettings.sequenceLength.toString() +
+                              //     ", CS: " +
+                              //     colorIndex.toString() + 
+                              //     ",  Score: "+score.toString(),
+                              Colors.white, Colors.black)
                         ]),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,7 +212,7 @@ mySettings.showSequence = false;
                                   size: 64.0),
                               65.0,
                               65.0,
-                              false),
+                              false, false),
                                          NavButton(
                               null,
                               helpScreen,
@@ -218,7 +222,7 @@ mySettings.showSequence = false;
                                   size: 44.0),
                               65.0,
                               65.0,
-                              false),  
+                              false, false),  
                   
                             NavButton(
                                   revealKey,
@@ -229,7 +233,7 @@ mySettings.showSequence = false;
                                       size: 44.0),
                                   65.0,
                                   65.0,
-                                  revealSequence),
+                                  revealSequence, true),
                           NavButton(
                               null,
                               _freshGame,
@@ -239,7 +243,7 @@ mySettings.showSequence = false;
                                   size: 54.0),
                               65.0,
                               65.0,
-                              false),
+                              false, false),
                           NavButton(
                               null,
                               _settingsEditor,
@@ -249,7 +253,7 @@ mySettings.showSequence = false;
                                   size: 40.0),
                               65.0,
                               65.0,
-                              false),
+                              false, false),
                         ])
                   ],
                 )
