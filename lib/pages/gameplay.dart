@@ -213,12 +213,12 @@ void checkForWin() {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          boxText(
-                              "SL: " +
-                                  mySettings.sequenceLength.toString() +
-                                  // ", CS: " +
-                                  // colorIndex.toString() + 
-                                  ",  Score: "+score.toString(),
+                          boxText("",
+                              //"SL: " +
+                                  // mySettings.sequenceLength.toString() +
+                                  // // ", CS: " +
+                                  // // colorIndex.toString() + 
+                                  // ",  Score: "+score.toString(),
                               Colors.white,
                               Colors.black)
                         ]),
