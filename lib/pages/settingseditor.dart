@@ -71,7 +71,7 @@ class SettingsEditorState extends State<SettingsEditor> {
         child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.black,
+              color: Color(0x44000000),
             ),
             child: contents));
   }

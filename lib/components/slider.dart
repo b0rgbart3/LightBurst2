@@ -48,7 +48,8 @@ class SliderState extends State<SettingsSlider> {
     if (widget.title!="COLOR") {
     myTitle = widget.title + ": " + widget.current.toString();
     } else {
-      myTitle = widget.title + ": " + mySettings.myColorSet.nameString.toString();
+      myTitle = widget.title + ": "; 
+      // + mySettings.myColorSet.nameString.toString();
     }
 
     return Stack(children: [
@@ -69,10 +70,6 @@ class SliderState extends State<SettingsSlider> {
           )),
       NotificationListener<DragNotification>(
           onNotification: (notification) {
-            // We get a notification message here -- 
-            // and we let it bubble up to the settingsEditor...
-
-           // developer.log('Got notified: ' + notification.id.toString());
             
             // If the user is still dragging - then we interrupt the notification,
             // and don't let it buble up to the settings Editor.

@@ -15,9 +15,9 @@ class Settings  {
   int initialBoardSize = 5;
   int initialSequenceLength = 4;
   int _minBoardSize = 3;
-  int _maxBoardSize = 10;
+  int _maxBoardSize = 9;
   int _minSequenceLength = 3;
-  int _maxSequenceLength = 10;
+  int _maxSequenceLength = 14;
   double _screenSize;
   double _screenWidth;
   double _screenHeight;
@@ -65,7 +65,7 @@ class Settings  {
 
   int get maxColorIndex{
     if (_maxColorIndex == null) {
-      _maxColorIndex =3;
+      _maxColorIndex = Colorset.colorsets.length -1;
     }
     return _maxColorIndex;
   }

@@ -18,11 +18,23 @@ class GameWon extends StatelessWidget {
     Navigator.pop(context);
   }
 
+  if (duration < 1) {
+    duration = 1;
+  }
+
+    String finishedText = "You finished in " + duration.toStringAsFixed(0);
+
+    if (duration > 1) {
+      finishedText = finishedText + " seconds.";
+    } else {
+      finishedText = finishedText + " second.";
+    }
     return Framer(
-          Column( children: [boxText("YOU WON!", Colors.white, Colors.black),
-          boxText("You finished in: " + duration.toStringAsFixed(0) + " seconds.", Colors.white, Colors.black),
+          Column( children: [TitleText(""),
+            TitleText("YOU WON!"),
+          boxText(finishedText, Colors.white, Colors.black),
          
-          boxText("Your Score: " + score.toStringAsFixed(0), Colors.white, Colors.black),
+          boxText("SCORE:  " + score.toStringAsFixed(0), Colors.white, Colors.black),
           boxText(" ", Colors.white, Colors.black),
           
           NavButton(
