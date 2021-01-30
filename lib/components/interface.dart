@@ -13,7 +13,7 @@ class BkgImageWidget extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     Settings mySettings = Settings();
     // developer.log("building background image: colorIndex: " + mySettings.colorIndex.toString());
-    AssetImage bkgAsset = AssetImage("images/bkg1.jpg");
+    AssetImage bkgAsset = AssetImage("images/bkg5.jpg");
     Image image = Image(image: bkgAsset,
     fit: BoxFit.fill,
     width: screenWidth,

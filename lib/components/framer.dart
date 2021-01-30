@@ -3,12 +3,9 @@ import 'dart:developer' as developer;
 import 'interface.dart';
 import '../model/settings.dart';
 
-
 class Framer extends StatelessWidget {
   Framer(this.stuff);
-
   final Widget stuff;
-
   Settings mySettings = Settings();
   
   @override
@@ -26,12 +23,10 @@ class Framer extends StatelessWidget {
                     border: Border.all(color: mySettings.myColorSet.background ),
                   ),
                   width:mySettings.screenSize*1.1,
-                  height: mySettings.screenSize*1.5,
-                  
+                  height: mySettings.screenSize*1.5, 
                   child:stuff
               ))
               )
-        ])]
-        );
+        ])]);
 }
 }

@@ -51,6 +51,10 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
      - images/bkg1.jpg
+     - images/bkg2.jpg
+     - images/bkg4.jpg
+     - images/bkg5.jpg
+     - images/bkg6.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

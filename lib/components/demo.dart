@@ -23,6 +23,8 @@ class DemoState extends State<Demo> {
   bool tracking = false;
   double myX;
   double origin;
+  bool tile1,tile2,tile3,tile4,tile5 = false;
+  Stopwatch _demostopwatch;
 
   List tiles=[];
   List keys = [];
@@ -33,6 +35,10 @@ void initState() {
 }
 
 void startTimer() {
+
+   developer.log("Start the demo.");
+   _demostopwatch = new Stopwatch();
+   _demostopwatch.start();
 
 
 }
@@ -82,6 +88,8 @@ void startTimer() {
   @override
   Widget build(BuildContext context) {
       Settings mySettings = Settings();
+
+      
   
 
     return cross();
