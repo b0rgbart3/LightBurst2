@@ -26,7 +26,7 @@ class Settings  {
   Colorset _myColorSet;
   int _colorIndex = 0;
   int _minColorIndex = 0;
-  int _maxColorIndex =2;
+  int _maxColorIndex;
   BuildContext _context;
   double _tileSize;
   double _score;
@@ -65,7 +65,7 @@ class Settings  {
 
   int get maxColorIndex{
     if (_maxColorIndex == null) {
-      _maxColorIndex = 2;
+      _maxColorIndex =3;
     }
     return _maxColorIndex;
   }

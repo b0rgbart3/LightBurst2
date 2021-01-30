@@ -10,6 +10,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
 import '../pages/gamewon.dart';
 import '../pages/info.dart';
+import '../components/framer.dart';
 
 class Game extends StatefulWidget {
   Game({Key key}) : super(key: key);
@@ -53,6 +54,7 @@ void checkForWin() {
         .then((value) => setState(() {
           // clearBoard();
     mySettings.freshBoardList();
+    mySettings.showSequence = false;
 
             }));
   }
@@ -60,7 +62,7 @@ void checkForWin() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Info()))
         .then((value) => setState(() {
           // clearBoard();
-
+mySettings.showSequence = false;
             }));
   }
 
@@ -156,42 +158,14 @@ void checkForWin() {
     // Not sure if we need the Scaffold here or not - since we are not
     // using the appBar.  It's likely that we don't need it
 
-    return Scaffold(
-        // appBar: AppBar(
-        //   // Here we take the value from the MyHomePage object that was created by
-        //   // the App.build method, and use it to set our appbar title.
-        //   title: Text(widget.title),
-        // ),
-        key: UniqueKey(),
-        body: GestureDetector(
-          onHorizontalDragUpdate: (details) {
-            // Note: Sensitivity is integer used when you don't want to mess up vertical drag
-            // developer.log(details.delta.dx.toString());
-
-            // For now I am disabling the swipes - because they don't work well on the web
-            // version.
-
-            if (details.delta.dx > sensitivity) {
-              // Right Swipe
-            //  returnToWelcome();
-            } else if (details.delta.dx < -sensitivity) {
-              //Left Swipe
-            //  _settingsEditor();
-            }
-          },
-          child: Container(
-
-              // color: Colors.blue[900],
-              child: Stack(children: [
-            // Image.asset('images/bkg1.jpg'),
-            BkgImageWidget(),
-            // ColorFilterWidget(),
+    return Framer(
             Center(
               child:  Container(
                   margin: const EdgeInsets.all(3.0),
                   padding: const EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
-                  border: Border.all(color: mySettings.myColorSet.background ),
+                    borderRadius: BorderRadius.circular(10),
+                 // border: Border.all(color: mySettings.myColorSet.background ),
                   ),
                   width:mySettings.screenSize*1.1,
                   height: mySettings.screenSize*1.5,
@@ -281,7 +255,6 @@ void checkForWin() {
                 )
               ),
             )
-          ])),
-        ));
+          );
   }
 }

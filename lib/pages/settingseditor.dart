@@ -7,6 +7,7 @@ import '../components/slider.dart';
 import '../classes/notifications.dart';
 import 'dart:developer' as developer;
 import '../model/settings.dart';
+import '../components/framer.dart';
 
 class SettingsEditor extends StatefulWidget {
   SettingsEditor({Key key, this.title}) : super(key: key);
@@ -169,22 +170,7 @@ double screenWidth = mySettings.screenSize;
       originalColorIndex = colorIndex;
     }
 
-    return Scaffold( key: UniqueKey(),
-      body: Column(children: [
-        Stack(alignment: Alignment.center, children: [
-          BkgImageWidget(),
-          // ColorFilterWidget(),
-           Center(
-              child:  Container(
-                  margin: const EdgeInsets.all(3.0),
-                  padding: const EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                  border: Border.all(color: mySettings.myColorSet.background ),
-                  ),
-                  width:mySettings.screenSize*1.1,
-                  height: mySettings.screenSize*1.5,
-                  
-                  child: Column(
+    return Framer(Column(
                         children: [
                           TitleText("SETTINGS"),
                           boardSizeSlider(),
@@ -199,10 +185,8 @@ double screenWidth = mySettings.screenSize;
                               65.0,
                               65.0, false),
                         ],
-                      ))
-          )
-        ]),
-      ]),
-    );
+                      )
+                      );
+    
   }
 }

@@ -58,7 +58,8 @@ Widget revealInfo() {
                   margin: const EdgeInsets.symmetric(vertical:40.0),
                   padding: const EdgeInsets.only(bottom:50.0),
                   decoration: BoxDecoration(
-                  border: Border.all(color: mySettings.myColorSet.background ),
+                    borderRadius: BorderRadius.circular(10),
+               
                   ),
                   width:mySettings.screenSize*1.1,
                   

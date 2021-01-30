@@ -7,6 +7,7 @@ import '../classes/colorset.dart';
 import '../components/tile.dart';
 import '../classes/notifications.dart';
 import '../model/settings.dart';
+import '../components/framer.dart';
 
 // This is our welcome / home page
 // it displays the cross hairs of tiles with the play
@@ -106,20 +107,7 @@ void backInWelcome( settingsGotChanged ) {
     Widget cross() {
 
       
-      return  Center(
-              child:  Container(
-                  margin: const EdgeInsets.all(3.0),
-                  padding: const EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                  border: Border.all(color: mySettings.myColorSet.background ),
-                  ),
-                  width:mySettings.screenSize*1.1,
-                  height: mySettings.screenSize*1.5,
-                  
-                  child:
-      
-      
-      NotificationListener<PlayNotification> (
+      return  NotificationListener<PlayNotification> (
       onNotification: (notification) {
          aboutToPlay(context);
         return true;
@@ -142,20 +130,10 @@ void backInWelcome( settingsGotChanged ) {
              tiles[4],
         ],
       )]))
-       )),)
+       )
        ;
     }
 
-    return Column (
-      
-        children: [Stack(alignment: Alignment.center, children: [
-          BkgImageWidget(),
-          // ColorFilterWidget(),
-          Container(
-              alignment: Alignment.center,
-              child: cross())
-        
-        ])]
-        );
+    return Framer(cross());
   }
 }
