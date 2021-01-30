@@ -123,7 +123,9 @@ Widget infoText(myString, textColor, textShadowColor) {
   }
 
 Widget subTitleText(myString) {
-    return Text(myString,
+    return Padding(
+      padding: EdgeInsets.only(top:10.0, bottom:16.0),
+      child:Text(myString,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
@@ -138,5 +140,5 @@ Widget subTitleText(myString) {
               blurRadius: 30,
             ),
           ],
-        ));
+        )));
   }

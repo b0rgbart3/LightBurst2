@@ -79,14 +79,12 @@ class SettingsEditorState extends State<SettingsEditor> {
   Widget boardSizeSetting() {
    // double screenWidth = MediaQuery.of(context).size.width;
    double screenWidth = mySettings.screenSize;
-    return settingsBox(Padding(
-        padding: EdgeInsets.symmetric(vertical: 1.0),
-        child: Container(
+    return settingsBox(Container(
             child: Stack(children: [
           
           SettingsSlider(title:"BOARD SIZE",
               screenWidth: screenWidth, sliderID: "boardSize", min: mySettings.minBoardSize, max: mySettings.maxBoardSize, current: boardSize)
-        ]))));
+        ])));
   }
 
   Widget sequenceLengthSlider() {

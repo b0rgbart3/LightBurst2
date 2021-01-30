@@ -38,8 +38,6 @@ class Welcome extends StatefulWidget {
 
 class _WelcomeState extends State<Welcome> {
 
-
-
   List tiles=[];
   List keys = [];
   int boardSize;

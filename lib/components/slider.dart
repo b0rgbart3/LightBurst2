@@ -53,12 +53,12 @@ class SliderState extends State<SettingsSlider> {
     }
 
     return Stack(children: [
-      Align(child: subTitleText(myTitle)),
+      Padding(padding: EdgeInsets.only(top:2.0, bottom:14.0, left:10.0), child:subTitleText(myTitle) ),
       Padding(
           padding:
-              EdgeInsets.only(top: 44.0, bottom: 20.0, left: 10.0, right: 10.0),
+              EdgeInsets.only(top: 64.0, bottom: 4.0, left: 10.0, right: 10.0),
           child: Container(
-            height: 10,
+            height: 6,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: mySettings.myColorSet.inside,

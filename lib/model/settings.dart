@@ -24,7 +24,7 @@ class Settings  {
   bool _showSequence;
   Sequence _sequence;
   Colorset _myColorSet;
-  int _colorIndex = 0;
+  int _colorIndex;
   int _minColorIndex = 0;
   int _maxColorIndex;
   BuildContext _context;
@@ -57,7 +57,19 @@ class Settings  {
 
   int get minBoardSize => _minBoardSize;
   int get maxBoardSize => _maxBoardSize;
-  int get colorIndex => _colorIndex;
+  int get colorIndex {
+    if (_colorIndex == null) {
+     
+      var rn = new Random();
+      int numberOfColors = Colorset.colorsets.length - 1;
+      developer.log("number of colors: "+ numberOfColors.toString());
+      var _randomColor= rn.nextInt(numberOfColors);
+      _colorIndex = _randomColor;
+       developer.log("generating new colorIndex: " + _colorIndex.toString());
+    }
+    return _colorIndex;
+
+  } 
   int get minColorIndex => _minColorIndex;
 
   int get minSequenceLength => _minSequenceLength;
@@ -168,7 +180,7 @@ double get initialScore {
 
   Colorset get myColorSet {
     if (_myColorSet == null) {
-      _myColorSet = new Colorset(_colorIndex);
+      _myColorSet = new Colorset(colorIndex);
     }
     _myColorSet = Colorset(colorIndex);
     return _myColorSet;
