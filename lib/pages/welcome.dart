@@ -72,15 +72,15 @@ void backInWelcome( settingsGotChanged ) {
 
   void buildTiles() {
     Key key0 = GlobalKey();
-    tiles.add( Tile( key0, 0, "", false ) );
+    tiles.add( Tile( key0, 90.0, 0, "", false ) );
     Key key1 = GlobalKey();
-     tiles.add( Tile( key1, 1, "", false ) );
+     tiles.add( Tile( key1, 90.0, 1, "", false ) );
     Key key2 = GlobalKey();
-     tiles.add( Tile( key2, 2, "Play", true ) );
+     tiles.add( Tile( key2, 90.0, 2, "Play", true ) );
     Key key3 = GlobalKey();
-     tiles.add( Tile( key3, 3, "", false ) );
+     tiles.add( Tile( key3, 90.0, 3, "", false ) );
     Key key4 = GlobalKey();
-    tiles.add( Tile( key4, 4, "", false ) );
+    tiles.add( Tile( key4, 90.0, 4, "", false ) );
 
     keys.add(key0);
     keys.add(key1);

@@ -32,7 +32,7 @@ class Settings  {
   double _score;
   double _point;
   double _initialScore;
-  Stopwatch _s;
+  Stopwatch _stopwatch;
   
 
   // List _sequenceIndexes = [];
@@ -124,8 +124,8 @@ double get initialScore {
     _tileSize = null;
     _score = null;
     _sequence = new Sequence(_sequenceLength, _boardSize);
-     _s = new Stopwatch();
-     _s.start();
+     _stopwatch = new Stopwatch();
+     _stopwatch.start();
      _initialScore = null;
   }
 
@@ -162,8 +162,8 @@ double get initialScore {
     if (_boardCreated == null) {
       _boardCreated = false;
     }
-     _s = new Stopwatch();
-     _s.start();
+     _stopwatch = new Stopwatch();
+     _stopwatch.start();
     return _boardCreated;
   }
 
@@ -250,9 +250,9 @@ double get initialScore {
 
   double get getDuration {
     double duration = 0;
-    if (_s != null) {
-    _s.stop();
-    duration = _s.elapsedMilliseconds / 1000.0;
+    if (_stopwatch != null) {
+    _stopwatch.stop();
+    duration = _stopwatch.elapsedMilliseconds / 1000.0;
     }
     return duration;
 

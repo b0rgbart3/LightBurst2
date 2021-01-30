@@ -140,9 +140,7 @@ double screenWidth = mySettings.screenSize;
   Widget colorSetting() {
 
 double screenWidth = mySettings.screenSize;
-     return settingsBox(Padding(
-        padding: EdgeInsets.symmetric(vertical: 1.0),
-        child: Container(
+     return settingsBox(Container(
             child: Stack(children: [
   
           SettingsSlider(title: "COLOR",
@@ -150,7 +148,7 @@ double screenWidth = mySettings.screenSize;
               sliderID: "color",
               min: mySettings.minColorIndex,
               max: mySettings.maxColorIndex, current:colorIndex)
-        ]))));
+        ])));
   }
 
   @override

@@ -10,6 +10,7 @@ import '../classes/notifications.dart';
 import '../components/navbutton.dart';
 import '../model/settings.dart';
 import '../components/framer.dart';
+import '../components/demo.dart';
 
 class Info extends StatelessWidget {
   Settings mySettings = Settings();
@@ -53,21 +54,11 @@ Widget revealInfo() {
               shrinkWrap: true,
               padding: EdgeInsets.only(bottom:15.0),
               children:[Center(
-              child:  Container(
-                  margin: const EdgeInsets.only(bottom:40.0),
-                  padding: const EdgeInsets.only(bottom:50.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-               
-                  ),
-                  width:mySettings.screenSize*1.1,
-                  
-                  child:Padding(
-        padding: EdgeInsets.only(bottom: 50.0),
-        child: Column(children: [
+              child:  Column(children: [
       Column(
         children: [
          TitleText("LIGHTBURST"),
+         Demo(),
          infoText("Welcome to LightBurst! The object of the game is to turn off all of the lights. When you click on a tile, it toggles it's own state, and the state of the tiles in it's immediate surrounding.  See if you can figure out the pattern and turn off all of the lights to win the game.  Your score is based on how many correct guesses you make, how many incorrect guesses, and the time it takes you to complete the puzzle.", Colors.white, Colors.black),
         settingsInfo(),
         revealInfo(),
@@ -84,9 +75,9 @@ Widget revealInfo() {
         ],
       )])
       )
-       )
        
-      )]
+       
+      ]
       )
       );
 

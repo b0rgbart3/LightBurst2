@@ -52,7 +52,7 @@ class SliderState extends State<SettingsSlider> {
       // + mySettings.myColorSet.nameString.toString();
     }
 
-    return Stack(children: [
+    return Padding(padding:EdgeInsets.only(top:2.0, bottom:20.0), child:Stack(children: [
       Padding(padding: EdgeInsets.only(top:2.0, bottom:14.0, left:10.0), child:subTitleText(myTitle) ),
       Padding(
           padding:
@@ -92,6 +92,6 @@ class SliderState extends State<SettingsSlider> {
               min: widget.min,
               max: widget.max,
               current: widget.current))
-    ]);
+    ]));
   }
 }

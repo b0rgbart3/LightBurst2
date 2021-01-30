@@ -7,13 +7,11 @@ import '../classes/colorset.dart';
 import '../model/settings.dart';
 
 class Tile extends StatefulWidget {
-  final key, id, textString, touchable;
+  final key, size, id, textString, touchable;
 
 
   Tile(
-       this.key, this.id, this.textString, this.touchable);
-
-  // void toggleMyself() {}
+       this.key, this.size, this.id, this.textString, this.touchable);
 
   @override
   State createState() => TileState();
@@ -23,11 +21,12 @@ class TileState extends State<Tile> {
   double endSize;
   double endScale = .9;
   bool onState;
-  double tileSize = 90.0;
+  double tileSize;
 
   @override
   void initState() {
     super.initState();
+    tileSize = widget.size;
     endSize = tileSize * .9;
     onState = false;
     if (widget.touchable) {
@@ -76,14 +75,7 @@ class TileState extends State<Tile> {
                 duration: Duration(milliseconds: 150),
                 builder: (_, num myScale, __) {
                   return 
-                  // NotificationListener<ChangeNotification>(
-                  //     onNotification: (notification) {
-                  //       developer.log('Got notified of change: ' +
-                  //           notification.myID.toString());
-                  //       toggleMe();
-                  //       return true;
-                  //     },
-                    //  child: 
+
                     Transform.scale(
                       alignment: Alignment.center,
                       scale: myScale,
@@ -151,13 +143,7 @@ class TileState extends State<Tile> {
    if (widget.touchable) {
    // developer.log("dispatching touch notification.");
     PlayNotification(id: widget.id)..dispatch(context);
-    // toggleMe();
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => GamePlay()))
-    //     .then((value) => setState(() {
-    //       // this make is so that when we swipe right to get back to this welcome
-    //       // screen, the tile will be in its original condition.
-    //           onState = false;
-    //         }));
+
    }
     setState(() {
      // endSize = tileSize * .9;
