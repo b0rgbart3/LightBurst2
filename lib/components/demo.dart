@@ -7,6 +7,7 @@ import '../classes/notifications.dart';
 import '../model/settings.dart';
 import '../components/interface.dart';
 import '../components/tile.dart';
+import 'dart:async';
 
 class Demo extends StatefulWidget {
   Demo({Key key}) : super(key: key);
@@ -41,18 +42,33 @@ void startTimer() {
    _demostopwatch.start();
 
 
+    Timer(Duration(milliseconds: 1400), () {
+        keys[2].currentState.pressDown(null);
+        keys[2].currentState.turnOff();
+
+    });
+
+    Timer(Duration(milliseconds: 2400), () {
+      keys[2].currentState.pressUp(null);
+ keys[0].currentState.turnOff();
+  keys[1].currentState.turnOff();
+   keys[3].currentState.turnOff();
+    keys[4].currentState.turnOff();
+
+    });
+
 }
     void buildTiles() {
     Key key0 = GlobalKey();
-    tiles.add( Tile( key0, 70.0, 0, "", false ) );
+    tiles.add( Tile( key0, 70.0, 0, "", true ) );
     Key key1 = GlobalKey();
-     tiles.add( Tile( key1, 70.0, 1, "", false ) );
+     tiles.add( Tile( key1, 70.0, 1, "", true ) );
     Key key2 = GlobalKey();
      tiles.add( Tile( key2, 70.0, 2, "", true ) );
     Key key3 = GlobalKey();
-     tiles.add( Tile( key3, 70.0, 3, "", false ) );
+     tiles.add( Tile( key3, 70.0, 3, "", true ) );
     Key key4 = GlobalKey();
-    tiles.add( Tile( key4, 70.0, 4, "", false ) );
+    tiles.add( Tile( key4, 70.0, 4, "", true ) );
 
     keys.add(key0);
     keys.add(key1);
@@ -79,6 +95,7 @@ void startTimer() {
             ],
           ),
              tiles[4],
+             fingerWidget()
         ],
       )])
        )

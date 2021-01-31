@@ -7,7 +7,8 @@ import '../classes/colorset.dart';
 import '../model/settings.dart';
 
 class Tile extends StatefulWidget {
-  final key, size, id, textString, touchable;
+  final key, size, id, textString;
+  bool touchable;
 
 
   Tile(
@@ -22,6 +23,8 @@ class TileState extends State<Tile> {
   double endScale = .9;
   bool onState;
   double tileSize;
+
+
 
   @override
   void initState() {
@@ -61,6 +64,8 @@ class TileState extends State<Tile> {
        textShadowColor = introColorSet.textShadow;
       
     }
+
+
 
     return Container(
         alignment: Alignment.center,
@@ -131,6 +136,7 @@ class TileState extends State<Tile> {
     });
   }
 
+
   void pressCancel() {
     setState(() {
      // endSize = tileSize * .9;
@@ -154,12 +160,14 @@ class TileState extends State<Tile> {
   void turnOn() {
     setState(() {
       onState = true;
+      widget.touchable = false;
     });
   }
 
   void turnOff() {
     setState(() {
       onState = false;
+      widget.touchable = false;
     //  developer.log("turning myself off.");
     });
   }

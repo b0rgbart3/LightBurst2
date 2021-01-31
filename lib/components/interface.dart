@@ -3,6 +3,16 @@ import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
 import 'dart:developer' as developer;
 
+class fingerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    AssetImage fingerAsset = AssetImage("images/finger.png");
+    Image fingerImage = Image(image: fingerAsset, fit: BoxFit.fill, width:70.0, height: 60.0);
+
+    return Container(child: fingerImage);
+  }
+}
 class BkgImageWidget extends StatelessWidget {
   
   @override
