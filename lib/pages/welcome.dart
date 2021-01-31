@@ -45,10 +45,15 @@ class _WelcomeState extends State<Welcome> {
    Settings mySettings = Settings();
 
 void backInWelcome( settingsGotChanged ) {
-      keys.forEach( (key) => {
+      keys.asMap().forEach( (index, key) => {
+        if (index == 2) {
+        if (key.currentState != null) {
+           key.currentState.turnOn()
+         }
+        } else {
          if (key.currentState != null) {
            key.currentState.turnOff()
-         }
+         }}
         }
          );
    // developer.log("Back in Welcome: " + settingsGotChanged.toString());
@@ -71,16 +76,20 @@ void backInWelcome( settingsGotChanged ) {
   }
 
   void buildTiles() {
+
+    double mySize = mySettings.screenSize / 3.75;
+    developer.log("My size should be: " + mySize.toString());
+
     Key key0 = GlobalKey();
-    tiles.add( Tile( key0, 90.0, 0, "", false ) );
+    tiles.add( Tile( key0, mySize, 0, "", false, false ) );
     Key key1 = GlobalKey();
-     tiles.add( Tile( key1, 90.0, 1, "", false ) );
+     tiles.add( Tile( key1, mySize, 1, "", false, false ) );
     Key key2 = GlobalKey();
-     tiles.add( Tile( key2, 90.0, 2, "Play", true ) );
+     tiles.add( Tile( key2, mySize, 2, "Play", true, true ) );
     Key key3 = GlobalKey();
-     tiles.add( Tile( key3, 90.0, 3, "", false ) );
+     tiles.add( Tile( key3, mySize, 3, "", false, false ) );
     Key key4 = GlobalKey();
-    tiles.add( Tile( key4, 90.0, 4, "", false ) );
+    tiles.add( Tile( key4, mySize, 4, "", false, false) );
 
     keys.add(key0);
     keys.add(key1);

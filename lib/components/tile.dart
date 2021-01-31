@@ -8,11 +8,11 @@ import '../model/settings.dart';
 
 class Tile extends StatefulWidget {
   final key, size, id, textString;
-  bool touchable;
+  bool initialState, notifiable;
 
 
   Tile(
-       this.key, this.size, this.id, this.textString, this.touchable);
+       this.key, this.size, this.id, this.textString, this.initialState, this.notifiable);
 
   @override
   State createState() => TileState();
@@ -24,17 +24,17 @@ class TileState extends State<Tile> {
   bool onState;
   double tileSize;
 
-
-
   @override
   void initState() {
     super.initState();
     tileSize = widget.size;
     endSize = tileSize * .9;
-    onState = false;
-    if (widget.touchable) {
+    if (widget.initialState == true) {
       onState= true;
+    }  else {
+      onState = false;
     }
+
   }
 
   @override
@@ -44,9 +44,8 @@ class TileState extends State<Tile> {
 
     Color insideColor, outsideColor, shadowColor, textColor, textShadowColor;
 
-    if (widget.touchable) {
-      onState= true;
-    }
+
+
     if (onState) {
 
       insideColor = introColorSet.insideHi;
@@ -146,7 +145,7 @@ class TileState extends State<Tile> {
 
   void pressUp(details) {
    //  developer.log('press up');'
-   if (widget.touchable) {
+   if (widget.notifiable) {
    // developer.log("dispatching touch notification.");
     PlayNotification(id: widget.id)..dispatch(context);
 
@@ -160,24 +159,24 @@ class TileState extends State<Tile> {
   void turnOn() {
     setState(() {
       onState = true;
-      widget.touchable = false;
+     // widget.touchable = false;
     });
   }
 
   void turnOff() {
     setState(() {
       onState = false;
-      widget.touchable = false;
+     // widget.touchable = false;
     //  developer.log("turning myself off.");
     });
   }
 
   void toggleMe() {
     setState(() {
-      if (widget.touchable) {
+   
       onState = !onState;
     //  developer.log('toggling tile');
-      }
+      
     });
   }
 }

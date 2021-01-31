@@ -52,11 +52,22 @@ Widget revealInfo() {
       return  Framer(
           ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 40.0, bottom:175.0),
+              padding: EdgeInsets.only(left:5.0, right: 5.0, top: 4.0, bottom:175.0),
               children:[Center(
               child:  Column(children: [
       Column(
-        children: [
+        children: [Row( children: [
+          Expanded( child: Align(alignment: Alignment.bottomLeft,
+          child: NavButton(
+              null,
+              ()=>Navigator.pop(context ),
+              "",
+              Icon(Icons.navigate_before,
+                  color: mySettings.myColorSet.text,
+                  size: 64.0),
+              65.0,
+              65.0,
+              false, false)))]),
          TitleText("LIGHTBURST"),
          Demo(),
          infoText("Welcome to LightBurst! The object of the game is to turn off all of the lights. When you click on a tile, it toggles it's own state, and the state of the tiles in it's immediate surrounding.  See if you can figure out the pattern and turn off all of the lights to win the game.  Your score is based on how many correct guesses you make, how many incorrect guesses, and the time it takes you to complete the puzzle.", Colors.white, Colors.black),

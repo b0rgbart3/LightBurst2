@@ -8,6 +8,7 @@ import '../model/settings.dart';
 import '../components/interface.dart';
 import '../components/tile.dart';
 import 'dart:async';
+import '../anim/rotator.dart';
 
 class Demo extends StatefulWidget {
   Demo({Key key}) : super(key: key);
@@ -57,18 +58,22 @@ void startTimer() {
 
     });
 
+    Timer(Duration(milliseconds: 3000), () {
+
+    });
+
 }
     void buildTiles() {
     Key key0 = GlobalKey();
-    tiles.add( Tile( key0, 70.0, 0, "", true ) );
+    tiles.add( Tile( key0, 70.0, 0, "", true, false ) );
     Key key1 = GlobalKey();
-     tiles.add( Tile( key1, 70.0, 1, "", true ) );
+     tiles.add( Tile( key1, 70.0, 1, "", true, false ) );
     Key key2 = GlobalKey();
-     tiles.add( Tile( key2, 70.0, 2, "", true ) );
+     tiles.add( Tile( key2, 70.0, 2, "", true, false ) );
     Key key3 = GlobalKey();
-     tiles.add( Tile( key3, 70.0, 3, "", true ) );
+     tiles.add( Tile( key3, 70.0, 3, "", true, false ) );
     Key key4 = GlobalKey();
-    tiles.add( Tile( key4, 70.0, 4, "", true ) );
+    tiles.add( Tile( key4, 70.0, 4, "", true, false ) );
 
     keys.add(key0);
     keys.add(key1);
@@ -82,7 +87,7 @@ void startTimer() {
     startTimer();
       return  Padding(
         padding: EdgeInsets.only(bottom: 14.0),
-        child: Column(children: [
+        child: Stack( children: [Column(children: [
       Column(
         children: [
           tiles[0],
@@ -94,10 +99,15 @@ void startTimer() {
                 tiles[3],
             ],
           ),
-             tiles[4],
-             fingerWidget()
+            tiles[4], 
         ],
-      )])
+      )]),   
+      Padding( padding: EdgeInsets.only(left:150.0,top:80.0), child: 
+      
+      fingerWidget()
+      
+      ,)
+      ])
        )
        ;
     }

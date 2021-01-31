@@ -158,6 +158,7 @@ setState(() {
 
     board = Board();
 
+    double mySize = mySettings.screenSize / 5.25;
     //}
 
     // Not sure if we need the Scaffold here or not - since we are not
@@ -210,8 +211,8 @@ setState(() {
                               Icon(Icons.navigate_before,
                                   color: mySettings.myColorSet.text,
                                   size: 64.0),
-                              65.0,
-                              65.0,
+                              mySize,
+                              mySize,
                               false, false),
                                          NavButton(
                               null,
@@ -220,8 +221,8 @@ setState(() {
                               Icon(Icons.help_outline,
                                   color: mySettings.myColorSet.text,
                                   size: 44.0),
-                              65.0,
-                              65.0,
+                              mySize,
+                              mySize,
                               false, false),  
                   
                             NavButton(
@@ -231,8 +232,8 @@ setState(() {
                                   Icon(Icons.visibility,
                                       color: mySettings.myColorSet.text,
                                       size: 44.0),
-                                  65.0,
-                                  65.0,
+                                  mySize,
+                                  mySize,
                                   revealSequence, true),
                           NavButton(
                               null,
@@ -241,8 +242,8 @@ setState(() {
                               Icon(Icons.add,
                                   color: mySettings.myColorSet.text,
                                   size: 54.0),
-                              65.0,
-                              65.0,
+                              mySize,
+                              mySize,
                               false, false),
                           NavButton(
                               null,
@@ -251,8 +252,8 @@ setState(() {
                               Icon(Icons.settings,
                                   color: mySettings.myColorSet.text,
                                   size: 40.0),
-                              65.0,
-                              65.0,
+                              mySize,
+                              mySize,
                               false, false),
                         ])
                   ],
