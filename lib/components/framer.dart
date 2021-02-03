@@ -23,7 +23,7 @@ class Framer extends StatelessWidget {
                     border: Border.all(color: mySettings.myColorSet.background ),
                   ),
                   width:mySettings.screenSize*1.1,
-                  height: mySettings.screenSize*1.5, 
+                  height: mySettings.screenSize*1.8, 
                   child:stuff
               ))
               )

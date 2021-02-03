@@ -52,7 +52,7 @@ Widget revealInfo() {
       return  Framer(
           ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.only(left:5.0, right: 5.0, top: 4.0, bottom:175.0),
+              padding: EdgeInsets.only(left:10.0, right: 10.0, top: 4.0, bottom:175.0),
               children:[Center(
               child:  Column(children: [
       Column(

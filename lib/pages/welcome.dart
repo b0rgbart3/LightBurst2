@@ -97,6 +97,33 @@ void backInWelcome( settingsGotChanged ) {
     keys.add(key3);
     keys.add(key4);
   }
+
+  Widget welcomeCross() {
+    double endSize = 1.0;
+    return TweenAnimationBuilder(
+      tween: Tween(begin: 0.0, end: endSize),
+                duration: Duration(milliseconds: 300),
+                builder: (_, num myWidth, __) {
+return Transform.scale(
+  scale: myWidth,
+  child: 
+    Column( mainAxisAlignment: MainAxisAlignment.center,
+    children:[
+          tiles[0],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+                 tiles[1],
+                 tiles[2],
+                tiles[3],
+            ],
+          ),
+             tiles[4],
+        ])
+      );
+                }
+      )  ;
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -113,32 +140,25 @@ void backInWelcome( settingsGotChanged ) {
     buildTiles();
     Widget cross() {
 
-      
       return  NotificationListener<PlayNotification> (
-      onNotification: (notification) {
-         aboutToPlay(context);
-        return true;
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 70.0),
-        child: Column(children: [
-      Column(
-        children: [
-         TitleText("LIGHTBURST"),
-          tiles[0],
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-                 tiles[1],
-                 tiles[2],
-                tiles[3],
-            ],
-          ),
-             tiles[4],
-        ],
-      )]))
-       )
-       ;
+                onNotification: (notification) {
+                  aboutToPlay(context);
+                  return true;
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 70.0),
+                  child: Column(children: [
+                Column(
+                  children: [
+                  TitleText("LIGHTBURST"),
+                  Container( 
+            
+                      height: mySettings.screenSize,
+                      child: welcomeCross())
+                  ],
+                )])
+                )
+       );
     }
 
     return Framer(cross());
