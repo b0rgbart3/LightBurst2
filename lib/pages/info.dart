@@ -74,7 +74,7 @@ Widget revealInfo() {
         settingsInfo(),
         revealInfo(),
         newGameInfo(),
-                subTitleText("Have fun!"),
+                boxText("Have fun!", Colors.white, Colors.black),
          NavButton(
                               null,
                               ()=>Navigator.pop(context ),

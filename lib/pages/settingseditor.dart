@@ -169,7 +169,9 @@ double screenWidth = mySettings.screenSize;
       originalColorIndex = colorIndex;
     }
 
-    return Framer(Column(
+    return Framer(Padding(
+                  padding: EdgeInsets.only(top: 50.0),
+                  child: Column(
           children: [
             TitleText("SETTINGS"),
             boardSizeSlider(),
@@ -185,7 +187,7 @@ double screenWidth = mySettings.screenSize;
                 65.0, false, false),
           ],
         )
-        );
+        ));
     
   }
 }

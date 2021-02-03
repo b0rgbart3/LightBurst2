@@ -53,7 +53,7 @@ class SliderState extends State<SettingsSlider> {
     }
 
     return Padding(padding:EdgeInsets.only(top:2.0, bottom:20.0), child:Stack(children: [
-      Padding(padding: EdgeInsets.only(top:2.0, bottom:14.0, left:10.0), child:subTitleText(myTitle) ),
+      Padding(padding: EdgeInsets.only(top:2.0, bottom:14.0, left:10.0), child:boxText(myTitle, Colors.white, Colors.black) ),
       Padding(
           padding:
               EdgeInsets.only(top: 64.0, bottom: 4.0, left: 10.0, right: 10.0),

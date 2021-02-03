@@ -3,6 +3,17 @@ import 'package:hexcolor/hexcolor.dart';
 import '../model/settings.dart';
 import 'dart:developer' as developer;
 
+// This file contains several common widgets that are used throughout the application.
+//
+// fingerWidget:   this is just the finger icon that we use on the demo page.
+// BkImageWidget:  this is the background image that appears throughout.
+//                 note that it uses the current color choice as a filter
+// 
+// TitleText:      (44) the largest size for text objects
+// boxText:        (24)
+// infoText:       (16)
+// 
+
 class fingerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -40,25 +51,22 @@ class BkgImageWidget extends StatelessWidget {
 
 }
 
-class ColorFilterWidget extends StatelessWidget {
+// class ColorFilterWidget extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    Settings mySettings = Settings();
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-   // Color c2 = const Color(0x440077ff); 
-   // fully opaque white (visible)
-    // Color c2 = const Color(0x4400FF9D); 
-      Color c2 = mySettings.myColorSet.shadow;
+//   @override
+//   Widget build(BuildContext context) {
+//     Settings mySettings = Settings();
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//       Color c2 = mySettings.myColorSet.shadow;
     
-    return Container(
-      color: c2,
-      width: screenWidth,
-      height: screenHeight
-    );
-  }
-}
+//     return Container(
+//       color: c2,
+//       width: screenWidth,
+//       height: screenHeight
+//     );
+//   }
+// }
 
 class TitleText extends StatelessWidget {
 
@@ -88,6 +96,27 @@ class TitleText extends StatelessWidget {
     );
   }
 }
+
+// Widget subTitleText(myString) {
+//     return Padding(
+//       padding: EdgeInsets.only(top:10.0, bottom:16.0),
+//       child:Text(myString,
+//         textAlign: TextAlign.center,
+//         style: TextStyle(
+//           color: Colors.white,
+//           decoration: TextDecoration.none,
+//           fontFamily: 'Heebo',
+//           fontSize: 20,
+//           fontWeight: FontWeight.w600,
+//           shadows: [
+//             Shadow(
+//               color: Colors.black,
+//               offset: Offset(0, 0),
+//               blurRadius: 30,
+//             ),
+//           ],
+//         )));
+//   }
 
 
 Widget boxText(myString, textColor, textShadowColor) {
@@ -132,23 +161,3 @@ Widget infoText(myString, textColor, textShadowColor) {
         )));
   }
 
-Widget subTitleText(myString) {
-    return Padding(
-      padding: EdgeInsets.only(top:10.0, bottom:16.0),
-      child:Text(myString,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.white,
-          decoration: TextDecoration.none,
-          fontFamily: 'Heebo',
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          shadows: [
-            Shadow(
-              color: Colors.black,
-              offset: Offset(0, 0),
-              blurRadius: 30,
-            ),
-          ],
-        )));
-  }
