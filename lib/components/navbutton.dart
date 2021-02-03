@@ -97,7 +97,7 @@ class NavButtonState extends State<NavButton> {
             onTapUp: pressUp,
             onTapCancel: pressCancel,
             child: TweenAnimationBuilder(
-                tween: Tween(begin: 0.75, end: endScale),
+                tween: Tween(begin: 0.9, end: endScale),
                 duration: Duration(milliseconds: 40),
                 builder: (_, num percentage, __) {
                   return Transform.scale( scale: percentage, child: Stack(children: [

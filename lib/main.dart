@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-// import 'dart:developer' as developer;
-// import 'components/board.dart';
-// import 'pages/gameplay.dart';
 import 'pages/welcome.dart';
+
+// LIGHTBURST
+// (c) Copyright 2020 by Bart Dority
+//
+//
+// This game and the related code are 
+// copyrighted (c) by Bart Dority, 2021,
+//  all rights are reserved.  
+
+// Please contact bartdority@gmail.com 
+// if you would like to use any part 
+// of the code or game design.  Thank you.
+// 
+
 
 // Kick off the application
 void main() {
@@ -21,11 +32,9 @@ class LightBurst extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'LightBurst',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Welcome(),
-      //Game(title: 'LightBurst'),
     );
   }
 }

@@ -12,7 +12,7 @@ import 'dart:developer' as developer;
 // TitleText:      (44) the largest size for text objects
 // boxText:        (24)
 // infoText:       (16)
-// 
+
 
 class fingerWidget extends StatelessWidget {
   @override

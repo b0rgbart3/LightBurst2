@@ -55,9 +55,7 @@ void initState() {
   void touchTile( tileIndex ) {
       mySettings.toggleTile( tileIndex);
 
-      setState(() {  
-      });
-     // checkForWin();
+      setState(() { });
   }
 
 

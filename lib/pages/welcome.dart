@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
-import '../components/interface.dart';
-import '../pages/gameplay.dart';
-import '../components/box.dart';
-import '../classes/colorset.dart';
-import '../components/tile.dart';
-import '../classes/notifications.dart';
 import '../model/settings.dart';
+import '../classes/notifications.dart';
+import '../pages/gameplay.dart';
+import '../components/tile.dart';
 import '../components/framer.dart';
+import '../components/interface.dart';
 
-// This is our welcome / home page
+// This is our Welcome / home page
 // it displays the cross hairs of tiles with the play
 // button in the middle.  This acts sort of like a splash
 // logo intro screen.  Note: the game doesn't start until
@@ -29,120 +27,118 @@ import '../components/framer.dart';
 // now this is the way it is coded.
 
 class Welcome extends StatefulWidget {
-  Welcome({Key key, this.title, this.returnToWelcome}) : super(key: key);
-  final String title;
-  final returnToWelcome;
+  Welcome({Key key}) : super(key: key);
   @override
   _WelcomeState createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
 
-  List tiles=[];
-  List keys = [];
-  int boardSize;
-  int sequenceLength;
-   Settings mySettings = Settings();
+  List _tiles=[];
+  List _keys = [];
 
-void backInWelcome( settingsGotChanged ) {
-      keys.asMap().forEach( (index, key) => {
-        if (index == 2) {
-        if (key.currentState != null) {
-           key.currentState.turnOn()
-         }
-        } else {
-         if (key.currentState != null) {
-           key.currentState.turnOff()
-         }}
-        }
-         );
-   // developer.log("Back in Welcome: " + settingsGotChanged.toString());
-    if (settingsGotChanged) {
-      setState(() {
-        
-      });
-    }
-}
-  void aboutToPlay(context) async {
-    keys.forEach( (key) => {
+  // this is our main Settins Object (a singleton) - which I am
+  // using as the App's "Global State".
+  
+  Settings _mySettings = Settings();
+
+  // We go into this method if the user clicks the 'back' button 
+  // on the game screen.
+  // We don't instantiate a new game - it's just a nicety
+  // to be able to go back to the welcome screen in a benign way
+
+  void _backInWelcome( settingsGotChanged ) {
+        _keys.asMap().forEach( (index, key) => {
+          if (index == 2) {
+          if (key.currentState != null) {
+            key.currentState.turnOn()
+          }
+          } else {
+          if (key.currentState != null) {
+            key.currentState.turnOff()
+          }}
+          });
+      // If the user changed the color in the settings page,
+      // then we need to update things here.
+      if (settingsGotChanged) {
+        setState(() {
+        });
+      }
+  }
+
+  // Here the user clicked the play button so let's start
+  // the game by launching the GamePlay page
+  void _aboutToPlay(context) async {
+    _keys.forEach( (key) => {
       if (key.currentState != null) {
         key.currentState.turnOn() }
         } );
 
     Navigator.push(context, MaterialPageRoute(builder: (context) => Game()))
-    .then((value) => backInWelcome(value)
+    .then((value) => _backInWelcome(value)
        );
-
   }
 
-  void buildTiles() {
+  // We build the tiles for the welcome screen and keep track of their _keys
+  // so that we can programmatically turn the tiles on and off.
 
-    double mySize = mySettings.screenSize / 3.75;
-    developer.log("My size should be: " + mySize.toString());
+  void _buildTiles() {
+
+    double mySize = _mySettings.screenSize / 3.75;
+    //developer.log("My size should be: " + mySize.toString());
 
     Key key0 = GlobalKey();
-    tiles.add( Tile( key0, mySize, 0, "", false, false ) );
+    _tiles.add( Tile( key0, mySize, 0, "", false, false ) );
     Key key1 = GlobalKey();
-     tiles.add( Tile( key1, mySize, 1, "", false, false ) );
+    _tiles.add( Tile( key1, mySize, 1, "", false, false ) );
     Key key2 = GlobalKey();
-     tiles.add( Tile( key2, mySize, 2, "Play", true, true ) );
+    _tiles.add( Tile( key2, mySize, 2, "Play", true, true ) );
     Key key3 = GlobalKey();
-     tiles.add( Tile( key3, mySize, 3, "", false, false ) );
+    _tiles.add( Tile( key3, mySize, 3, "", false, false ) );
     Key key4 = GlobalKey();
-    tiles.add( Tile( key4, mySize, 4, "", false, false) );
+    _tiles.add( Tile( key4, mySize, 4, "", false, false) );
 
-    keys.add(key0);
-    keys.add(key1);
-    keys.add(key2);
-    keys.add(key3);
-    keys.add(key4);
+    _keys.add(key0);
+    _keys.add(key1);
+    _keys.add(key2);
+    _keys.add(key3);
+    _keys.add(key4);
   }
 
-  Widget welcomeCross() {
+  // This widget sets up all of the tiles into a Column
+  // that animates from 0 to it's full size in 300 ms
+
+  Widget _animatedCross() {
     double endSize = 1.0;
     return TweenAnimationBuilder(
       tween: Tween(begin: 0.0, end: endSize),
                 duration: Duration(milliseconds: 300),
                 builder: (_, num myWidth, __) {
-return Transform.scale(
-  scale: myWidth,
-  child: 
-    Column( mainAxisAlignment: MainAxisAlignment.center,
-    children:[
-          tiles[0],
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-                 tiles[1],
-                 tiles[2],
-                tiles[3],
-            ],
-          ),
-             tiles[4],
-        ])
-      );
+            return Transform.scale(
+              scale: myWidth,
+              child: 
+                Column( mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                      _tiles[0],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [_tiles[1],_tiles[2],_tiles[3],
+                        ],
+                      ),
+                        _tiles[4],
+                    ])
+                  );
                 }
       )  ;
   }
   
-  @override
-  Widget build(BuildContext context) {
 
-      mySettings.context = context;
-
-    if (boardSize == null) {
-      boardSize = 5;
-    }
-    if (sequenceLength == null) {
-      sequenceLength = 4;
-    }
-
-    buildTiles();
-    Widget cross() {
+   Widget _cross() {
 
       return  NotificationListener<PlayNotification> (
                 onNotification: (notification) {
-                  aboutToPlay(context);
+                  // we got a notification from one of the tiles that the user is ready to play
+                  _aboutToPlay(context);
                   return true;
                 },
                 child: Padding(
@@ -152,15 +148,26 @@ return Transform.scale(
                   children: [
                   TitleText("LIGHTBURST"),
                   Container( 
-            
-                      height: mySettings.screenSize,
-                      child: welcomeCross())
+                      height: _mySettings.screenSize,
+                      child: _animatedCross())
                   ],
                 )])
                 )
        );
     }
 
-    return Framer(cross());
+
+  // This is the main build method of the welcome screen
+  @override
+  Widget build(BuildContext context) {
+
+     // keeping track of our context by sending it to our settings singleton
+    _mySettings.context = context; 
+
+    // building our tile widgets
+    _buildTiles();
+   
+    // build the cross layout inside of our standard frame widget
+    return Framer(_cross());
   }
 }

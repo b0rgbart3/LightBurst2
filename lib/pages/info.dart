@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
-import '../components/interface.dart';
-import '../components/interface.dart';
-import 'gameplay.dart';
-import '../components/box.dart';
-import '../classes/colorset.dart';
-import '../components/tile.dart';
-import '../classes/notifications.dart';
-import '../components/navbutton.dart';
 import '../model/settings.dart';
+import '../components/navbutton.dart';
 import '../components/framer.dart';
 import '../components/demo.dart';
+import '../components/interface.dart';
+
 
 class Info extends StatelessWidget {
   Settings mySettings = Settings();

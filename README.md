@@ -16,7 +16,7 @@ Use a mobile emulator from your IDE.
 
 <a name='Usage Rights / License'></a>
 ## Usage Rights / License
-This game and the related code is copyrighted (c) by Bart Dority, 2021, all rights are reserved.  Please contact bartdority@gmail.com if you would like to use any part of this code or concepts.  
+This game and the related code are copyrighted (c) by Bart Dority, 2021, all rights are reserved.  Please contact bartdority@gmail.com if you would like to use any part of this code or concepts.  
 
 <a name="Features"></a>
 ## Features

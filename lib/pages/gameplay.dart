@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
+import 'package:hexcolor/hexcolor.dart';
 import 'dart:async';
+import '../model/settings.dart';
+import '../classes/notifications.dart';
+import '../pages/info.dart';
+import '../pages/settingseditor.dart';
+import '../pages/gamewon.dart';
 import '../components/board.dart';
 import '../components/interface.dart';
-import '../classes/notifications.dart';
-import 'settingseditor.dart';
 import '../components/navbutton.dart';
-import 'package:hexcolor/hexcolor.dart';
-import '../model/settings.dart';
-import '../pages/gamewon.dart';
-import '../pages/info.dart';
 import '../components/framer.dart';
 
 class Game extends StatefulWidget {
@@ -19,86 +19,71 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  int _counter = 0;
-  Key revealKey = UniqueKey();
-  Settings mySettings = Settings();
-  int oldBoardSize;
-  int oldSequenceLength;
-  int oldColorIndex, colorIndex;
-  bool myStateGotChanged = false;
-  Timer myTimer;
-  var onState = true;
-  bool revealSequence = false;
-  var score; 
-  var board;
+
+  Settings _mySettings = Settings();
+  Board    _thisGameBoard;
+  int      _colorIndex;
+  bool     _myStateGotChanged = false;
+  Timer    _myTimer;
+  bool     _revealSequence = false;
+  double   _score; 
+
 
   void _freshGame() {
-    mySettings.freshBoardList();
-    setState(() {
-      _counter++;
-    });
+    _mySettings.freshBoardList();
+    setState(() { });
   }
 
-void checkForWin() {
-  bool won = true;
-  for (var i = 0; i < mySettings.boardSize*mySettings.boardSize; i++) {
-    if (mySettings.sequence.board[i]) {
-      won = false;
-      break;}
+ void _checkForWin() {
+    bool won = true;
+    for (var i = 0; i < _mySettings.boardSize*_mySettings.boardSize; i++) {
+      if (_mySettings.sequence.board[i]) {
+        won = false;
+        break;}
+    }
+    if (won) {_gotoGameWonPage();}
   }
-  if (won) {gameWon();}
-}
 
-  void gameWon() async {
+  void _gotoGameWonPage() async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => GameWon()))
         .then((value) => setState(() {
-          // clearBoard();
-    mySettings.freshBoardList();
-    mySettings.showSequence = false;
+
+              _mySettings.freshBoardList();
+              _mySettings.showSequence = false;
 
             }));
   }
-  void helpScreen() {
+  void _gotoInfoPage() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Info()))
         .then((value) => setState(() {
-          // clearBoard();
-mySettings.showSequence = false;
- revealSequence = false;
-setState(() {
-  
-});
-
+              _mySettings.showSequence = false;
+              _revealSequence = false;
+              setState(() {});
             }));
   }
 
-  void returnToWelcome() {
-    Navigator.pop(context, myStateGotChanged);
+  void _returnToWelcomePage() {
+    Navigator.pop(context, _myStateGotChanged);
   }
 
-  _showSequence() {
-    if (myTimer != null) {
-      myTimer.cancel();
+  void _showSequence() {
+    if (_myTimer != null) {
+      _myTimer.cancel();
     }
-    mySettings.toggleShowSequence();
-    // board.currentState.updateBoxes();  // trigger the board to redraw itself
-    // revealKey.currentState.toggleMe();  // turn the reveal button to the highlighted state
-    setState(() {
-      // boardKey.currentState.build(context);
-    });
+    _mySettings.toggleShowSequence();
+    setState(() {});
 
-    if (mySettings.showSequence) {
-      mySettings.decreaseScore(mySettings.sequenceLength*50.0);
-        myTimer = Timer(Duration(seconds: 3), () {
-       //  _showSequence();
+    if (_mySettings.showSequence) {
+      _mySettings.decreaseScore(_mySettings.sequenceLength*50.0);
+        _myTimer = Timer(Duration(seconds: 3), () {
        
-       developer.log("timer up");
-        mySettings.toggleShowSequence();
-        developer.log("show is now: " + mySettings.showSequence.toString());
-         revealSequence = false;
-        setState(() {
-         
-           myTimer.cancel();
-        });
+              developer.log("timer up");
+              _mySettings.toggleShowSequence();
+              developer.log("show is now: " + _mySettings.showSequence.toString());
+              _revealSequence = false;
+              setState(() {
+                _myTimer.cancel();
+              });
       });
     }
 
@@ -106,7 +91,7 @@ setState(() {
 
 
 
-  _determineChange(changed) {
+  void _determineChange(changed) {
 
     int requireNewBoard = (changed["changes"].indexOf("board"));
     int requireNewSeq = (changed["changes"].indexOf("sequence"));
@@ -117,24 +102,21 @@ setState(() {
 
     if (requireNew) {
       setState(() {
-        colorIndex = mySettings.colorIndex;
-        myStateGotChanged = true;
-        mySettings.freshBoardList();
+        _colorIndex = _mySettings.colorIndex;
+        _myStateGotChanged = true;
+        _mySettings.freshBoardList();
       });
     } else {
       if (colorChange) {
         setState(() {
-          colorIndex = mySettings.colorIndex;
-          myStateGotChanged = true;
+          _colorIndex = _mySettings.colorIndex;
+          _myStateGotChanged = true;
         });
       } 
     }
   }
 
-  _settingsEditor() {
-    oldBoardSize = mySettings.boardSize;
-    oldSequenceLength = mySettings.sequenceLength;
-    oldColorIndex = mySettings.colorIndex;
+  void _goToSettingsEditorPage() {
 
     Navigator.push(
             context, MaterialPageRoute(builder: (context) => SettingsEditor()))
@@ -143,23 +125,14 @@ setState(() {
 
   @override
   Widget build(BuildContext context) {
-    var mySettings = Settings();
-    var sensitivity = 8;
-    score = mySettings.score;
+    _mySettings = Settings();
+    _score = _mySettings.score;
+    _mySettings.context = context;
+    _revealSequence = _mySettings.showSequence;
+    int _colorIndex = _mySettings.colorIndex;
+    Board _thisGameBoard = Board();
+    double _mySize = _mySettings.screenSize / 5.25;
 
-    mySettings.context = context;
-    revealSequence = mySettings.showSequence;
-
-    colorIndex = mySettings.colorIndex;
-    //oldColorIndex = colorIndex;
-
-    // We only need to create a board if it hasn't already been created.
-    //if (!mySettings.boardCreated) {
-
-    board = Board();
-
-    double mySize = mySettings.screenSize / 5.25;
-    //}
 
     // Not sure if we need the Scaffold here or not - since we are not
     // using the appBar.  It's likely that we don't need it
@@ -171,34 +144,27 @@ setState(() {
                   padding: const EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                 // border: Border.all(color: mySettings.myColorSet.background ),
+                 // border: Border.all(color: _mySettings.myColorSet.background ),
                   ),
-                  width:mySettings.screenSize*1.1,
-                  height: mySettings.screenSize*1.5,
+                  width:_mySettings.screenSize*1.1,
+                  height: _mySettings.screenSize*1.5,
                   
                   child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     NotificationListener<TouchNotification> (
                         onNotification: (notification) {
-                          checkForWin();
-                          setState(() {
-          
-                             });
+                          _checkForWin();
+                          setState(() {});
                             return true;
                           },
-                    child: board )
-
-                   ,
+                    child: _thisGameBoard ),
+                   // There is an empty boxtext here because I used to display some of the
+                   // settings... and I might bring that back.
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           boxText("",
-                              // "SL: " +
-                              //     mySettings.sequenceLength.toString() +
-                              //     ", CS: " +
-                              //     colorIndex.toString() + 
-                              //     ",  Score: "+score.toString(),
                               Colors.white, Colors.black)
                         ]),
                     Row(
@@ -206,54 +172,54 @@ setState(() {
                         children: [
                           NavButton(
                               null,
-                              returnToWelcome,
+                              _returnToWelcomePage,
                               "",
                               Icon(Icons.navigate_before,
-                                  color: mySettings.myColorSet.text,
+                                  color: _mySettings.myColorSet.text,
                                   size: 64.0),
-                              mySize,
-                              mySize,
+                              _mySize,
+                              _mySize,
                               false, false),
                                          NavButton(
                               null,
-                              helpScreen,
+                              _gotoInfoPage,
                               "",
                               Icon(Icons.help_outline,
-                                  color: mySettings.myColorSet.text,
+                                  color: _mySettings.myColorSet.text,
                                   size: 44.0),
-                              mySize,
-                              mySize,
+                              _mySize,
+                              _mySize,
                               false, false),  
                   
                             NavButton(
-                                  revealKey,
+                                  UniqueKey(),
                                   _showSequence,
                                   "",
                                   Icon(Icons.visibility,
-                                      color: mySettings.myColorSet.text,
+                                      color: _mySettings.myColorSet.text,
                                       size: 44.0),
-                                  mySize,
-                                  mySize,
-                                  revealSequence, true),
+                                  _mySize,
+                                  _mySize,
+                                  _revealSequence, true),
                           NavButton(
                               null,
                               _freshGame,
                               "",
                               Icon(Icons.add,
-                                  color: mySettings.myColorSet.text,
+                                  color: _mySettings.myColorSet.text,
                                   size: 54.0),
-                              mySize,
-                              mySize,
+                              _mySize,
+                              _mySize,
                               false, false),
                           NavButton(
                               null,
-                              _settingsEditor,
+                              _goToSettingsEditorPage,
                               "",
                               Icon(Icons.settings,
-                                  color: mySettings.myColorSet.text,
+                                  color: _mySettings.myColorSet.text,
                                   size: 40.0),
-                              mySize,
-                              mySize,
+                              _mySize,
+                              _mySize,
                               false, false),
                         ])
                   ],
