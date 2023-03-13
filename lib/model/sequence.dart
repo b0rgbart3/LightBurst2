@@ -83,6 +83,10 @@ bool touchBoard(idObject, tileIndex, generator) {
   goodChoice = checkForRemovals(idObject);
   developer.log("hit list: " + hitList.toString());
   developer.log("sequence indexes: " + sequenceIndexes.toString());
+  if (sequenceIndexes.length < 1) {
+    developer.log('game won -- time to dispatch?');
+
+  }
 
   }
 

@@ -126,9 +126,12 @@ List boxChildren(myWidth, myColor, myShadowColor, myCenterColor, index) {
             onTapUp: pressUp,
             onTapCancel: pressCancel,
             child: NotificationListener<ChangeNotification>(
+                      // ignore: missing_return
                       onNotification: (notification) {
+                        developer.log('gesture got a notification: ' + notification.toString());
                         toggleMe();
-                        return true;
+                       // return true;
+                       return false;
                       },
                       child: Stack(children: boxChildren(endSize, myColor, myShadowColor, myCenterColor, widget.index))
                       )

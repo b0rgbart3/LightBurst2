@@ -141,7 +141,7 @@ double get initialScore {
     } else {
       _score = _score -(_point*2);
     }
-    //developer.log("toggleing tile: " + index.toString());
+    developer.log("toggling tile: " + tileIndex.toString());
   }
 
   bool get showSequence {

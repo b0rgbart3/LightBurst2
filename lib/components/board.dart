@@ -53,6 +53,10 @@ void initState() {
   // themselves )
 
   void touchTile( tileIndex ) {
+    developer.log('touched: ');
+      
+      String myTileString = tileIndex.toString();
+      developer.log('my tile: '+ myTileString);
       mySettings.toggleTile( tileIndex);
 
       setState(() { });
@@ -84,8 +88,9 @@ bool getCurrentState( tileID ) {
 
     return NotificationListener<TouchNotification> (
       onNotification: (notification) {
+        developer.log('Got a note: ' + notification.myID.toString());
         touchTile(notification.myID);
-        
+        return false;
       },
       child:buildRows() );
   }

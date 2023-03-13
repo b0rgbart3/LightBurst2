@@ -36,6 +36,7 @@ class _GameState extends State<Game> {
 
  void _checkForWin() {
     bool won = true;
+    developer.log('Checking for win...');
     for (var i = 0; i < _mySettings.boardSize*_mySettings.boardSize; i++) {
       if (_mySettings.sequence.board[i]) {
         won = false;
@@ -154,6 +155,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     NotificationListener<TouchNotification> (
                         onNotification: (notification) {
+                          developer.log('About to check for win');
                           _checkForWin();
                           setState(() {});
                             return true;
